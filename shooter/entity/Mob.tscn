@@ -16,4 +16,6 @@ shape = SubResource( 1 )
 
 [node name="AttackCD" type="Timer" parent="."]
 
+[node name="Gun" type="Sprite" parent="."]
+
 [connection signal="timeout" from="AttackCD" to="." method="_on_AttackCD_timeout"]

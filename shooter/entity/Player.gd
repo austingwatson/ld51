@@ -1,6 +1,7 @@
 class_name Player extends "Mob.gd"
 
 const movement = [false, false, false, false]
+var touching_keypad = false
 
 func _ready():
 	pass
@@ -28,6 +29,10 @@ func _input(event):
 		use_attack = true
 	elif event.is_action_released("attack"):
 		use_attack = false
+		
+	elif event.is_action_pressed("activate"):
+		if touching_keypad:
+			print("computer")
 
 func _process(delta):
 	._process(delta)
@@ -46,3 +51,11 @@ func _process(delta):
 		velocity = velocity.normalized() * speed
 		
 	target = get_global_mouse_position()
+
+func _on_Area2D_area_entered(area):
+	if area.get_class() == "Keypad":
+		touching_keypad = true
+
+func _on_Area2D_area_exited(area):
+	if area.get_class() == "Keypad":
+		touching_keypad = false

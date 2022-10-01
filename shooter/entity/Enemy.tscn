@@ -1,10 +1,26 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://shooter/entity/Mob.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/entity/Enemy.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 50.0
 
 [node name="Enemy" instance=ExtResource( 1 )]
 position = Vector2( 193, 221 )
 collision_layer = 2
 collision_mask = 5
+collision/safe_margin = 1.0
 script = ExtResource( 2 )
+speed = 100
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="4"]
+target_desired_distance = 50.0
+avoidance_enabled = true
+
+[node name="SightRange" type="Area2D" parent="." index="5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SightRange" index="0"]
+shape = SubResource( 1 )
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_velocity_computed"]

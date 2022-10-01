@@ -5,6 +5,7 @@ onready var attack = $AttackCD
 
 export var max_health = 10
 var health = max_health
+var alive = true
 
 export var speed = 300
 var velocity = Vector2.ZERO
@@ -28,7 +29,7 @@ func _process(delta):
 func take_damage(damage):
 	health -= damage
 	if health <= 0:
-		queue_free()
+		alive = false
 
 func _on_AttackCD_timeout():
 	can_use_attack = true
