@@ -1,4 +1,4 @@
-class_name Player extends "Entity.gd"
+class_name Player extends "Mob.gd"
 
 const movement = [false, false, false, false]
 
