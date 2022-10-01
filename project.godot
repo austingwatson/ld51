@@ -15,11 +15,6 @@ _global_script_classes=[ {
 "path": "res://shooter/entity/Enemy.gd"
 }, {
 "base": "KinematicBody2D",
-"class": "Entity",
-"language": "GDScript",
-"path": "res://shooter/entity/Entity.gd"
-}, {
-"base": "",
 "class": "Mob",
 "language": "GDScript",
 "path": "res://shooter/entity/Mob.gd"
@@ -36,7 +31,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Enemy": "",
-"Entity": "",
 "Mob": "",
 "Player": "",
 "Projectile": ""

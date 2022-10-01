@@ -1,4 +1,4 @@
-class_name Mob extends "Entity.gd"
+class_name Mob extends KinematicBody2D
 
 # child nodes
 onready var attack = $AttackCD
@@ -6,9 +6,15 @@ onready var attack = $AttackCD
 export var max_health = 10
 var health = max_health
 
+export var speed = 300
+var velocity = Vector2.ZERO
+
 var target = Vector2.ZERO
 var can_use_attack = true
 var use_attack = false
+
+func _physics_process(delta):
+	velocity = move_and_slide(velocity)
 
 func _process(delta):
 	if use_attack and can_use_attack:
