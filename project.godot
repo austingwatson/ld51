@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://shooter/entity/Enemy.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Entity",
 "language": "GDScript",
@@ -19,17 +24,18 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://shooter/entity/Mob.gd"
 }, {
-"base": "Reference",
+"base": "",
 "class": "Player",
 "language": "GDScript",
 "path": "res://shooter/entity/Player.gd"
 }, {
-"base": "",
+"base": "Area2D",
 "class": "Projectile",
 "language": "GDScript",
-"path": "res://shooter/entity/Projectile.gd"
+"path": "res://shooter/entity/projectile/Projectile.gd"
 } ]
 _global_script_class_icons={
+"Enemy": "",
 "Entity": "",
 "Mob": "",
 "Player": "",
@@ -39,12 +45,40 @@ _global_script_class_icons={
 [application]
 
 config/name="ld51"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://shooter/ShooterGame.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+EntityManager="*res://shooter/entity/EntityManager.gd"
 
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
 
 [input]
 
@@ -74,6 +108,12 @@ attack={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Friendly"
+2d_physics/layer_2="Enemy"
+2d_physics/layer_3="Wall"
+
 [physics]
 
 common/enable_pause_aware_picking=true
@@ -81,4 +121,5 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/driver_name="GLES2"
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_environment="res://default_env.tres"
