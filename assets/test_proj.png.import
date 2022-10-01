@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Sprite-0003BANNER.png-948d3954f60315148d1b67806521ca23.stex"
+path="res://.import/test_proj.png-24539283644a8d41ac8b83960ae54496.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sprite-0003BANNER.png"
-dest_files=[ "res://.import/Sprite-0003BANNER.png-948d3954f60315148d1b67806521ca23.stex" ]
+source_file="res://assets/test_proj.png"
+dest_files=[ "res://.import/test_proj.png-24539283644a8d41ac8b83960ae54496.stex" ]
 
 [params]
 

@@ -5,3 +5,8 @@
 
 [node name="Mob" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="AttackCD" type="Timer" parent="." index="2"]
+one_shot = true
+
+[connection signal="timeout" from="AttackCD" to="." method="_on_AttackCD_timeout"]

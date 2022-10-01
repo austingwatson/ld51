@@ -23,6 +23,11 @@ func _input(event):
 		movement[2] = false
 	elif event.is_action_released("right"):
 		movement[3] = false
+		
+	elif event.is_action_pressed("attack"):
+		use_attack = true
+	elif event.is_action_released("attack"):
+		use_attack = false
 
 func _process(delta):
 	._process(delta)
@@ -39,3 +44,5 @@ func _process(delta):
 		
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
+		
+	target = get_global_mouse_position()
