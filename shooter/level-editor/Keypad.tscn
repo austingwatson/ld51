@@ -1,8 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://shooter/entity/Keypad.gd" type="Script" id=1]
 [ext_resource path="res://assets/computerterminal-on.png" type="Texture" id=2]
 [ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 50 )
@@ -19,9 +32,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 10, 10 )
-texture = ExtResource( 2 )
+frames = SubResource( 3 )
+animation = "off"
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -36,6 +51,7 @@ custom_fonts/font = SubResource( 2 )
 text = "Must kill all enemies to use"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2( 0.5, 0.5 )
 
 [connection signal="body_entered" from="." to="." method="_on_Keypad_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Keypad_body_exited"]

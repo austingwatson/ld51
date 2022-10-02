@@ -14,19 +14,21 @@ func _init():
 	randomize()
 
 func _ready():
+	var cursor_image = load("res://assets/reticule.png")
+	Input.set_custom_mouse_cursor(cursor_image, Input.CURSOR_ARROW, Vector2(8, 8))
+	
 	buff_names.append("health")
 	buff_names.append("speed")
 	buff_names.append("damage")
 	
-	current_level = $"lvl-facility1"
+	# must set a level by code, not by editor
+	current_level = $"lvl-facility1" # temp
 
 func _process(delta):
 	EntityManager.process_enemies()
 	EntityManager.remove_dead_enemies()
 	
 	hud.update_ten_second_timer(ten_second_timer.time_left)
-	
-	#print(get_viewport().get_mouse_position())
 
 func change_from_hack_scene(score):
 	current_level = $"lvl-facility1" # temp
