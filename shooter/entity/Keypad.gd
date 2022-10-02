@@ -24,6 +24,8 @@ func _process(delta):
 		camera.zoom -= Vector2(.01, .01)
 		if camera.zoom < Vector2(0.1, 0.1):
 			camera.zoom = Vector2(0.1, 0.1)
+			zoom = false
+			emit_signal("zoom_done")
 
 func _on_Keypad_body_entered(body):
 	if body.get_class() == "Player":
@@ -35,6 +37,7 @@ func _on_Keypad_body_exited(body):
 
 func start_zoom():
 	camera.current = true
+	camera.zoom = Vector2(1, 1)
 	zoom = true
 
 func get_class():
