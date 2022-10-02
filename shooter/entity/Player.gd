@@ -65,8 +65,8 @@ func _process(delta):
 	
 	if zoom:
 		camera.zoom += Vector2(0.01, 0.01)
-		if camera.zoom >= Vector2(1, 1):
-			camera.zoom = Vector2(1, 1)
+		if camera.zoom >= Vector2(0.5, 0.5):
+			camera.zoom = Vector2(0.5, 0.5)
 			zoom = false
 
 func take_damage(damage):
@@ -83,7 +83,7 @@ func _on_Area2D_area_exited(area):
 
 func start_zoom():
 	camera.current = true
-	camera.zoom = Vector2(0.1, 0.1)
+	camera.zoom = Vector2(0.05, 0.05)
 	zoom = true		
 		
 func get_class():

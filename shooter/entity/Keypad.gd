@@ -2,6 +2,7 @@ extends Area2D
 
 onready var tool_tip = $ToolTip
 onready var camera = $Camera2D
+onready var animation = $AnimatedSprite
 
 signal zoom_done
 
@@ -16,14 +17,16 @@ func _ready():
 
 func _process(delta):
 	if EntityManager.enemies.size() == 0:
+		animation.play("off")
 		tool_tip.text = "Press F to use"
 	else:
+		animation.play("on")
 		tool_tip.text = "Must kill all enemies to use"
 		
-	if zoom:
+	if zoom:		
 		camera.zoom -= Vector2(.01, .01)
-		if camera.zoom < Vector2(0.1, 0.1):
-			camera.zoom = Vector2(0.1, 0.1)
+		if camera.zoom <= Vector2(0.05, 0.05):
+			camera.zoom = Vector2(0.05, 0.05)
 			zoom = false
 			emit_signal("zoom_done")
 
@@ -37,7 +40,7 @@ func _on_Keypad_body_exited(body):
 
 func start_zoom():
 	camera.current = true
-	camera.zoom = Vector2(1, 1)
+	camera.zoom = Vector2(0.5, 0.5)
 	zoom = true
 
 func get_class():

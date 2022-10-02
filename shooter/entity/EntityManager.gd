@@ -61,6 +61,8 @@ func add_buff_to_enemy(enemy, buff):
 			enemy.speed += speed
 		"damage":
 			enemy.projectile_damage += damage
+		"pierce":
+			enemy.projectile_pierce += pierce
 	
 func process_enemies():
 	for enemy in enemies:
