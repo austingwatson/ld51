@@ -3,7 +3,7 @@ class_name Mob extends KinematicBody2D
 # child nodes
 onready var attack = $AttackCD
 
-export var max_health = 10
+export var max_health = 1
 var health = max_health
 var alive = true
 

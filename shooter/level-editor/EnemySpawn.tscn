@@ -1,12 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://shooter/level/EnemySpawn.gd" type="Script" id=1]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 50 )
-
-[node name="EnemySpawn" type="Area2D"]
+[node name="EnemySpawn" type="ColorRect"]
+margin_right = 100.0
+margin_bottom = 100.0
+color = Color( 1, 0, 0, 0.196078 )
 script = ExtResource( 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
