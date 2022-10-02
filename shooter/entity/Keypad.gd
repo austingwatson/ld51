@@ -24,7 +24,7 @@ func _process(delta):
 		tool_tip.text = "Must kill all enemies to use"
 		
 	if zoom:		
-		camera.zoom -= Vector2(.01, .01)
+		camera.zoom -= Vector2(.005, .005)
 		if camera.zoom <= Vector2(0.05, 0.05):
 			camera.zoom = Vector2(0.05, 0.05)
 			zoom = false

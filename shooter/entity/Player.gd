@@ -64,7 +64,7 @@ func _process(delta):
 	target = get_global_mouse_position()
 	
 	if zoom:
-		camera.zoom += Vector2(0.01, 0.01)
+		camera.zoom += Vector2(0.005, 0.005)
 		if camera.zoom >= Vector2(0.5, 0.5):
 			camera.zoom = Vector2(0.5, 0.5)
 			zoom = false

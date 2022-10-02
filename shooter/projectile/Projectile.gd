@@ -7,14 +7,22 @@ var damage = 0
 var pierce = 0
 var hit_targets = []
 
-func create(owner, target, speed, distance, damage, pierce):
+func create(owner, target, speed, accuracy, distance, damage, pierce):
 	position = owner.position
 	start_position = position
 	
 	self.collision_layer = owner.collision_layer
 	self.collision_mask = owner.collision_mask
 	
+	# find the direction the bullet should shoot
+	# add some randomoness if necessary
 	var theta = atan2(target.y - position.y, target.x - position.x)
+	theta = rad2deg(theta)
+	var rng = 360 - (360 * accuracy)
+	var inaccuracy = randf() * rng - (rng * 0.5)
+	theta += inaccuracy
+	theta = deg2rad(theta)
+	
 	velocity.x = cos(theta) * speed
 	velocity.y = sin(theta) * speed
 	
@@ -33,8 +41,20 @@ func _process(delta):
 func _on_Projectile_body_entered(body):
 	# checks if the body that enters is a mob type class
 	# in godot 4 can use a more oop way to do it
-	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player":
-		body.take_damage(damage)
-		damage = 0
 	
-	queue_free()
+	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player":
+		for hit in hit_targets:
+			print(hit, ", ", body)
+			if hit == body:
+				return
+		
+		body.take_damage(damage)
+		
+		if pierce > 1:
+			hit_targets.append(body)
+			pierce -= 1
+		else:
+			damage = 0
+			queue_free()
+	else:
+		queue_free()

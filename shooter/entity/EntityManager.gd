@@ -42,9 +42,9 @@ func create_enemy(type, x, y):
 	if enemy != null:
 		add_enemy(enemy)
 
-func create_projectile(owner, target, speed, distance, damage, pierce):
+func create_projectile(owner, target, speed, accuracy, distance, damage, pierce):
 	var projectile = projectile_scene.instance()
-	projectile.create(owner, target, speed, distance, damage, pierce)
+	projectile.create(owner, target, speed, accuracy, distance, damage, pierce)
 	add_node_to_root(projectile)
 	
 func add_buff_to_enemies(buff):

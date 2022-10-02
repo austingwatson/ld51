@@ -14,6 +14,9 @@ func _init():
 	randomize()
 
 func _ready():
+	var cursor_image = load("res://assets/reticule.png")
+	Input.set_custom_mouse_cursor(cursor_image, Input.CURSOR_ARROW, Vector2(8, 8))
+	
 	buff_names.append("health")
 	buff_names.append("speed")
 	buff_names.append("damage")
