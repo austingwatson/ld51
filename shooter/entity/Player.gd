@@ -1,15 +1,21 @@
 class_name Player extends "Mob.gd"
 
 onready var camera = $Camera2D
+onready var animtaion = $AnimatedSprite
 
 signal update_health(health)
 signal use_computer
 
 const movement = [false, false, false, false]
 var touching_keypad = false
+
 var zoom = false
+const min_zoom_level = 0.04
+const max_zoom_level = 0.4
+const zoom_amount = 0.004
 	
 func _ready():
+	._ready()
 	EntityManager.player = self
 	
 	var root = get_tree().root
@@ -60,13 +66,16 @@ func _process(delta):
 		
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
+		animtaion.play("default")
+	else:
+		animtaion.stop()
 		
 	target = get_global_mouse_position()
 	
 	if zoom:
-		camera.zoom += Vector2(0.005, 0.005)
-		if camera.zoom >= Vector2(0.5, 0.5):
-			camera.zoom = Vector2(0.5, 0.5)
+		camera.zoom += Vector2(zoom_amount, zoom_amount)
+		if camera.zoom >= Vector2(max_zoom_level, max_zoom_level):
+			camera.zoom = Vector2(max_zoom_level, max_zoom_level)
 			zoom = false
 
 func take_damage(damage):
@@ -83,7 +92,7 @@ func _on_Area2D_area_exited(area):
 
 func start_zoom():
 	camera.current = true
-	camera.zoom = Vector2(0.05, 0.05)
+	camera.zoom = Vector2(min_zoom_level, min_zoom_level)
 	zoom = true		
 		
 func get_class():

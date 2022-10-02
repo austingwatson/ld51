@@ -7,7 +7,7 @@ var ux = 0
 var uy = 0
 
 func _ready():
-	EntityManager.register_spawner(self)
+	EntityManager.register_turret_spawner(self)
 	
 	visible = false
 	lx = rect_global_position.x
@@ -15,5 +15,5 @@ func _ready():
 	ux = lx + rect_size.x
 	uy = ly + rect_size.y
 		
-func spawn_one(type):
-	EntityManager.create_enemy(type, rand_range(lx, ux), rand_range(ly, uy))
+func spawn_one():
+	EntityManager.create_enemy("turret", rand_range(lx, ux), rand_range(ly, uy))
