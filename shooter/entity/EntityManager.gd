@@ -31,7 +31,7 @@ func add_enemy(enemy):
 	
 	var root = get_tree().root
 	var current_scene = root.get_child(root.get_child_count() - 1)
-	current_scene.add_child(enemy)
+	current_scene.call_deferred("add_child", enemy)
 
 func create_enemy(type, x, y):
 	var enemy = null

@@ -4,13 +4,8 @@ extends Node
 onready var ten_second_timer = $TenSecondTimer
 onready var hud = $HUD
 
-const test_enemy = preload("res://shooter/test/TestEnemy.tscn")
-
 func _ready():
 	randomize()
-	
-	EntityManager.player = $Player
-	$EnemySpawn.spawn(1)
 
 func _process(delta):
 	EntityManager.process_enemies()
@@ -25,3 +20,7 @@ func change_to_scene_signal(score):
 # this will add a difficulty modifier to the game
 func _on_TenSecondTimer_timeout():
 	EntityManager.add_buff_to_enemies("health")
+	hud.show_buff_card("health")
+
+func _on_Player_update_health(health):
+	hud.update_player_health(health)

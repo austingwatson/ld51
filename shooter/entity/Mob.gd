@@ -13,10 +13,10 @@ var velocity = Vector2.ZERO
 var target = Vector2.ZERO
 var can_use_attack = true
 var use_attack = false
-var projectile_speed = 1000
-var projectile_range = 400
-var projectile_damage = 1
-var projectile_pierce = 2
+export var projectile_speed = 1000
+export var projectile_range = 400
+export var projectile_damage = 1
+export var projectile_pierce = 1
 
 func _physics_process(delta):
 	velocity = move_and_slide(velocity)
