@@ -10,7 +10,7 @@ func _ready():
 	randomize()
 	
 	EntityManager.player = $Player
-	$EnemySpawn.spawn(3)
+	$EnemySpawn.spawn(1)
 
 func _process(delta):
 	EntityManager.process_enemies()
@@ -24,4 +24,4 @@ func change_to_scene_signal(score):
 # this function is called every ten seconds
 # this will add a difficulty modifier to the game
 func _on_TenSecondTimer_timeout():
-	print("10 seconds")
+	EntityManager.add_buff_to_enemies("health")

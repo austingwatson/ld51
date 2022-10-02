@@ -8,16 +8,13 @@ const test_enemy_scene = preload("res://shooter/test/TestEnemy.tscn")
 var enemies = []
 var player = null
 
-# buff type
-# 1 : health
-# 2 : speed
-# 3 : damage
-# 4 : pierce
-# 5 : 
-
 # current buffs that the enemies have
 # stored in an int array
 var buffs = []
+const health = 1
+const speed = 25
+const damage = 1
+const pierce = 1
 
 # adds the entity to the main node
 # so it shows up on screen
@@ -45,9 +42,9 @@ func create_enemy(type, x, y):
 	if enemy != null:
 		add_enemy(enemy)
 
-func create_projectile(owner, target, speed):
+func create_projectile(owner, target, speed, distance, damage, pierce):
 	var projectile = projectile_scene.instance()
-	projectile.create(owner, target, speed)
+	projectile.create(owner, target, speed, distance, damage, pierce)
 	add_node_to_root(projectile)
 	
 func add_buff_to_enemies(buff):
@@ -56,7 +53,14 @@ func add_buff_to_enemies(buff):
 		add_buff_to_enemy(enemy, buff)
 	
 func add_buff_to_enemy(enemy, buff):
-	pass
+	match buff:
+		"health":
+			enemy.max_health += health
+			enemy.health += health
+		"speed":
+			enemy.speed += speed
+		"damage":
+			enemy.projectile_damage += damage
 	
 func process_enemies():
 	for enemy in enemies:
