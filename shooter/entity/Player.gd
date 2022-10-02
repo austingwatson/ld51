@@ -1,6 +1,7 @@
 class_name Player extends "Mob.gd"
 
 signal update_health(health)
+signal use_computer
 
 const movement = [false, false, false, false]
 var touching_keypad = false
@@ -11,6 +12,7 @@ func _ready():
 	var root = get_tree().root
 	var current_scene = root.get_child(root.get_child_count() - 1)
 	self.connect("update_health", current_scene, "_on_Player_update_health")
+	self.connect("use_computer", current_scene, "player_used_computer")
 	
 func _input(event):
 	if event.is_action_pressed("up"):
@@ -37,8 +39,8 @@ func _input(event):
 		use_attack = false
 		
 	elif event.is_action_pressed("activate"):
-		if touching_keypad:
-			print("computer")
+		if touching_keypad && EntityManager.enemies.size() == 0:
+			emit_signal("use_computer")
 
 func _process(delta):
 	._process(delta)

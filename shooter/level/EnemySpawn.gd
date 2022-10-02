@@ -1,23 +1,25 @@
-extends Area2D
+extends ColorRect
 
 export var spawn_amount = 0
 
-var x = 0
-var y = 0
-var width = 0
-var height = 0
+# the lower and upper ranges for the spawn
+var lx = 0
+var ly = 0
+var ux = 0
+var uy = 0
 
 func _ready():
-	x = position.x
-	y = position.y
-	width = $CollisionShape2D.shape.extents.x * 2
-	height = $CollisionShape2D.shape.extents.y * 2
+	visible = false
+	lx = rect_global_position.x
+	ly = rect_global_position.y
+	ux = lx + rect_size.x
+	uy = ly + rect_size.y
 	spawn()
 	
 func spawn():
-	var x = 0
-	var y = 0
+	var x = lx
+	var y = ly
 	for i in spawn_amount:
-		x = randi() % int(width) + self.x
-		y = randi() % int(height) + self.y
+		x = rand_range(lx, ux)
+		y = rand_range(ly, uy)
 		EntityManager.create_enemy(0, x, y)
