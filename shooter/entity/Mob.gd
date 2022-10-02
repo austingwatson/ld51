@@ -13,6 +13,10 @@ var velocity = Vector2.ZERO
 var target = Vector2.ZERO
 var can_use_attack = true
 var use_attack = false
+var projectile_speed = 1000
+var projectile_range = 400
+var projectile_damage = 1
+var projectile_pierce = 2
 
 func _physics_process(delta):
 	velocity = move_and_slide(velocity)
@@ -20,7 +24,7 @@ func _physics_process(delta):
 func _process(delta):
 	if use_attack and can_use_attack:
 		can_use_attack = false
-		EntityManager.create_projectile(self, target, 300)
+		EntityManager.create_projectile(self, target, projectile_speed, projectile_range, projectile_damage, projectile_pierce)
 		attack.start()
 		
 	look_at(target)
