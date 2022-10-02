@@ -1,10 +1,13 @@
 class_name Player extends "Mob.gd"
 
+onready var camera = $Camera2D
+
 signal update_health(health)
 signal use_computer
 
 const movement = [false, false, false, false]
 var touching_keypad = false
+var zoom = false
 	
 func _ready():
 	EntityManager.player = self
@@ -59,6 +62,12 @@ func _process(delta):
 		velocity = velocity.normalized() * speed
 		
 	target = get_global_mouse_position()
+	
+	if zoom:
+		camera.zoom += Vector2(0.01, 0.01)
+		if camera.zoom >= Vector2(1, 1):
+			camera.zoom = Vector2(1, 1)
+			zoom = false
 
 func take_damage(damage):
 	.take_damage(damage)
@@ -71,6 +80,11 @@ func _on_Area2D_area_entered(area):
 func _on_Area2D_area_exited(area):
 	if area.get_class() == "Keypad":
 		touching_keypad = false
+
+func start_zoom():
+	camera.current = true
+	camera.zoom = Vector2(0.1, 0.1)
+	zoom = true		
 		
 func get_class():
 	return "Player"
