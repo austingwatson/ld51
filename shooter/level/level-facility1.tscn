@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://shooter/level-editor/Keypad.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/level-editor/CollidableProp.tscn" type="PackedScene" id=2]
+[ext_resource path="res://shooter/level-editor/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://shooter/level-editor/EnemySpawn.tscn" type="PackedScene" id=4]
 [ext_resource path="res://shooter/level-editor/Prop.tscn" type="PackedScene" id=5]
 [ext_resource path="res://shooter/level/facility-tiles.tres" type="TileSet" id=6]
@@ -44,11 +45,12 @@ margin_left = 1511.0
 margin_top = 39.0
 margin_right = 1880.0
 margin_bottom = 1050.0
-spawn_amount = 10
 
 [node name="EnemySpawn2" parent="." instance=ExtResource( 4 )]
 margin_left = 50.0
 margin_top = 905.0
 margin_right = 341.0
 margin_bottom = 1046.0
-spawn_amount = 2
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 648, 472 )

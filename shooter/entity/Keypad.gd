@@ -7,6 +7,9 @@ onready var animation = $AnimatedSprite
 signal zoom_done
 
 var zoom = false
+const min_zoom_level = 0.04
+const max_zoom_level = 0.4
+const zoom_amount = 0.004
 
 func _ready():
 	tool_tip.visible = false
@@ -17,16 +20,16 @@ func _ready():
 
 func _process(delta):
 	if EntityManager.enemies.size() == 0:
-		animation.play("off")
+		animation.play("on")
 		tool_tip.text = "Press F to use"
 	else:
-		animation.play("on")
+		animation.play("off")
 		tool_tip.text = "Must kill all enemies to use"
 		
 	if zoom:		
-		camera.zoom -= Vector2(.005, .005)
-		if camera.zoom <= Vector2(0.05, 0.05):
-			camera.zoom = Vector2(0.05, 0.05)
+		camera.zoom -= Vector2(zoom_amount, zoom_amount)
+		if camera.zoom <= Vector2(min_zoom_level, min_zoom_level):
+			camera.zoom = Vector2(min_zoom_level, min_zoom_level)
 			zoom = false
 			emit_signal("zoom_done")
 
@@ -40,7 +43,7 @@ func _on_Keypad_body_exited(body):
 
 func start_zoom():
 	camera.current = true
-	camera.zoom = Vector2(0.5, 0.5)
+	camera.zoom = Vector2(max_zoom_level, max_zoom_level)
 	zoom = true
 
 func get_class():

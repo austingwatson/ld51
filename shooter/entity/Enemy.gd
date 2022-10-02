@@ -7,7 +7,6 @@ onready var freezeCD = $FreezeCD
 
 # ai stuff
 # current state of the ai
-var spawn_location = Vector2.ZERO
 enum STATE {
 	IDLE,
 	MOVE,
@@ -21,7 +20,6 @@ var player_entered_attack = false # check if the player has entered the attack r
 var just_attacked = false # timer to freeze the enemy after an attack
 
 func create(x, y):
-	spawn_location = Vector2(x, y)
 	position.x = x
 	position.y = y
 	speed = 100 # need to force the speed, inspector not working

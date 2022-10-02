@@ -5,9 +5,10 @@ var start_position = Vector2.ZERO
 var distance = Vector2.ZERO
 var damage = 0
 var pierce = 0
+var dot = 0
 var hit_targets = []
 
-func create(owner, target, speed, accuracy, distance, damage, pierce):
+func create(owner, target, speed, accuracy, distance, damage, pierce, dot):
 	position = owner.position
 	start_position = position
 	
@@ -29,6 +30,7 @@ func create(owner, target, speed, accuracy, distance, damage, pierce):
 	self.distance = distance
 	self.damage = damage
 	self.pierce = pierce
+	self.dot = dot
 	hit_targets.clear()
 
 func _physics_process(delta):
@@ -49,6 +51,8 @@ func _on_Projectile_body_entered(body):
 				return
 		
 		body.take_damage(damage)
+		if dot > 0:
+			body.add_dot(dot)
 		
 		if pierce > 1:
 			hit_targets.append(body)
