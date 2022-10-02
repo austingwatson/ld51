@@ -1,7 +1,16 @@
 class_name Player extends "Mob.gd"
 
+signal update_health(health)
+
 const movement = [false, false, false, false]
 var touching_keypad = false
+	
+func _ready():
+	EntityManager.player = self
+	
+	var root = get_tree().root
+	var current_scene = root.get_child(root.get_child_count() - 1)
+	self.connect("update_health", current_scene, "_on_Player_update_health")
 	
 func _input(event):
 	if event.is_action_pressed("up"):
@@ -48,8 +57,10 @@ func _process(delta):
 		velocity = velocity.normalized() * speed
 		
 	target = get_global_mouse_position()
-	
-	print(health)
+
+func take_damage(damage):
+	.take_damage(damage)
+	emit_signal("update_health", health)
 
 func _on_Area2D_area_entered(area):
 	if area.get_class() == "Keypad":

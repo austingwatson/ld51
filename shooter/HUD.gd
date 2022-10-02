@@ -1,27 +1,44 @@
-extends Control
+extends CanvasLayer
 
 # child nodes
 onready var ten_second_timer = $TenSecondTimer
+onready var buff_card = $BuffCard
+onready var buff_card_timer = $BuffCardTimer
+onready var buff_card_text = $BuffText
+onready var enemy_label = $EnemyLabel
+onready var player_health = $PlayerHealth
 
-export (Texture) var health_texture
-const health_y_offset = 50
-const health_x = 10
-var health_y = 0
-var player_health = 10
+# preloaded buff textures
+const buff_health_texture = preload("res://assets/metaltile.png")
 
 func _ready():
-	health_y = get_viewport_rect().size.y - 42
-
-func _draw():
-	var temp_health_y = health_y
-	for i in player_health:
-		draw_texture_rect(health_texture, Rect2(health_x, health_y, 32, 32), false)
-		health_y -= health_y_offset
-	health_y = temp_health_y
+	buff_card.visible = false
+	buff_card_text.visible = false
+	enemy_label.visible = false
 
 func update_ten_second_timer(time):
-	ten_second_timer.text = str(stepify(time, 1))
+	ten_second_timer.text = "%.2f" % time
 	
 func update_player_health(health):
-	player_health = health
-	update()
+	player_health.update_player_health(health)
+	
+func show_buff_card(buff):
+	buff_card_timer.start()
+	buff_card.visible = true
+	buff_card_text.visible = true
+	enemy_label.visible = true
+	match buff:
+		"health":
+			buff_card.texture = buff_health_texture
+			buff_card_text.text = "+health"
+		"speed":
+			#buff_card.texture = buff_speed_texture
+			buff_card_text.text = "+speed"
+		"damage":
+			#buff_card.texture = buff_damage_texture
+			buff_card_text.text = "+damage"
+
+func _on_BuffCardTimer_timeout():
+	buff_card.visible = false
+	buff_card_text.visible = false
+	enemy_label.visible = false
