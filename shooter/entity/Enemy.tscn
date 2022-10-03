@@ -16,14 +16,16 @@ collision_mask = 5
 collision/safe_margin = 1.0
 script = ExtResource( 2 )
 speed = 100
+sight_range = 500
 
 [node name="AnimatedSprite" parent="." index="0"]
 playing = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="4"]
 path_desired_distance = 10.0
-target_desired_distance = 50.0
+target_desired_distance = 10.0
 avoidance_enabled = true
+radius = 26.0
 
 [node name="PathFindTimer" type="Timer" parent="." index="5"]
 wait_time = 0.5
@@ -42,6 +44,8 @@ shape = SubResource( 2 )
 [node name="FreezeCD" type="Timer" parent="." index="8"]
 wait_time = 0.25
 one_shot = true
+
+[node name="Path2D" type="Path2D" parent="." index="10"]
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_velocity_computed"]
 [connection signal="timeout" from="PathFindTimer" to="." method="_on_PathFindTimer_timeout"]

@@ -19,10 +19,15 @@ var next_path_find = true # a flag to only path find every 0.5 seconds
 var player_entered_attack = false # check if the player has entered the attack range
 var just_attacked = false # timer to freeze the enemy after an attack
 
+export var sight_range = 500
+
 func create(x, y):
 	position.x = x
 	position.y = y
 	speed = 100 # need to force the speed, inspector not working
+	
+	$SightRange/CollisionShape2D.shape.radius = sight_range
+	$AttackRange/CollisionShape2D.shape.radius = projectile_range
 
 func _physics_process(delta):
 	if state == STATE.MOVE || state == STATE.FLEE:
