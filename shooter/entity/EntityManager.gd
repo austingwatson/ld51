@@ -14,6 +14,7 @@ const drone_scene = preload("res://shooter/entity/Drone.tscn")
 var difficulty_modifier = 1
 var enemies = []
 var player = null
+var keypad = null
 
 # the enemy spawners of the level
 var spawners = []

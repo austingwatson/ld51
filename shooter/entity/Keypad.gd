@@ -17,6 +17,8 @@ func _ready():
 	var root = get_tree().root
 	var current_scene = root.get_child(root.get_child_count() - 1)
 	self.connect("zoom_done", current_scene, "change_to_hack_scene")
+	
+	EntityManager.keypad = self
 
 func _process(delta):
 	if EntityManager.enemies.size() == 0:

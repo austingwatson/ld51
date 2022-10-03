@@ -6,5 +6,9 @@ export var dot = 0
 export var explosion_type = 0
 
 func _on_Crate_area_entered(area):
-	EntityManager.create_explosion(self, damage, explosion_timer, dot, explosion_type)
-	queue_free()
+	if area.get_class() == "Projectile":
+		EntityManager.create_explosion(self, damage, explosion_timer, dot, explosion_type)
+		queue_free()
+
+func get_class():
+	return "Crate"

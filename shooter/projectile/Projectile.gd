@@ -74,7 +74,8 @@ func _process(delta):
 func _on_Projectile_body_entered(body):	
 	# checks if the body that enters is a mob type class
 	# in godot 4 can use a more oop way to do it
-	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player" || body.get_class() == "Drone":
+	# awful way to do this!!
+	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player" || body.get_class() == "Drone" || body.get_class() == "ChemThrower":
 		for hit in hit_targets:
 			if hit == body:
 				return
@@ -100,6 +101,11 @@ func _on_Projectile_body_entered(body):
 func _on_Projectile_area_entered(area):
 	if shielding && area.get_class() == "Projectile":
 		area.queue_free()
+	if area.get_class() == "Crate":
+		if pierce > 1:
+			pierce -= 1
+		else:
+			queue_free()
 
 func get_class():
 	return "Projectile"
