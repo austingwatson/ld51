@@ -11,6 +11,8 @@ region = Rect2( 112, 16, 16, 16 )
 
 [node name="Crate" type="Area2D"]
 script = ExtResource( 2 )
+damage = 10
+explosion_timer = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

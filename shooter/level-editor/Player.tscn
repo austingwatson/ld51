@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://shooter/entity/Mob.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/entity/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/player-animsheet.png" type="Texture" id=3]
+[ext_resource path="res://assets/iconarrow-yellow.png" type="Texture" id=4]
+[ext_resource path="res://assets/iconarrow-blue.png" type="Texture" id=5]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
@@ -46,6 +48,7 @@ extents = Vector2( 32, 32 )
 position = Vector2( 375, 225 )
 collision_mask = 6
 script = ExtResource( 2 )
+max_health = 10
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 2 )
@@ -70,12 +73,21 @@ one_shot = true
 wait_time = 3.0
 
 [node name="ComputerArrow" type="Sprite" parent="." index="9"]
+visible = false
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
 
 [node name="EnemyArrow" type="Sprite" parent="." index="10"]
+visible = false
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
 
 [node name="Timer" type="Timer" parent="EnemyArrow" index="0"]
+one_shot = true
+autostart = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="timeout" from="GrenadeTimer" to="." method="_on_GrenadeTimer_timeout"]
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
+[connection signal="timeout" from="EnemyArrow/Timer" to="." method="_on_Timer_timeout"]

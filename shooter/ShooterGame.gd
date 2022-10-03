@@ -84,6 +84,7 @@ func _on_TenSecondTimer_timeout():
 	EntityManager.add_buff_to_enemies(buff_names[rng])
 	
 	hud.show_buff_card(buff_names[rng])
+	EntityManager.player.ten_second_timer_timeout()
 
 func _on_Player_update_health(health):
 	hud.update_player_health(health)

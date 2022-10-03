@@ -30,9 +30,9 @@ animations = [ {
 
 [node name="Drone" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-projectile_speed = 50
+projectile_speed = 250
 projectile_range = 25
+projectile_pierce = 2
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 5 )
-frame = 1

@@ -27,6 +27,8 @@ var zoom = false
 const min_zoom_level = 0.04
 const max_zoom_level = 0.4
 const zoom_amount = 0.004
+
+var closest_enemy = Vector2.ZERO
 	
 func _ready():
 	._ready()
@@ -109,11 +111,25 @@ func _process(delta):
 		can_use_melee = false
 		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, projectile_pierce * 2, projectile_dot_tick, 0, projectile_explode_type, true)
 		melee_timer.start()
+		
+	if EntityManager.enemies.size() == 0:
+		computer_arrow.visible = true
+		computer_arrow.look_at(EntityManager.keypad.position)
+		computer_arrow.rotation_degrees += 90.0
+	else:
+		computer_arrow.visible = false
+		
+	if enemy_arrow.visible:
+		enemy_arrow.look_at(closest_enemy)
+		enemy_arrow.rotation_degrees += 90.0
 
 func ten_second_timer_timeout():
 	var enemy = EntityManager.find_closest_enemy(self.position)
 	if enemy != null:
-		print(enemy)
+		closest_enemy = enemy.position
+		enemy_arrow.visible = true
+		#enemy_arrow.position = position
+		enemy_arrow_timer.start()
 
 func take_damage(damage):
 	.take_damage(damage)
@@ -140,3 +156,6 @@ func _on_MeleeTimer_timeout():
 		
 func get_class():
 	return "Player"
+	
+func _on_Timer_timeout():
+	enemy_arrow.visible = false

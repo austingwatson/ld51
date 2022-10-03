@@ -78,13 +78,13 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=1]
 
 [node name="Explosion" type="Area2D"]
-scale = Vector2( 5, 5 )
+scale = Vector2( 8, 8 )
 script = ExtResource( 2 )
 
 [node name="Animation" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "explosion"
-frame = 1
+frame = 3
 speed_scale = 3.0
 playing = true
 
