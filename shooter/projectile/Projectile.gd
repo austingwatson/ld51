@@ -75,7 +75,7 @@ func _on_Projectile_body_entered(body):
 	# checks if the body that enters is a mob type class
 	# in godot 4 can use a more oop way to do it
 	# awful way to do this!!
-	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player" || body.get_class() == "Drone" || body.get_class() == "ChemThrower":
+	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player" || body.get_class() == "Drone" || body.get_class() == "ChemThrower" || body.get_class() == "Soldier":
 		for hit in hit_targets:
 			if hit == body:
 				return

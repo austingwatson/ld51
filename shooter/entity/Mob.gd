@@ -17,7 +17,7 @@ var target = Vector2.ZERO
 var can_use_attack = true
 var use_attack = false
 export var projectile_speed = 1000
-export var projectile_range = 400
+export var projectile_range = 25
 export var projectile_damage = 1
 export var projectile_pierce = 1
 export var projectile_amount = 1
@@ -26,11 +26,13 @@ export var projectile_dot_tick = 0
 export var projectile_explode = 0
 export var projectile_explode_type = 0
 export var projectile_shielding = false
+export var projectile_attack_speed = 1.0
 
 var effects = {}
 
 func _ready():
 	health = max_health
+	change_attack_speed()
 
 func _physics_process(delta):
 	velocity = move_and_slide(velocity)
@@ -53,6 +55,10 @@ func _process(delta):
 	else:
 		animation.stop()
 
+func change_attack_speed():
+	var attack_cd = get_node("AttackCD")
+	attack_cd.wait_time = projectile_attack_speed
+
 func take_damage(damage):
 	health -= damage
 	if health <= 0:
@@ -70,7 +76,6 @@ func _on_AttackCD_timeout():
 	
 func get_class():
 	return "Mob"
-
 
 func _on_DotTimer_timeout():
 	if effects.has("dot"):

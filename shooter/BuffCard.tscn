@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/skull.png" type="Texture" id=3]
 [ext_resource path="res://shooter/BuffCard.gd" type="Script" id=4]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=7]
 size = 12
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
@@ -22,7 +22,7 @@ margin_top = -29.0
 margin_right = 47.0
 margin_bottom = -13.0
 rect_scale = Vector2( 0.75, 0.75 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 7 )
 text = "+health"
 
 [node name="Skull" type="Sprite" parent="."]

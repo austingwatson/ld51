@@ -10,6 +10,9 @@ const general_scene = preload("res://shooter/entity/General.tscn")
 const chem_thrower_scene = preload("res://shooter/entity/ChemThrower.tscn")
 const drone_scene = preload("res://shooter/entity/Drone.tscn")
 
+# keep track of the scene that things should be added to
+var shooter_game: Node
+
 # needed to track which nodes to buff every ten seconds
 var difficulty_modifier = 1
 var enemies = []
@@ -29,6 +32,17 @@ const damage = 1
 const amount = 1
 const dot = 1
 const proj_range = 25
+const attack_speed = 0.05
+
+# current buffs for the player
+var player_health = 0
+var player_grenades = 0
+var player_speed = 0
+var player_damage = 0
+var player_amount = 0
+var player_dot = 0
+var player_range = 0
+var player_attack_speed = 0
 
 var random = RandomNumberGenerator.new()
 
@@ -102,22 +116,53 @@ func spawn_full_enemies():
 			var turret_spawner = turret_spawners[randi() % turret_spawners.size()]
 			turret_spawner.spawn_one()
 
+func add_single_stat_to_player(stat):
+	match stat:
+		"health":
+			player_health += health
+		"speed":
+			player_speed += speed
+		"damage":
+			player_damage += damage
+		"amount":
+			player_amount += amount
+		"dot":
+			player_dot += dot
+		"range":
+			#player_range += proj_range
+			pass
+		"grenade":
+			player_grenades += 1
+		"debuff":
+			print("debuff")
+		"attack-speed":
+			player_attack_speed += attack_speed
+
+# adds the stats to the player
+func add_stats_to_player():
+	player.max_health += player_health
+	player.health += player_health
+	player.grenades += player_grenades
+	player.speed += player_speed
+	player.projectile_damage += player_damage
+	player.projectile_amount += player_amount
+	player.projectile_dot_tick += player_dot
+	#player.projectile_range += player_range
+	player.projectile_attack_speed += player_attack_speed
+	player.change_attack_speed()
+
 # adds the entity to the main node
 # so it shows up on screen
 func add_node_to_root(node):
-	var root = get_tree().root
-	var current_scene = root.get_child(root.get_child_count() - 1)
-	current_scene.add_child(node)
+	shooter_game.add_child(node)
 
 func add_enemy(enemy):
 	enemies.append(enemy)
 	
-	for buff in buffs:
-		add_buff_to_enemy(enemy, buff)
+	#for buff in buffs:
+		#add_buff_to_enemy(enemy, buff)
 	
-	var root = get_tree().root
-	var current_scene = root.get_child(root.get_child_count() - 1)
-	current_scene.call_deferred("add_child", enemy)
+	add_node_to_root(enemy)
 
 func create_multi_enemy(type, x, y, amount):
 	for i in amount:
@@ -177,6 +222,7 @@ func register_turret_spawner(spawner):
 	turret_spawners.append(spawner)
 	
 func add_buff_to_enemies(buff):
+	pass
 	if buff != "spawn":
 		buffs.append(buff)
 	else:
@@ -200,9 +246,13 @@ func add_buff_to_enemy(enemy, buff):
 		"dot":
 			enemy.projectile_dot_tick += dot
 		"range":
-			enemy.projectile_range += proj_range
-			if enemy.get_class() == "Enemy":
-				enemy.add_sight_range(proj_range)
+			#enemy.projectile_range += proj_range
+			#if enemy.get_class() == "Enemy":
+			#	enemy.add_sight_range(proj_range)
+			pass
+		"attack-speed":
+			enemy.projectile_attack_speed -= attack_speed
+			enemy.change_attack_speed()
 	
 func process_enemies():
 	for enemy in enemies:
