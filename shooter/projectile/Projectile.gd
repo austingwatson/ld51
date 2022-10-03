@@ -6,9 +6,11 @@ var distance = Vector2.ZERO
 var damage = 0
 var pierce = 0
 var dot = 0
+var explode = 0
+var explode_type = 0
 var hit_targets = []
 
-func create(owner, target, speed, accuracy, distance, damage, pierce, dot):
+func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type):
 	position = owner.position
 	start_position = position
 	
@@ -31,6 +33,8 @@ func create(owner, target, speed, accuracy, distance, damage, pierce, dot):
 	self.damage = damage
 	self.pierce = pierce
 	self.dot = dot
+	self.explode = explode
+	self.explode_type = explode_type
 	hit_targets.clear()
 
 func _physics_process(delta):
@@ -46,7 +50,6 @@ func _on_Projectile_body_entered(body):
 	
 	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player":
 		for hit in hit_targets:
-			print(hit, ", ", body)
 			if hit == body:
 				return
 		
@@ -58,7 +61,12 @@ func _on_Projectile_body_entered(body):
 			hit_targets.append(body)
 			pierce -= 1
 		else:
+			if explode > 0:
+				EntityManager.create_explosion(self, damage, explode, dot, explode_type)
 			damage = 0
 			queue_free()
 	else:
+		if explode:
+				EntityManager.create_explosion(self, damage, explode, dot, explode_type)
+		damage = 0
 		queue_free()

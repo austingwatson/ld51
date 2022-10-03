@@ -2,6 +2,7 @@ extends Node
 
 # preload all needed entity scenes
 const projectile_scene = preload("res://shooter/projectile/Projectile.tscn")
+const explosion_scene = preload("res://shooter/projectile/Explosion.tscn")
 const test_enemy_scene = preload("res://shooter/test/TestEnemy.tscn")
 const turret_scene = preload("res://shooter/entity/Turret.tscn")
 const soldier_scene = preload("res://shooter/entity/Soldier.tscn")
@@ -114,6 +115,17 @@ func create_enemy(type, x, y):
 	var enemy = null
 	
 	match type:
+		"random":
+			var rng = randi() % 4
+			match rng:
+				0:
+					create_enemy("roomba", x, y)
+				1:
+					create_enemy("soldier", x, y)
+				2:
+					create_enemy("general", x, y)
+				3:
+					create_enemy("chem-thrower", x, y)
 		"turret":
 			enemy = turret_scene.instance()
 			enemy.create(x, y)
@@ -136,10 +148,15 @@ func create_enemy(type, x, y):
 	if enemy != null:
 		add_enemy(enemy)
 
-func create_projectile(owner, target, speed, accuracy, distance, damage, pierce, dot):
+func create_projectile(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type):
 	var projectile = projectile_scene.instance()
-	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot)
+	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type)
 	add_node_to_root(projectile)
+	
+func create_explosion(owner, damage, timer, dot, type):
+	var explosion = explosion_scene.instance()
+	explosion.create(owner, damage, timer, dot, type)
+	add_node_to_root(explosion)
 
 func register_spawner(spawner):
 	spawners.append(spawner)	
@@ -151,9 +168,9 @@ func add_buff_to_enemies(buff):
 	if buff != "spawn":
 		buffs.append(buff)
 	else:
-		if spawners.size() > 0:
-			var rng = randi() % spawners.size()
-			spawners[rng].spawn_one("test-enemy")
+		var enemy = enemies[randi() % enemies.size()]
+		create_enemy("random", enemy.position.x + 10, enemy.position.y)
+
 	for enemy in enemies:
 		add_buff_to_enemy(enemy, buff)
 	
