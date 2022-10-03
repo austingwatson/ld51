@@ -14,15 +14,17 @@ const buff_attack_speed_texture = preload("res://assets/card-shields.png")
 # child nodes
 onready var ten_second_timer = $TenSecondTimer
 onready var player_health = $PlayerHealth
-onready var computer_arrow = $ComputerArrow
 onready var pause_menu = $PauseMenu
 onready var buff_selector = $BuffSelector
 onready var s1_button = $BuffSelector/VBoxContainer/Selection1/S1Button
 onready var s2_button = $BuffSelector/VBoxContainer/Selection2/S2Button
 onready var s3_button = $BuffSelector/VBoxContainer/Selection3/S3Button
+onready var death_screen = $DeathScreen
+onready var grenade_amount = $GrenadeAmount
 
 signal paused(paused)
 signal done_hacking
+signal restart()
 
 const buff_card_scene = preload("res://shooter/BuffCard.tscn")
 var buff_cards = []
@@ -39,21 +41,42 @@ const selected = [false, false, false]
 const buffs = []
 const buffs_amount = []
 
+var music_db = 0
+var sound_db = 0
+
 func _ready():	
+	music_db = AudioServer.get_bus_index("Music")
+	sound_db = AudioServer.get_bus_index("Sound")
+	
 	# set the location of the card, should use a better method for future
 	next_x = 1920 - 130
 	next_y = 130
 	
-	$PauseMenu/VBoxContainer/Music.value = SoundManager.music_volume
-	$PauseMenu/VBoxContainer/Volume.value = SoundManager.sound_volume
+	$PauseMenu/VBoxContainer/Music.value = AudioServer.get_bus_volume_db(music_db)
+	$PauseMenu/VBoxContainer/Volume.value = AudioServer.get_bus_volume_db(sound_db)
 	pause_menu.visible = false
 	buff_selector.visible = false
+	
+	death_screen.visible = false
 	
 func _input(event):
 	if event.is_action_released("ui_cancel"):
 		in_menu = !in_menu
 		pause_menu.visible = in_menu
 		emit_signal("paused", in_menu)
+	if event.is_action_released("restart"):
+		if death_screen.visible:
+			death_screen.visible = false
+			
+			for buff_card in buff_cards:
+				buff_card.queue_free()
+			buff_cards.clear()
+			next_x = 1920 - 130
+			next_y = 130
+			stack_size = 0
+			next_stack_size = 19
+			
+			emit_signal("restart")
 	
 func _process(delta):
 	if select_amount == 2:
@@ -67,6 +90,12 @@ func _process(delta):
 		s3_button.set_pressed_no_signal(false)
 		emit_signal("paused", false)
 		emit_signal("done_hacking")
+	
+	grenade_amount.text = str(EntityManager.player.grenades)
+		
+	if EntityManager.player.health <= 0:
+		emit_signal("paused", true)
+		death_screen.visible = true
 	
 func level_set_up(remove_amount):
 	player_health.update_player_health(EntityManager.player.health)
@@ -164,10 +193,18 @@ func _on_Play_pressed():
 	emit_signal("paused", in_menu)
 
 func _on_Music_value_changed(value):
-	SoundManager.music_volume = value
+	AudioServer.set_bus_volume_db(music_db, value)
+	if value == -60:
+		AudioServer.set_bus_mute(music_db, true)
+	else:
+		AudioServer.set_bus_mute(music_db, false)
 
 func _on_Volume_value_changed(value):
-	SoundManager.sound_volume = value
+	AudioServer.set_bus_volume_db(sound_db, value)
+	if value == 0:
+		AudioServer.set_bus_mute(sound_db, true)
+	else:
+		AudioServer.set_bus_mute(sound_db, false)
 
 func _on_Quit_pressed():
 	get_tree().quit()

@@ -22,6 +22,8 @@ func create(owner, damage, timer, dot, type):
 		animation.play("slime")
 	else:
 		animation.play("explosion")
+		
+	SoundManager.play_sound("player-grenade-explosion")
 
 func _process(delta):
 	if animation.frame > 0:

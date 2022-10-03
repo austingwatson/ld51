@@ -1,7 +1,7 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://shooter/HUD.gd" type="Script" id=1]
-[ext_resource path="res://assets/iconblueheart.png" type="Texture" id=2]
+[ext_resource path="res://assets/hpbase.png" type="Texture" id=2]
 [ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/timerbanner.png" type="Texture" id=4]
 [ext_resource path="res://assets/menuscreen-buttonready.png" type="Texture" id=5]
@@ -10,9 +10,27 @@
 [ext_resource path="res://assets/grabber.png" type="Texture" id=8]
 [ext_resource path="res://assets/menuscreen-buttonpressed.png" type="Texture" id=9]
 [ext_resource path="res://assets/card-template.png" type="Texture" id=10]
+[ext_resource path="res://assets/skullred.png" type="Texture" id=11]
+[ext_resource path="res://assets/backgroundscreen.png" type="Texture" id=12]
+[ext_resource path="res://assets/hp_full2.png" type="Texture" id=13]
+[ext_resource path="res://assets/hp_full1.png" type="Texture" id=14]
+[ext_resource path="res://assets/powercellstatic.png" type="Texture" id=15]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
+outline_size = 3
+outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="AnimatedTexture" id=12]
+frames = 2
+fps = 1.0
+frame_0/texture = ExtResource( 14 )
+frame_1/texture = ExtResource( 13 )
+frame_1/delay_sec = 0.0
+
+[sub_resource type="DynamicFont" id=13]
+size = 32
 outline_size = 3
 outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
 font_data = ExtResource( 3 )
@@ -45,6 +63,28 @@ size = 12
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 11 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="DynamicFont" id=8]
+size = 128
+outline_size = 3
+outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
+font_data = ExtResource( 3 )
+
 [node name="HUD" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 1 )
@@ -66,11 +106,30 @@ custom_colors/font_color_shadow = Color( 0.0980392, 0.105882, 0.247059, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "9.99"
 
+[node name="PlayerHealthBase" type="Sprite" parent="."]
+position = Vector2( 69, 1019 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
 [node name="PlayerHealth" type="Control" parent="."]
 script = ExtResource( 6 )
-health_texture = ExtResource( 2 )
+health_texture = SubResource( 12 )
+
+[node name="Grenade" type="Sprite" parent="."]
+position = Vector2( 184, 1018 )
+scale = Vector2( 8, 8 )
+texture = ExtResource( 15 )
+
+[node name="GrenadeAmount" type="Label" parent="."]
+margin_left = 154.0
+margin_top = 983.0
+margin_right = 194.0
+margin_bottom = 1022.0
+custom_fonts/font = SubResource( 13 )
+text = "1"
 
 [node name="PauseMenu" type="Node2D" parent="."]
+visible = false
 
 [node name="Background" type="Sprite" parent="PauseMenu"]
 position = Vector2( 960, 540 )
@@ -117,7 +176,8 @@ custom_icons/grabber = ExtResource( 8 )
 custom_styles/slider = SubResource( 3 )
 custom_styles/grabber_area_highlight = SubResource( 4 )
 custom_styles/grabber_area = SubResource( 5 )
-value = 100.0
+min_value = -60.0
+max_value = 0.0
 
 [node name="Label" type="Label" parent="PauseMenu/VBoxContainer/Music"]
 anchor_left = 0.5
@@ -142,7 +202,8 @@ custom_icons/grabber = ExtResource( 8 )
 custom_styles/slider = SubResource( 3 )
 custom_styles/grabber_area_highlight = SubResource( 4 )
 custom_styles/grabber_area = SubResource( 5 )
-value = 100.0
+min_value = -60.0
+max_value = 0.0
 
 [node name="Label" type="Label" parent="PauseMenu/VBoxContainer/Volume"]
 anchor_left = 0.5
@@ -180,6 +241,7 @@ align = 1
 valign = 1
 
 [node name="BuffSelector" type="Node2D" parent="."]
+visible = false
 position = Vector2( -960, -540 )
 scale = Vector2( 2, 2 )
 
@@ -270,6 +332,43 @@ margin_right = 50.5
 margin_bottom = 16.5
 custom_fonts/font = SubResource( 7 )
 text = "+health"
+
+[node name="DeathScreen" type="Node2D" parent="."]
+visible = false
+z_index = 1
+
+[node name="Background" type="TextureRect" parent="DeathScreen"]
+margin_left = 6.10352e-05
+margin_top = 1.52588e-05
+margin_right = 40.0001
+margin_bottom = 40.0
+texture = ExtResource( 12 )
+
+[node name="Sprite" type="AnimatedSprite" parent="DeathScreen"]
+position = Vector2( 940, 540 )
+scale = Vector2( 20, 20 )
+frames = SubResource( 11 )
+frame = 1
+playing = true
+
+[node name="Dead" type="Label" parent="DeathScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 100.0
+margin_right = 1920.0
+margin_bottom = 255.0
+custom_fonts/font = SubResource( 8 )
+text = "DEAD"
+align = 1
+
+[node name="Label" type="Label" parent="DeathScreen"]
+margin_left = 1147.0
+margin_top = 305.0
+margin_right = 1850.0
+margin_bottom = 618.0
+custom_fonts/font = SubResource( 8 )
+text = "Press R to
+try again!"
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="value_changed" from="PauseMenu/VBoxContainer/Music" to="." method="_on_Music_value_changed"]
