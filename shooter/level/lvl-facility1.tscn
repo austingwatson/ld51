@@ -209,8 +209,8 @@ margin_bottom = 103.0
 [node name="AcidPool" parent="." instance=ExtResource( 6 )]
 position = Vector2( 691, 480 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 224, 421 )
-
 [node name="Crate" parent="." instance=ExtResource( 7 )]
 position = Vector2( 480, 441 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 224, 421 )

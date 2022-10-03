@@ -7,17 +7,18 @@ onready var melee_timer = $MeleeTimer
 onready var computer_arrow = $ComputerArrow
 onready var enemy_arrow = $EnemyArrow
 onready var enemy_arrow_timer = $EnemyArrow/Timer
+onready var player_hit = $PlayerHit
 
 signal update_health(health)
 signal use_computer
 
-const movement = [false, false, false, false]
+var movement = [false, false, false, false]
 var touching_keypad = false
 
 # grenade properties
 var can_use_grenade = true
 var use_grenade = false
-var grenades = 2
+var grenades = 1
 
 # shield/melee properties
 var can_use_melee = true
@@ -138,6 +139,7 @@ func ten_second_timer_timeout():
 func take_damage(damage):
 	.take_damage(damage)
 	emit_signal("update_health", health)
+	player_hit.play()
 
 func _on_Area2D_area_entered(area):
 	if area.get_class() == "Keypad":

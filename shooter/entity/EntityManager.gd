@@ -52,7 +52,18 @@ func _ready():
 # restarts a level, removing some buffs
 func new_level(remove_amount):
 	difficulty_modifier += 1
+	
+	for enemy in enemies:
+		enemy.queue_free()
+	enemies.clear()
+	player.queue_free()
+	keypad.queue_free()
+	
+	for spawner in spawners:
+		spawner.queue_free()
 	spawners.clear()
+	for turret_spawner in turret_spawners:
+		turret_spawner.queue_free()
 	turret_spawners.clear()
 	
 	var lower = buffs.size() - 1 - remove_amount
@@ -68,6 +79,35 @@ func kill_all_enemies():
 	for enemy in enemies:
 		enemy.queue_free()
 	enemies.clear()
+
+func restart():
+	difficulty_modifier = 1
+	
+	for enemy in enemies:
+		enemy.queue_free()
+	enemies.clear()
+	player.queue_free()
+	keypad.queue_free()
+	
+	for spawner in spawners:
+		spawner.queue_free()
+	spawners.clear()
+	for turret_spawner in turret_spawners:
+		turret_spawner.queue_free()
+	turret_spawners.clear()
+	
+	buffs.clear()
+	
+	player_health = 0
+	player_grenades = 0
+	player_speed = 0
+	player_damage = 0
+	player_amount = 0
+	player_dot = 0
+	player_range = 0
+	player_attack_speed = 0
+	
+	random.randomize()
 
 func find_closest_enemy(position):
 	var distance = 1000000.0

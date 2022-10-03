@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/misc_02.ogg-45f64e20ba02e3dfb5c05a9d04928191.oggstr"
+
+[deps]
+
+source_file="res://sounds/sci-fi-sfx/misc_02.ogg"
+dest_files=[ "res://.import/misc_02.ogg-45f64e20ba02e3dfb5c05a9d04928191.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

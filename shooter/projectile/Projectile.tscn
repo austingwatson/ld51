@@ -89,5 +89,7 @@ frames = SubResource( 6 )
 animation = "close_shock"
 playing = true
 
+[node name="FireSound" type="AudioStreamPlayer" parent="."]
+
 [connection signal="area_entered" from="." to="." method="_on_Projectile_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]

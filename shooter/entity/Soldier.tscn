@@ -36,12 +36,13 @@ resource_local_to_scene = true
 radius = 150.0
 
 [node name="Soldier" instance=ExtResource( 1 )]
-speed = 300
-projectile_range = 150
+speed = 200
+projectile_range = 450
+sight_range = 750
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 1 )
-frame = 2
+frame = 1
 
 [node name="CollisionShape2D" parent="SightRange" index="0"]
 shape = SubResource( 6 )

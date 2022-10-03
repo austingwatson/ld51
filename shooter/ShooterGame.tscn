@@ -14,8 +14,18 @@ layer = -1
 wait_time = 9.99
 autostart = true
 
+[node name="AmbientMusic" type="AudioStreamPlayer" parent="."]
+bus = "Music"
+
+[node name="AmbientMusicTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
 [connection signal="timeout" from="TenSecondTimer" to="." method="_on_TenSecondTimer_timeout"]
+[connection signal="finished" from="AmbientMusic" to="." method="_on_AmbientMusic_finished"]
+[connection signal="timeout" from="AmbientMusicTimer" to="." method="_on_AmbientMusicTimer_timeout"]
 [connection signal="done_hacking" from="HUD" to="." method="change_from_hack_scene"]
 [connection signal="paused" from="HUD" to="." method="_on_HUD_paused"]
+[connection signal="restart" from="HUD" to="." method="_on_HUD_restart"]

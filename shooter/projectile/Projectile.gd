@@ -11,6 +11,8 @@ var explode_type = 0
 var shielding = false
 var hit_targets = []
 
+# temp value to see what explosion sound sh
+
 func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	position = owner.position
 	start_position = position
@@ -40,6 +42,7 @@ func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explo
 	self.explode = explode
 	self.explode_type = explode_type
 	self.shielding = shielding
+	
 	if shielding:
 		$Sprite.play("shield")
 		scale = Vector2(4, 4)
@@ -61,6 +64,21 @@ func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explo
 		scale = Vector2(1, 1)
 	$Sprite.frame = 0
 	hit_targets.clear()
+	
+	# what sound to play
+	if owner.get_class() == "Player":
+		if explode > 0:
+			SoundManager.play_sound("player-grenade")
+		elif shielding:
+			SoundManager.play_sound("player-melee")
+		else:
+			SoundManager.play_sound("player-shot")
+	elif owner.get_class() == "Drone":
+		SoundManager.play_sound("drone-shot")
+	elif owner.get_class() == "ChemThrower":
+		SoundManager.play_sound("chem-thrower-shot")
+	else:
+		SoundManager.play_sound("soldier-shot")
 
 func _physics_process(delta):
 	position += velocity * delta
@@ -94,7 +112,7 @@ func _on_Projectile_body_entered(body):
 			queue_free()
 	elif !shielding:
 		if explode:
-				EntityManager.create_explosion(self, damage, explode, dot, explode_type)
+			EntityManager.create_explosion(self, damage, explode, dot, explode_type)
 		damage = 0
 		queue_free()
 
