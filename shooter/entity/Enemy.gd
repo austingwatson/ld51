@@ -95,6 +95,10 @@ func arrived_at_location() -> bool:
 
 func _on_NavigationAgent2D_velocity_computed(safe_velocity):
 	if !arrived_at_location():
+		if safe_velocity.length() > 0:
+			sprite.play("default")
+		else:
+			sprite.stop()
 		velocity = move_and_slide(safe_velocity)
 
 func _on_SightRange_body_entered(body):

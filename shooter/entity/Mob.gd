@@ -49,11 +49,6 @@ func _process(delta):
 		
 	look_at(target)
 	rotation_degrees += 90.0
-	
-	if velocity.length() > 0:
-		animation.play("default")
-	else:
-		animation.stop()
 
 func change_attack_speed():
 	var attack_cd = get_node("AttackCD")

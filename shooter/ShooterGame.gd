@@ -15,6 +15,7 @@ const level1_scene = preload("res://shooter/level/lvl-facility1.tscn")
 const level2_scene = preload("res://shooter/level/level-facility1.tscn")
 const level3_scene = preload("res://shooter/level/level-teleporterhall.tscn")
 const level4_scene = preload("res://shooter/level/level-specimen-storage.tscn")
+const level5_scene = preload("res://shooter/level/basic-map.tscn")
 var current_level: TileMap
 var last_level = 0
 
@@ -48,6 +49,7 @@ func _ready():
 	levels.append(level2_scene)
 	levels.append(level3_scene)
 	levels.append(level4_scene)
+	levels.append(level5_scene)
 	last_level = randi() % levels.size()
 	var level = levels[last_level].instance()
 	add_child(level)

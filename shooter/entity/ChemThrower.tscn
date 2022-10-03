@@ -35,7 +35,7 @@ resource_local_to_scene = true
 
 [node name="ChemThrower" instance=ExtResource( 1 )]
 projectile_speed = 250
-projectile_range = 400
+projectile_range = 150
 projectile_dot_tick = 1
 projectile_explode = 1
 projectile_explode_type = 2
@@ -43,6 +43,7 @@ sight_range = 750
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 5 )
+frame = 1
 
 [node name="CollisionShape2D" parent="SightRange" index="0"]
 shape = SubResource( 6 )
