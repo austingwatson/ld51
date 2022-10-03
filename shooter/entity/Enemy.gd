@@ -22,14 +22,21 @@ var just_attacked = false # timer to freeze the enemy after an attack
 
 export var sight_range = 500
 
+func _ready():
+	speed = 100 # need to force the speed, inspector not working
+
+	#sight_shape = get_node("SightRange/CollisionShape2D").shape
+	#sight_shape.radius = sight_range
+	
+	#var attack_range_shape = get_node("AttackRange/CollisionShape2D").shape
+	#attack_range_shape.radius = projectile_range
+
 func create(x, y):
 	position.x = x
 	position.y = y
-	speed = 100 # need to force the speed, inspector not working
-
-	sight_shape = $SightRange/CollisionShape2D.shape
-	sight_shape.radius = sight_range
-	$AttackRange/CollisionShape2D.shape.radius = projectile_range
+	
+	var attack_range_shape = $AttackRange/CollisionShape2D.shape
+	print(self, ": ", projectile_range, ", ", attack_range_shape.radius)
 
 func _physics_process(delta):
 	if state == STATE.MOVE || state == STATE.FLEE:
@@ -48,7 +55,7 @@ func _process(delta):
 		sprite.flip_v = true
 	
 func add_sight_range(amount):
-		sight_shape.radius += amount
+	sight_shape.radius += amount
 	
 func process_ai(player):
 	if state != STATE.FLEE:
@@ -58,6 +65,7 @@ func process_ai(player):
 			if player_entered_sight:
 				state = STATE.MOVE
 			if can_use_attack && player_entered_attack:
+				print("can attack")
 				state = STATE.ATTACK
 	
 	if state != STATE.ATTACK:
@@ -66,9 +74,10 @@ func process_ai(player):
 	if state == STATE.MOVE || state == STATE.FLEE:
 		if next_path_find:
 			next_path_find = false
-			nav_agent.set_target_location(player.global_position)
-		target = player.global_position
+			nav_agent.set_target_location(player.position)
+		target = player.position
 	elif state == STATE.ATTACK:
+		target = player.global_position
 		use_attack = true
 		just_attacked = true
 		freezeCD.start()

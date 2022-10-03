@@ -17,3 +17,5 @@ autostart = true
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 
 [connection signal="timeout" from="TenSecondTimer" to="." method="_on_TenSecondTimer_timeout"]
+[connection signal="done_hacking" from="HUD" to="." method="change_from_hack_scene"]
+[connection signal="paused" from="HUD" to="." method="_on_HUD_paused"]

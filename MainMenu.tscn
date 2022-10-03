@@ -1,0 +1,157 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/menubackgroundscreen.png" type="Texture" id=1]
+[ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/menuscreen-buttonready.png" type="Texture" id=3]
+[ext_resource path="res://assets/computerscreenmenu.png" type="Texture" id=4]
+[ext_resource path="res://assets/grabber.png" type="Texture" id=5]
+[ext_resource path="res://assets/menuscreen-buttonpressed.png" type="Texture" id=6]
+[ext_resource path="res://assets/portrait-player.png" type="Texture" id=7]
+[ext_resource path="res://assets/Sprite-0003BANNER.png" type="Texture" id=8]
+[ext_resource path="res://MainMenu.gd" type="Script" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 3
+outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 96, 32 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 96, 32 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 96, 32 )
+
+[node name="MainMenu" type="Node"]
+script = ExtResource( 9 )
+
+[node name="Screen" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 438, 535 )
+texture = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -620.0
+margin_top = -126.0
+margin_right = -524.0
+margin_bottom = 44.0
+rect_scale = Vector2( 2, 2 )
+custom_constants/separation = 9
+
+[node name="Play" type="TextureButton" parent="VBoxContainer"]
+margin_right = 96.0
+margin_bottom = 32.0
+texture_normal = ExtResource( 3 )
+texture_hover = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Play"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -10.0
+margin_right = 20.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 1 )
+text = "Play"
+align = 1
+valign = 1
+
+[node name="Music" type="HSlider" parent="VBoxContainer"]
+margin_top = 41.0
+margin_right = 96.0
+margin_bottom = 73.0
+custom_icons/grabber_highlight = ExtResource( 5 )
+custom_icons/grabber = ExtResource( 5 )
+custom_styles/slider = SubResource( 2 )
+custom_styles/grabber_area_highlight = SubResource( 3 )
+custom_styles/grabber_area = SubResource( 4 )
+value = 100.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Music"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -25.0
+margin_top = -10.0
+margin_right = 25.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 1 )
+text = "Music"
+align = 1
+valign = 1
+
+[node name="Volume" type="HSlider" parent="VBoxContainer"]
+margin_top = 82.0
+margin_right = 96.0
+margin_bottom = 114.0
+custom_icons/grabber_highlight = ExtResource( 5 )
+custom_icons/grabber = ExtResource( 5 )
+custom_styles/slider = SubResource( 2 )
+custom_styles/grabber_area_highlight = SubResource( 3 )
+custom_styles/grabber_area = SubResource( 4 )
+value = 100.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Volume"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -30.0
+margin_top = -10.0
+margin_right = 30.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 1 )
+text = "Volume"
+align = 1
+valign = 1
+
+[node name="Quit" type="TextureButton" parent="VBoxContainer"]
+margin_top = 123.0
+margin_right = 96.0
+margin_bottom = 155.0
+texture_normal = ExtResource( 3 )
+texture_hover = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Quit"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -10.0
+margin_right = 20.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 1 )
+text = "Quit"
+align = 1
+valign = 1
+
+[node name="Player" type="Sprite" parent="."]
+position = Vector2( 1446, 530 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="Title" type="Sprite" parent="."]
+position = Vector2( 975, 497 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 8 )
+
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_Play_pressed"]
+[connection signal="value_changed" from="VBoxContainer/Music" to="." method="_on_Music_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Volume" to="." method="_on_Volume_value_changed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

@@ -14,9 +14,7 @@ const zoom_amount = 0.004
 func _ready():
 	tool_tip.visible = false
 	
-	var root = get_tree().root
-	var current_scene = root.get_child(root.get_child_count() - 1)
-	self.connect("zoom_done", current_scene, "change_to_hack_scene")
+	self.connect("zoom_done", EntityManager.shooter_game, "change_to_hack_scene")
 	
 	EntityManager.keypad = self
 

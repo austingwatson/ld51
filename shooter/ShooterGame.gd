@@ -5,6 +5,7 @@ onready var ten_second_timer = $TenSecondTimer
 onready var hud = $HUD
 
 signal zoom_out_player
+signal return_to_main_menu
 
 const buff_names = []
 
@@ -13,6 +14,7 @@ var levels = []
 const level1_scene = preload("res://shooter/level/lvl-facility1.tscn")
 const level2_scene = preload("res://shooter/level/level-facility1.tscn")
 const level3_scene = preload("res://shooter/level/level-teleporterhall.tscn")
+const level4_scene = preload("res://shooter/level/level-specimen-storage.tscn")
 var current_level: TileMap
 var last_level = 0
 
@@ -23,23 +25,34 @@ func _ready():
 	var cursor_image = load("res://assets/reticule.png")
 	Input.set_custom_mouse_cursor(cursor_image, Input.CURSOR_ARROW, Vector2(8, 8))
 	
+	EntityManager.shooter_game = self
+	
 	buff_names.append("health")
 	buff_names.append("speed")
 	buff_names.append("damage")
 	buff_names.append("amount")
 	buff_names.append("dot")
 	buff_names.append("range")
+	buff_names.append("attack-speed")
 	buff_names.append("spawn")
 	
 	levels.append(level1_scene)
 	levels.append(level2_scene)
 	levels.append(level3_scene)
+	levels.append(level4_scene)
 	last_level = randi() % levels.size()
 	var level = levels[last_level].instance()
 	add_child(level)
 	EntityManager.spawn_full_enemies()
 	current_level = level
 	hud.level_set_up(0)
+	
+	var root = get_tree().root
+	var current_scene = root.get_child(root.get_child_count() - 1)
+	self.connect("return_to_main_menu", current_scene, "return_to_main_menu")
+
+func _input(event):
+	pass
 
 func _process(delta):
 	EntityManager.process_enemies()
@@ -47,7 +60,7 @@ func _process(delta):
 	
 	hud.update_ten_second_timer(ten_second_timer.time_left)
 
-func change_from_hack_scene(score):
+func change_from_hack_scene():
 	current_level.queue_free()
 	EntityManager.new_level(0)
 	
@@ -98,5 +111,8 @@ func player_used_computer():
 			break
 
 func change_to_hack_scene():
-	print("change to hack scene")
-	change_from_hack_scene(100)
+	_on_HUD_paused(true)
+	hud.use_computer()
+
+func _on_HUD_paused(paused):
+	get_tree().paused = paused

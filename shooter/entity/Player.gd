@@ -34,10 +34,11 @@ func _ready():
 	._ready()
 	EntityManager.player = self
 	
-	var root = get_tree().root
-	var current_scene = root.get_child(root.get_child_count() - 1)
-	self.connect("update_health", current_scene, "_on_Player_update_health")
-	self.connect("use_computer", current_scene, "player_used_computer")
+	self.connect("update_health", EntityManager.shooter_game, "_on_Player_update_health")
+	self.connect("use_computer", EntityManager.shooter_game, "player_used_computer")
+	
+	EntityManager.add_stats_to_player()
+	emit_signal("update_health", health)
 	
 func _input(event):
 	if event.is_action_pressed("up"):
@@ -74,6 +75,9 @@ func _input(event):
 		use_melee = true
 	elif event.is_action_released("melee"):
 		use_melee = false
+	
+	elif event.is_action_released("print_enemy"):
+		print(EntityManager.find_closest_enemy(get_global_mouse_position()))
 
 func _process(delta):
 	._process(delta)
