@@ -11,6 +11,7 @@ script = ExtResource( 3 )
 layer = -1
 
 [node name="TenSecondTimer" type="Timer" parent="."]
+wait_time = 9.99
 autostart = true
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]

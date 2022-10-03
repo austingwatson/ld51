@@ -25,6 +25,7 @@ export var projectile_accuracy = 1.0
 export var projectile_dot_tick = 0
 export var projectile_explode = 0
 export var projectile_explode_type = 0
+export var projectile_shielding = false
 
 var effects = {}
 
@@ -37,10 +38,10 @@ func _physics_process(delta):
 func _process(delta):
 	if use_attack and can_use_attack:
 		can_use_attack = false
-		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type)
+		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
 		
 		for i in range(1, projectile_amount):
-			EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type)
+			EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
 		
 		attack.start()
 		

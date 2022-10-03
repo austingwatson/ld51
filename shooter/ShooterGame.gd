@@ -49,7 +49,7 @@ func _process(delta):
 
 func change_from_hack_scene(score):
 	current_level.queue_free()
-	EntityManager.new_level(3)
+	EntityManager.new_level(0)
 	
 	var next_level = randi() % levels.size()
 	print(last_level, ", ", next_level)
@@ -61,12 +61,12 @@ func change_from_hack_scene(score):
 	add_child(level)
 	EntityManager.spawn_full_enemies()
 	current_level = level
-	hud.level_set_up(3)
+	hud.level_set_up(0)
 	
 	for child in current_level.get_children():
 		if child.get_name() == "Player":
 			child.start_zoom()
-			ten_second_timer.start()
+			#ten_second_timer.start()
 			ten_second_timer.paused = false
 			break
 	
@@ -82,6 +82,7 @@ func _on_TenSecondTimer_timeout():
 	else:
 		rng = randi() % buff_names.size()
 	EntityManager.add_buff_to_enemies(buff_names[rng])
+	
 	hud.show_buff_card(buff_names[rng])
 
 func _on_Player_update_health(health):

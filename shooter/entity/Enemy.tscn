@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://shooter/entity/Mob.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/entity/Enemy.gd" type="Script" id=2]
@@ -8,6 +8,11 @@ radius = 500.0
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 100.0
+
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array(  )
+}
 
 [node name="Enemy" instance=ExtResource( 1 )]
 position = Vector2( 193, 221 )
@@ -22,8 +27,8 @@ sight_range = 500
 playing = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="4"]
-path_desired_distance = 10.0
-target_desired_distance = 10.0
+path_desired_distance = 5.0
+target_desired_distance = 5.0
 avoidance_enabled = true
 radius = 26.0
 
@@ -46,6 +51,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="Path2D" type="Path2D" parent="." index="10"]
+curve = SubResource( 3 )
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_velocity_computed"]
 [connection signal="timeout" from="PathFindTimer" to="." method="_on_PathFindTimer_timeout"]

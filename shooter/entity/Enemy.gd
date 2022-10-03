@@ -4,6 +4,7 @@ class_name Enemy extends "Mob.gd"
 onready var sprite = $AnimatedSprite
 onready var nav_agent = $NavigationAgent2D
 onready var freezeCD = $FreezeCD
+var sight_shape: Shape2D
 
 # ai stuff
 # current state of the ai
@@ -25,8 +26,9 @@ func create(x, y):
 	position.x = x
 	position.y = y
 	speed = 100 # need to force the speed, inspector not working
-	
-	$SightRange/CollisionShape2D.shape.radius = sight_range
+
+	sight_shape = $SightRange/CollisionShape2D.shape
+	sight_shape.radius = sight_range
 	$AttackRange/CollisionShape2D.shape.radius = projectile_range
 
 func _physics_process(delta):
@@ -44,6 +46,9 @@ func _process(delta):
 	
 	if state == STATE.FLEE:
 		sprite.flip_v = true
+	
+func add_sight_range(amount):
+		sight_shape.radius += amount
 	
 func process_ai(player):
 	if state != STATE.FLEE:

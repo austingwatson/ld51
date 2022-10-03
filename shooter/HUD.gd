@@ -3,6 +3,7 @@ extends CanvasLayer
 # child nodes
 onready var ten_second_timer = $TenSecondTimer
 onready var player_health = $PlayerHealth
+onready var computer_arrow = $ComputerArrow
 
 const buff_card_scene = preload("res://shooter/BuffCard.tscn")
 var buff_cards = []

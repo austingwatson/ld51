@@ -8,7 +8,7 @@ const turret_scene = preload("res://shooter/entity/Turret.tscn")
 const soldier_scene = preload("res://shooter/entity/Soldier.tscn")
 const general_scene = preload("res://shooter/entity/General.tscn")
 const chem_thrower_scene = preload("res://shooter/entity/ChemThrower.tscn")
-const drone_scene = test_enemy_scene
+const drone_scene = preload("res://shooter/entity/Drone.tscn")
 
 # needed to track which nodes to buff every ten seconds
 var difficulty_modifier = 1
@@ -27,7 +27,7 @@ const speed = 25
 const damage = 1
 const amount = 1
 const dot = 1
-const proj_range = 1
+const proj_range = 25
 
 var random = RandomNumberGenerator.new()
 
@@ -53,6 +53,17 @@ func kill_all_enemies():
 	for enemy in enemies:
 		enemy.queue_free()
 	enemies.clear()
+
+func find_closest_enemy(position):
+	var distance = 1000000.0
+	var closest = null
+	
+	for enemy in enemies:
+		var dist = enemy.position.distance_to(position)
+		if dist < distance:
+			distance = dist
+			closest = enemy
+	return closest
 
 func spawn_full_enemies():
 	# amount of enemies to spawn
@@ -148,9 +159,9 @@ func create_enemy(type, x, y):
 	if enemy != null:
 		add_enemy(enemy)
 
-func create_projectile(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type):
+func create_projectile(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	var projectile = projectile_scene.instance()
-	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type)
+	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
 	add_node_to_root(projectile)
 	
 func create_explosion(owner, damage, timer, dot, type):
@@ -187,6 +198,10 @@ func add_buff_to_enemy(enemy, buff):
 			enemy.projectile_amount += amount
 		"dot":
 			enemy.projectile_dot_tick += dot
+		"range":
+			enemy.projectile_range += proj_range
+			if enemy.get_class() == "Enemy":
+				enemy.add_sight_range(proj_range)
 	
 func process_enemies():
 	for enemy in enemies:
