@@ -50,6 +50,9 @@ func _input(event):
 	elif event.is_action_pressed("activate"):
 		if touching_keypad && EntityManager.enemies.size() == 0:
 			emit_signal("use_computer")
+			
+	elif event.is_action_pressed("nuke"):
+		EntityManager.kill_all_enemies()
 
 func _process(delta):
 	._process(delta)
@@ -66,9 +69,6 @@ func _process(delta):
 		
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-		animtaion.play("default")
-	else:
-		animtaion.stop()
 		
 	target = get_global_mouse_position()
 	

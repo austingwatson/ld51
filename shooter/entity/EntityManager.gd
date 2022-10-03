@@ -4,9 +4,13 @@ extends Node
 const projectile_scene = preload("res://shooter/projectile/Projectile.tscn")
 const test_enemy_scene = preload("res://shooter/test/TestEnemy.tscn")
 const turret_scene = preload("res://shooter/entity/Turret.tscn")
+const soldier_scene = preload("res://shooter/entity/Soldier.tscn")
+const general_scene = preload("res://shooter/entity/General.tscn")
+const chem_thrower_scene = preload("res://shooter/entity/ChemThrower.tscn")
+const drone_scene = test_enemy_scene
 
 # needed to track which nodes to buff every ten seconds
-var difficulty_modifier = 0
+var difficulty_modifier = 1
 var enemies = []
 var player = null
 
@@ -22,9 +26,12 @@ const speed = 25
 const damage = 1
 const amount = 1
 const dot = 1
+const proj_range = 1
 
-# functions to decide how many enemies, and of what type
-# to spawn
+var random = RandomNumberGenerator.new()
+
+func _ready():
+	random.randomize()
 
 # restarts a level, removing some buffs
 func new_level(remove_amount):
@@ -38,11 +45,49 @@ func new_level(remove_amount):
 	for i in range(buffs.size() - 1, lower, -1):
 		buffs.remove(i)
 
+# this function might cause the game to crass
+# will have to try and see if it is overloading
+# queue free
+func kill_all_enemies():
+	for enemy in enemies:
+		enemy.queue_free()
+	enemies.clear()
+
 func spawn_full_enemies():
-	for spawner in spawners:
-		spawner.spawn_one("test-enemy")
-	for turret_spawner in turret_spawners:
-		turret_spawner.spawn_one()
+	# amount of enemies to spawn
+	var enemy_amount = 0
+	
+	if spawners.size() > 0:
+		# drone amount
+		enemy_amount = get_roomba_amount(difficulty_modifier)
+		for i in range(1, enemy_amount):
+			var spawner = spawners[randi() % spawners.size()]
+			spawner.spawn_one("roomba")
+		
+		# soldiers
+		enemy_amount = get_soldier_amount(difficulty_modifier)
+		for i in range(1, enemy_amount):
+			var spawner = spawners[randi() % spawners.size()]
+			spawner.spawn_one("soldier")
+		
+		# generals
+		enemy_amount = get_general_amount(difficulty_modifier)
+		for i in range(1, enemy_amount):
+			var spawner = spawners[randi() % spawners.size()]
+			spawner.spawn_one("general")
+			
+		# chem throwers
+		enemy_amount = get_chem_thrower_amount(difficulty_modifier)
+		for i in range(1, enemy_amount):
+			var spawner = spawners[randi() % spawners.size()]
+			spawner.spawn_one("chem-thrower")
+		
+	# turret amount
+	if turret_spawners.size() > 0:
+		enemy_amount = get_turret_amount(difficulty_modifier)
+		for i in range(1, enemy_amount):
+			var turret_spawner = turret_spawners[randi() % turret_spawners.size()]
+			turret_spawner.spawn_one()
 
 # adds the entity to the main node
 # so it shows up on screen
@@ -61,6 +106,10 @@ func add_enemy(enemy):
 	var current_scene = root.get_child(root.get_child_count() - 1)
 	current_scene.call_deferred("add_child", enemy)
 
+func create_multi_enemy(type, x, y, amount):
+	for i in amount:
+		create_enemy(type, x, y)
+
 func create_enemy(type, x, y):
 	var enemy = null
 	
@@ -70,6 +119,18 @@ func create_enemy(type, x, y):
 			enemy.create(x, y)
 		"test-enemy":
 			enemy = test_enemy_scene.instance()
+			enemy.create(x, y)
+		"roomba":
+			enemy = drone_scene.instance()
+			enemy.create(x, y)
+		"soldier":
+			enemy = soldier_scene.instance()
+			enemy.create(x, y)
+		"general":
+			enemy = general_scene.instance()
+			enemy.create(x, y)
+		"chem_thrower":
+			enemy = chem_thrower_scene.instance()
 			enemy.create(x, y)
 		
 	if enemy != null:
@@ -118,10 +179,33 @@ func process_enemies():
 # if they are !alive
 # then removes them from the scene and array
 func remove_dead_enemies():
-	var i = 0
-	while i < enemies.size():
+	for i in range(enemies.size() - 1, -1, -1):
 		if !enemies[i].alive:
 			enemies[i].queue_free()
 			enemies.remove(i)
-			i -= 1
-		i += 1
+		
+# math functions to find how many enemies to spawn
+func get_roomba_amount(x):
+	var lb = x
+	var ub = x + 2
+	return random.randi_range(lb, ub)
+	
+func get_turret_amount(x):
+	var lb = x
+	var ub = x
+	return random.randi_range(lb, ub)
+	
+func get_soldier_amount(x):
+	var lb = x - 2
+	var ub = x - 1
+	return random.randi_range(lb, ub)
+	
+func get_general_amount(x):
+	var lb = x - 4
+	var ub = x - 2
+	return random.randi_range(lb, ub)
+	
+func get_chem_thrower_amount(x):
+	var lb = x - 6
+	var ub = x - 4
+	return random.randi_range(lb, ub)
