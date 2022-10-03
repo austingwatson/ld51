@@ -95,6 +95,9 @@ func _process(delta):
 		
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
+		animation.play("default")
+	else:
+		animation.stop()
 		
 	target = get_global_mouse_position()
 	

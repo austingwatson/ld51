@@ -37,12 +37,12 @@ radius = 150.0
 
 [node name="Soldier" instance=ExtResource( 1 )]
 speed = 200
-projectile_range = 450
+projectile_range = 200
 sight_range = 750
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 1 )
-frame = 1
+frame = 2
 
 [node name="CollisionShape2D" parent="SightRange" index="0"]
 shape = SubResource( 6 )
