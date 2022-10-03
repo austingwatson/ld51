@@ -35,18 +35,15 @@ extents = Vector2( 50, 50 )
 
 [sub_resource type="DynamicFont" id=2]
 outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
+outline_color = Color( 0.247059, 0.627451, 0.643137, 1 )
 font_data = ExtResource( 3 )
 
 [node name="Keypad" type="Area2D"]
-position = Vector2( 339, 212 )
+position = Vector2( 315, 226 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 10, 10 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
 animation = "off"
 playing = true
@@ -55,13 +52,18 @@ playing = true
 shape = SubResource( 1 )
 
 [node name="ToolTip" type="Label" parent="."]
-margin_left = -41.0
-margin_top = -51.0
-margin_right = 40.0
-margin_bottom = 14.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+margin_left = -116.0
+margin_top = -34.0
+margin_right = 112.0
+margin_bottom = -14.0
+custom_colors/font_color = Color( 0.890196, 0.960784, 0.945098, 1 )
+custom_colors/font_color_shadow = Color( 0.156863, 0.376471, 0.501961, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Must kill all enemies to use"
+align = 1
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2( 0.5, 0.5 )

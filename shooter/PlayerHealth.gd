@@ -9,7 +9,7 @@ const health_size = 32
 var player_health = 10
 
 func _ready():
-	health_y = get_viewport_rect().size.y - health_size - 10
+	health_y = get_viewport_rect().size.y - health_size - 30
 	
 func _draw():
 	var temp_health_y = health_y

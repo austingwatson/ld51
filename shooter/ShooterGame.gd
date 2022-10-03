@@ -28,11 +28,12 @@ func _ready():
 	buff_names.append("damage")
 	buff_names.append("amount")
 	buff_names.append("dot")
+	buff_names.append("range")
 	buff_names.append("spawn")
 	
 	levels.append(level1_scene)
 	levels.append(level2_scene)
-	var last_level = randi() % levels.size()
+	last_level = randi() % levels.size()
 	var level = levels[last_level].instance()
 	add_child(level)
 	EntityManager.spawn_full_enemies()
@@ -50,6 +51,7 @@ func change_from_hack_scene(score):
 	EntityManager.new_level(3)
 	
 	var next_level = randi() % levels.size()
+	print(last_level, ", ", next_level)
 	while last_level == next_level:
 		next_level = randi() % levels.size()
 	

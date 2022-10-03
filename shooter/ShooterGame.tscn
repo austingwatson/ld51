@@ -1,16 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://shooter/Background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/ShooterGame.gd" type="Script" id=3]
 [ext_resource path="res://shooter/HUD.tscn" type="PackedScene" id=4]
 
 [node name="ShooterGame" type="Node"]
 script = ExtResource( 3 )
 
+[node name="Background" parent="." instance=ExtResource( 1 )]
+layer = -1
+
 [node name="TenSecondTimer" type="Timer" parent="."]
+wait_time = 9.99
 autostart = true
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
-
-[node name="ZoomOnComputer" type="AnimationPlayer" parent="."]
 
 [connection signal="timeout" from="TenSecondTimer" to="." method="_on_TenSecondTimer_timeout"]

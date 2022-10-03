@@ -7,6 +7,7 @@ const buff_damage_texture = preload("res://assets/card-damage.png")
 const buff_amount_texture = preload("res://assets/card-doubleshot.png")
 const buff_spawn_texture = preload("res://assets/card-split.png")
 const buff_dot_texture = preload("res://assets/card-biohazard.png")
+const buff_range_texture = preload("res://assets/card-eye.png")
 
 func show_card(x, y, buff):
 	position.x = x
@@ -38,3 +39,6 @@ func show_card(x, y, buff):
 		"dot":
 			texture = buff_dot_texture
 			buff_text.text = "+acid"
+		"range":
+			texture = buff_range_texture
+			buff_text.text = "+range"
