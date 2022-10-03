@@ -3,6 +3,10 @@ class_name Player extends "Mob.gd"
 onready var camera = $Camera2D
 onready var animtaion = $AnimatedSprite
 onready var grenade_timer = $GrenadeTimer
+onready var melee_timer = $MeleeTimer
+onready var computer_arrow = $ComputerArrow
+onready var enemy_arrow = $EnemyArrow
+onready var enemy_arrow_timer = $EnemyArrow/Timer
 
 signal update_health(health)
 signal use_computer
@@ -10,10 +14,14 @@ signal use_computer
 const movement = [false, false, false, false]
 var touching_keypad = false
 
-# shield/melee attack
-# grenade
+# grenade properties
 var can_use_grenade = true
 var use_grenade = false
+var grenades = 2
+
+# shield/melee properties
+var can_use_melee = true
+var use_melee = false
 
 var zoom = false
 const min_zoom_level = 0.04
@@ -57,10 +65,13 @@ func _input(event):
 		if touching_keypad && EntityManager.enemies.size() == 0:
 			emit_signal("use_computer")
 			
-	elif event.is_action_pressed("grenade"):
-		use_grenade = true
 	elif event.is_action_released("grenade"):
-		use_grenade = false
+		use_grenade = true
+		
+	elif event.is_action_pressed("melee"):
+		use_melee = true
+	elif event.is_action_released("melee"):
+		use_melee = false
 
 func _process(delta):
 	._process(delta)
@@ -86,10 +97,23 @@ func _process(delta):
 			camera.zoom = Vector2(max_zoom_level, max_zoom_level)
 			zoom = false
 	
-	if use_grenade && can_use_grenade:
-		can_use_grenade = false
-		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, grenade_timer.wait_time, projectile_explode_type)
-		grenade_timer.start()
+	if use_grenade:
+		if grenades > 0 && can_use_grenade:
+			grenades -= 1
+			can_use_grenade = false
+			EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, 0.3, projectile_explode_type, false)
+			grenade_timer.start()
+		use_grenade = false
+		
+	if use_melee && can_use_melee:
+		can_use_melee = false
+		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, projectile_pierce * 2, projectile_dot_tick, 0, projectile_explode_type, true)
+		melee_timer.start()
+
+func ten_second_timer_timeout():
+	var enemy = EntityManager.find_closest_enemy(self.position)
+	if enemy != null:
+		print(enemy)
 
 func take_damage(damage):
 	.take_damage(damage)
@@ -108,8 +132,11 @@ func start_zoom():
 	camera.zoom = Vector2(min_zoom_level, min_zoom_level)
 	zoom = true		
 		
-func get_class():
-	return "Player"
-
 func _on_GrenadeTimer_timeout():
 	can_use_grenade = true
+
+func _on_MeleeTimer_timeout():
+	can_use_melee = true		
+		
+func get_class():
+	return "Player"

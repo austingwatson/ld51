@@ -1,8 +1,10 @@
 extends Area2D
 
+var animation: AnimatedSprite
+
 var damage = 0
 var dot = 0
-var hit_targets = []
+var initial_damage = true
 
 func create(owner, damage, timer, dot, type):
 	position = owner.position
@@ -10,31 +12,27 @@ func create(owner, damage, timer, dot, type):
 	self.collision_layer = owner.collision_layer
 	self.collision_mask = owner.collision_mask
 	
-	self.damage = damage
-	$Timer.wait_time = timer
+	self.damage = damage * 2
 	self.dot = dot
 	
+	animation = get_node("Animation")
 	if type == 0:
-		$Animation.play("shock")
+		animation.play("shock")
 	elif type == 1:
-		$Animation.play("slime")
+		animation.play("slime")
 	else:
-		$Animation.play("explosion")
-	
+		animation.play("explosion")
+
+func _process(delta):
+	if animation.frame > 0:
+		initial_damage = false
+	if animation.frame == 3:
+		queue_free()
 
 func _on_Grenade_body_entered(body):
-	if body.get_class() == "Mob" || body.get_class() == "Player" || body.get_class() == "Enemy":
-		var already_hit = false
-		
-		for hit in hit_targets:
-			if hit == body:
-				already_hit = true
-				
-		if !already_hit:
+	if body.get_class() == "Mob" || body.get_class() == "Player" || body.get_class() == "Enemy" || body.get_class() == "Drone":
+		if initial_damage:
 			body.take_damage(damage)
 			
 		if dot > 0:
 			body.add_dot(dot)
-
-func _on_Timer_timeout():
-	queue_free()

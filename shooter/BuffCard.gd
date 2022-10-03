@@ -1,7 +1,7 @@
 extends Sprite
 
 # preloaded buff textures
-const buff_health_texture = preload("res://assets/card-shields.png")
+const buff_health_texture = preload("res://assets/card-maxhp.png")
 const buff_speed_texture = preload("res://assets/card-speed.png")
 const buff_damage_texture = preload("res://assets/card-damage.png")
 const buff_amount_texture = preload("res://assets/card-doubleshot.png")
