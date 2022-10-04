@@ -66,6 +66,9 @@ func new_level(remove_amount):
 		turret_spawner.queue_free()
 	turret_spawners.clear()
 	
+	remove_buffs(remove_amount)
+
+func remove_buffs(remove_amount):
 	var lower = buffs.size() - 1 - remove_amount
 	if lower <= 0:
 		lower = 0
@@ -169,12 +172,12 @@ func add_single_stat_to_player(stat):
 		"dot":
 			player_dot += dot
 		"range":
-			#player_range += proj_range
+			player_range += proj_range
 			pass
 		"grenade":
 			player_grenades += 1
 		"debuff":
-			print("debuff")
+			remove_buffs(2)
 		"attack-speed":
 			player_attack_speed += attack_speed
 
@@ -187,22 +190,23 @@ func add_stats_to_player():
 	player.projectile_damage += player_damage
 	player.projectile_amount += player_amount
 	player.projectile_dot_tick += player_dot
-	#player.projectile_range += player_range
+	player.projectile_range += player_range
 	player.projectile_attack_speed += player_attack_speed
 	player.change_attack_speed()
 
 # adds the entity to the main node
 # so it shows up on screen
 func add_node_to_root(node):
+	#shooter_game.call_deferred("add_child", node)
 	shooter_game.add_child(node)
 
 func add_enemy(enemy):
 	enemies.append(enemy)
 	
-	#for buff in buffs:
-		#add_buff_to_enemy(enemy, buff)
-	
 	add_node_to_root(enemy)
+	
+	for buff in buffs:
+		add_buff_to_enemy(enemy, buff)
 
 func create_multi_enemy(type, x, y, amount):
 	for i in amount:
@@ -238,7 +242,7 @@ func create_enemy(type, x, y):
 		"general":
 			enemy = general_scene.instance()
 			enemy.create(x, y)
-		"chem_thrower":
+		"chem-thrower":
 			enemy = chem_thrower_scene.instance()
 			enemy.create(x, y)
 		
@@ -247,8 +251,8 @@ func create_enemy(type, x, y):
 
 func create_projectile(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	var projectile = projectile_scene.instance()
-	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
 	add_node_to_root(projectile)
+	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
 	
 func create_explosion(owner, damage, timer, dot, type):
 	var explosion = explosion_scene.instance()
@@ -286,9 +290,9 @@ func add_buff_to_enemy(enemy, buff):
 		"dot":
 			enemy.projectile_dot_tick += dot
 		"range":
-			#enemy.projectile_range += proj_range
-			#if enemy.get_class() == "Enemy":
-			#	enemy.add_sight_range(proj_range)
+			enemy.projectile_range += proj_range
+			if enemy.get_class() == "Enemy":
+				enemy.add_sight_range(proj_range)
 			pass
 		"attack-speed":
 			enemy.projectile_attack_speed -= attack_speed
@@ -306,7 +310,7 @@ func remove_dead_enemies():
 		if !enemies[i].alive:
 			enemies[i].queue_free()
 			enemies.remove(i)
-		
+	
 # math functions to find how many enemies to spawn
 func get_roomba_amount(x):
 	var lb = x

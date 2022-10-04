@@ -72,15 +72,13 @@ func _process(delta):
 	EntityManager.remove_dead_enemies()
 	
 	hud.update_ten_second_timer(ten_second_timer.time_left)
-	
-	#print(ambient_music_timer.wait_time)
 
 func change_from_hack_scene():
 	current_level.queue_free()
+	
 	EntityManager.new_level(0)
 	
 	var next_level = randi() % levels.size()
-	print(last_level, ", ", next_level)
 	while last_level == next_level:
 		next_level = randi() % levels.size()
 	
@@ -133,7 +131,6 @@ func _on_HUD_paused(paused):
 	get_tree().paused = paused
 
 func play_random_music():
-	print("play music")
 	var rng = randi() % musics.size()
 	ambient_music.stream = musics[rng]
 	ambient_music.play()
@@ -149,7 +146,6 @@ func _on_HUD_restart():
 	
 	current_level.queue_free()
 	var next_level = randi() % levels.size()
-	print(last_level, ", ", next_level)
 	while last_level == next_level:
 		next_level = randi() % levels.size()
 	

@@ -181,6 +181,7 @@ outlines = [ PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 ) ]
 7/z_index = 0
 
 [node name="lvl-facility1" type="TileMap"]
+position = Vector2( 16, 3 )
 tile_set = SubResource( 8 )
 cell_size = Vector2( 32, 32 )
 bake_navigation = true

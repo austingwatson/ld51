@@ -10,6 +10,8 @@ var chem_thrower_shot: AudioStreamPlayer
 var player_death: AudioStreamPlayer
 
 func _ready():
+	pause_mode = PAUSE_MODE_PROCESS
+	
 	player_shot = AudioStreamPlayer.new()
 	player_shot.stream = preload("res://sounds/sci-fi-sfx/misc_04.ogg")
 	player_shot.bus = "Sound"
@@ -48,7 +50,7 @@ func _ready():
 	player_death = AudioStreamPlayer.new()
 	player_death.stream = preload("res://sounds/player/die2.wav")
 	player_death.bus = "Sound"
-	add_child(player_grenade)
+	add_child(player_death)
 
 func play_sound(name):
 	match name:
@@ -73,3 +75,6 @@ func play_sound(name):
 		"chem-thrower-shot":
 			if !chem_thrower_shot.playing:
 				chem_thrower_shot.play()
+		"player-death":
+			if !player_death.playing:
+				player_death.play()

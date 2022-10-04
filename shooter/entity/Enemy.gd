@@ -36,7 +36,6 @@ func create(x, y):
 	position.y = y
 	
 	var attack_range_shape = $AttackRange/CollisionShape2D.shape
-	print(self, ": ", projectile_range, ", ", attack_range_shape.radius)
 
 func _physics_process(delta):
 	if state == STATE.MOVE || state == STATE.FLEE:
@@ -65,7 +64,6 @@ func process_ai(player):
 			if player_entered_sight:
 				state = STATE.MOVE
 			if can_use_attack && player_entered_attack:
-				print("can attack")
 				state = STATE.ATTACK
 	
 	if state != STATE.ATTACK:

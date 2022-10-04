@@ -83,6 +83,9 @@ func _process(delta):
 		for i in selected.size():
 			if selected[i]:
 				EntityManager.add_single_stat_to_player(buffs[i])
+				if buffs[i] == "debuff":
+					remove_buffs(2)
+				
 		select_amount = 0
 		buff_selector.visible = false
 		s1_button.set_pressed_no_signal(false)
@@ -99,7 +102,9 @@ func _process(delta):
 	
 func level_set_up(remove_amount):
 	player_health.update_player_health(EntityManager.player.health)
-	
+	remove_buffs(remove_amount)
+
+func remove_buffs(remove_amount):
 	var lower = buff_cards.size() - 1 - remove_amount
 	if lower <= 0:
 		lower = 0

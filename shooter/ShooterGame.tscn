@@ -15,9 +15,11 @@ wait_time = 9.99
 autostart = true
 
 [node name="AmbientMusic" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 bus = "Music"
 
 [node name="AmbientMusicTimer" type="Timer" parent="."]
+pause_mode = 2
 wait_time = 10.0
 autostart = true
 
