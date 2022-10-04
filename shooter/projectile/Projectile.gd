@@ -11,8 +11,6 @@ var explode_type = 0
 var shielding = false
 var hit_targets = []
 
-# temp value to see what explosion sound sh
-
 func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	position = owner.position
 	start_position = position
@@ -63,6 +61,7 @@ func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explo
 		$Sprite.play("default")
 		scale = Vector2(1, 1)
 	$Sprite.frame = 0
+	
 	hit_targets.clear()
 	
 	# what sound to play
@@ -87,13 +86,14 @@ func _process(delta):
 	if position.distance_to(start_position) >= distance:
 		if explode > 0:
 			EntityManager.create_explosion(self, damage, explode, dot, explode_type)
+		damage = 0
 		queue_free()
 
 func _on_Projectile_body_entered(body):	
 	# checks if the body that enters is a mob type class
 	# in godot 4 can use a more oop way to do it
 	# awful way to do this!!
-	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player" || body.get_class() == "Drone" || body.get_class() == "ChemThrower" || body.get_class() == "Soldier":
+	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player" || body.get_class() == "Drone" || body.get_class() == "ChemThrower":
 		for hit in hit_targets:
 			if hit == body:
 				return
@@ -123,6 +123,7 @@ func _on_Projectile_area_entered(area):
 		if pierce > 1:
 			pierce -= 1
 		else:
+			damage = 0
 			queue_free()
 
 func get_class():

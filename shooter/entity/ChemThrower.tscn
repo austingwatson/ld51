@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://shooter/entity/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/chemicalsoldier1-animsheet.png" type="Texture" id=2]
+[ext_resource path="res://shooter/entity/ChemThrower.gd" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -34,16 +35,18 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 
 [node name="ChemThrower" instance=ExtResource( 1 )]
-projectile_speed = 250
-projectile_range = 150
+script = ExtResource( 3 )
+speed = 150
+projectile_speed = 150
+projectile_range = 300
 projectile_dot_tick = 1
 projectile_explode = 1
-projectile_explode_type = 2
-sight_range = 750
+projectile_explode_type = 1
+sight_range = 700
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 5 )
-frame = 1
+frame = 3
 
 [node name="CollisionShape2D" parent="SightRange" index="0"]
 shape = SubResource( 6 )

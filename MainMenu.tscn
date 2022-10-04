@@ -167,8 +167,8 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )
 
 [node name="Title" type="Sprite" parent="."]
-position = Vector2( 975, 497 )
-scale = Vector2( 10, 10 )
+position = Vector2( 1111.5, 503.75 )
+scale = Vector2( 7.67969, 5.75781 )
 texture = ExtResource( 8 )
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]

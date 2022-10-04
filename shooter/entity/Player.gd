@@ -140,7 +140,14 @@ func ten_second_timer_timeout():
 		enemy_arrow_timer.start()
 
 func take_damage(damage):
+	if damage >= max_health:
+		damage = max_health - 1
+	
 	.take_damage(damage)
+	
+	if health <= 0:
+		SoundManager.play_sound("player-death")
+	
 	emit_signal("update_health", health)
 	player_hit.play()
 
