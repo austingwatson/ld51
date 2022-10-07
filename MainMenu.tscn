@@ -173,7 +173,6 @@ texture = ExtResource( 8 )
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
-autoplay = true
 bus = "Music"
 
 [node name="PlayMusicTimer" type="Timer" parent="."]
