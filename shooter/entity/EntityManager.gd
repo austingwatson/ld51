@@ -46,6 +46,12 @@ var player_attack_speed = 0
 
 var random = RandomNumberGenerator.new()
 
+# sizes of the enemies for spawning purposes
+const drone_size = Vector2(16.0, 16.0)
+const soldier_size = Vector2(16.0, 16.0)
+const general_size = Vector2(16.0, 16.0)
+const chem_thrower_size = Vector2(16.0, 16.0)
+
 func _ready():
 	random.randomize()
 
@@ -130,27 +136,27 @@ func spawn_full_enemies():
 	if spawners.size() > 0:
 		# drone amount
 		enemy_amount = get_roomba_amount(difficulty_modifier)
-		for i in range(1, enemy_amount):
+		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
-			spawner.spawn_one("roomba")
+			spawner.spawn_one("roomba", drone_size)
 		
 		# soldiers
 		enemy_amount = get_soldier_amount(difficulty_modifier)
-		for i in range(1, enemy_amount):
+		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
-			spawner.spawn_one("soldier")
+			spawner.spawn_one("soldier", soldier_size)
 		
 		# generals
 		enemy_amount = get_general_amount(difficulty_modifier)
-		for i in range(1, enemy_amount):
+		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
-			spawner.spawn_one("general")
+			spawner.spawn_one("general", general_size)
 			
 		# chem throwers
 		enemy_amount = get_chem_thrower_amount(difficulty_modifier)
-		for i in range(1, enemy_amount):
+		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
-			spawner.spawn_one("chem-thrower")
+			spawner.spawn_one("chem-thrower", chem_thrower_size)
 		
 	# turret amount
 	if turret_spawners.size() > 0:
@@ -197,8 +203,8 @@ func add_stats_to_player():
 # adds the entity to the main node
 # so it shows up on screen
 func add_node_to_root(node):
-	#shooter_game.call_deferred("add_child", node)
-	shooter_game.add_child(node)
+	shooter_game.call_deferred("add_child", node)
+	#shooter_game.add_child(node)
 
 func add_enemy(enemy):
 	enemies.append(enemy)
