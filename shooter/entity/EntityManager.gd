@@ -203,8 +203,8 @@ func add_stats_to_player():
 # adds the entity to the main node
 # so it shows up on screen
 func add_node_to_root(node):
-	shooter_game.call_deferred("add_child", node)
-	#shooter_game.add_child(node)
+	#shooter_game.call_deferred("add_child", node)
+	shooter_game.add_child(node)
 
 func add_enemy(enemy):
 	enemies.append(enemy)
