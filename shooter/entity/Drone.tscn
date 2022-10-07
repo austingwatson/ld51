@@ -43,14 +43,16 @@ projectile_pierce = 2
 sight_range = 1000
 
 [node name="AnimatedSprite" parent="." index="0"]
+scale = Vector2( 1, 1 )
 frames = SubResource( 5 )
-frame = 1
-
-[node name="NavigationAgent2D" parent="." index="4"]
-radius = 12.0
+frame = 2
 
 [node name="CollisionShape2D" parent="SightRange" index="0"]
 shape = SubResource( 6 )
 
 [node name="CollisionShape2D" parent="AttackRange" index="0"]
+visible = false
 shape = SubResource( 7 )
+
+[node name="NavigationAgent2D" parent="." index="9"]
+radius = 12.0

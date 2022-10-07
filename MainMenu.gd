@@ -12,6 +12,8 @@ onready var quit_sound = $VBoxContainer/Quit/AudioStreamPlayer
 onready var main_menu_music = $MainMenuMusic
 onready var play_music_timer = $PlayMusicTimer
 
+var start_music = false
+
 func _ready():
 	music_db = AudioServer.get_bus_index("Music")
 	sound_db = AudioServer.get_bus_index("Sound")
@@ -23,12 +25,17 @@ func _ready():
 	var current_scene = root.get_child(root.get_child_count() - 1)
 	self.connect("play", current_scene, "play")
 
+func _input(event):
+	if !start_music && event.is_pressed():
+		start_music = true
+		main_menu_music.play()
+
 func _on_Play_pressed():
 	emit_signal("play")
 
 func _on_Music_value_changed(value):
 	AudioServer.set_bus_volume_db(music_db, value)
-	if value == 0:
+	if value == -60:
 		AudioServer.set_bus_mute(music_db, true)
 	else:
 		AudioServer.set_bus_mute(music_db, false)

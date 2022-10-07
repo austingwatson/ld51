@@ -9,6 +9,9 @@ signal return_to_main_menu
 
 const buff_names = []
 
+# custom cursor
+var cursor_image = preload("res://assets/reticule.png")
+
 # levels 
 var levels = []
 const level1_scene = preload("res://shooter/level/lvl-facility1.tscn")
@@ -31,8 +34,7 @@ func _init():
 	randomize()
 
 func _ready():
-	var cursor_image = load("res://assets/reticule.png")
-	Input.set_custom_mouse_cursor(cursor_image, Input.CURSOR_ARROW, Vector2(8, 8))
+	Input.set_custom_mouse_cursor(cursor_image)
 	
 	EntityManager.shooter_game = self
 	

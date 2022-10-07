@@ -206,7 +206,7 @@ func _on_Music_value_changed(value):
 
 func _on_Volume_value_changed(value):
 	AudioServer.set_bus_volume_db(sound_db, value)
-	if value == 0:
+	if value == -60:
 		AudioServer.set_bus_mute(sound_db, true)
 	else:
 		AudioServer.set_bus_mute(sound_db, false)

@@ -15,5 +15,10 @@ func _ready():
 	ux = lx + rect_size.x
 	uy = ly + rect_size.y
 		
-func spawn_one(type):
-	EntityManager.create_enemy(type, rand_range(lx, ux), rand_range(ly, uy))
+func spawn_one(type, size):
+	var x = rand_range(lx + size.x / 2, ux - size.x / 2)
+	var y = rand_range(ly + size.y / 2, uy + size.y / 2)
+	
+	print(x, y)
+	
+	EntityManager.create_enemy(type, x, y)
