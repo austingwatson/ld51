@@ -35,7 +35,7 @@ func _on_Play_pressed():
 
 func _on_Music_value_changed(value):
 	AudioServer.set_bus_volume_db(music_db, value)
-	if value == 0:
+	if value == -60:
 		AudioServer.set_bus_mute(music_db, true)
 	else:
 		AudioServer.set_bus_mute(music_db, false)

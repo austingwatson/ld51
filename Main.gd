@@ -7,7 +7,7 @@ var current_scene: Node
 
 func _ready():
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), -24)
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Volume"), -24)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound"), -24)
 	
 	var main_menu = main_menu_scene.instance()
 	current_scene = main_menu

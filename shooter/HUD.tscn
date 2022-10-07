@@ -348,7 +348,6 @@ texture = ExtResource( 12 )
 position = Vector2( 940, 540 )
 scale = Vector2( 20, 20 )
 frames = SubResource( 11 )
-frame = 1
 playing = true
 
 [node name="Dead" type="Label" parent="DeathScreen"]
