@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://shooter/level/facility-tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://shooter/level-editor/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://shooter/level-editor/TurretSpawn.tscn" type="PackedScene" id=5]
 [ext_resource path="res://shooter/level-editor/AcidPool.tscn" type="PackedScene" id=6]
 [ext_resource path="res://shooter/level-editor/Crate.tscn" type="PackedScene" id=7]
+[ext_resource path="res://shooter/level-editor/LevelModifier.tscn" type="PackedScene" id=8]
 
 [node name="lvl-facility1" type="TileMap"]
 position = Vector2( 16, 3 )
@@ -43,3 +44,6 @@ position = Vector2( 480, 441 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 224, 421 )
+
+[node name="LevelModifier" parent="." instance=ExtResource( 8 )]
+level_modifier = 0.5

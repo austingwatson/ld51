@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://shooter/level-editor/Prop.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/level-editor/CollidableProp.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://shooter/level-editor/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://shooter/level/facility-tiles.tres" type="TileSet" id=7]
 [ext_resource path="res://assets/props-spritesheet1.png" type="Texture" id=8]
+[ext_resource path="res://shooter/level-editor/LevelModifier.tscn" type="PackedScene" id=9]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 8 )
@@ -207,3 +208,6 @@ texture = SubResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 position = Vector2( 142, 225 )
+
+[node name="LevelModifier" parent="." instance=ExtResource( 9 )]
+level_modifier = 0.5

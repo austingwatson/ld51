@@ -8,8 +8,6 @@ onready var enemy_cutscene = $EnemyCutscene
 
 signal zoom_out_player
 
-const buff_names = []
-
 # custom cursor
 var cursor_image = preload("res://assets/reticule.png")
 
@@ -41,15 +39,6 @@ func _ready():
 	
 	EntityManager.shooter_game = self
 	
-	buff_names.append("health")
-	buff_names.append("speed")
-	buff_names.append("damage")
-	buff_names.append("amount")
-	buff_names.append("dot")
-	buff_names.append("range")
-	buff_names.append("attack-speed")
-	buff_names.append("spawn")
-	
 	levels.append(level1_scene)
 	levels.append(level2_scene)
 	levels.append(level3_scene)
@@ -61,6 +50,9 @@ func _ready():
 	
 	last_level = randi() % levels.size()
 	var level = levels[last_level].instance()
+	if level.has_node("LevelModifier"):
+		EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+	
 	current_level = level
 	add_child(level, 1)
 	
@@ -90,6 +82,9 @@ func change_from_hack_scene():
 		next_level = randi() % levels.size()
 	
 	var level = levels[next_level].instance()
+	if level.has_node("LevelModifier"):
+		EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+	
 	last_level = next_level
 	add_child(level)
 	EntityManager.spawn_full_enemies()
@@ -106,17 +101,9 @@ func change_from_hack_scene():
 # this function is called every ten seconds
 # this will add a difficulty modifier to the game
 func _on_TenSecondTimer_timeout():
-	# randomize the next enemy buff card
-	# if all enemies are dead, no more can spawn
-	# this level, but other cards can work
-	var rng = 0
-	if EntityManager.enemies.size() == 0:
-		rng = randi() % (buff_names.size() - 1)
-	else:
-		rng = randi() % buff_names.size()
-	EntityManager.add_buff_to_enemies(buff_names[rng])
+	var buff = EntityManager.add_buff_to_enemies()
 	
-	hud.show_buff_card(buff_names[rng])
+	hud.show_buff_card(buff)
 	EntityManager.player.ten_second_timer_timeout()
 
 func _on_Player_update_health(health):
@@ -156,10 +143,10 @@ func _on_HUD_restart():
 	
 	current_level.queue_free()
 	var next_level = randi() % levels.size()
-	while last_level == next_level:
-		next_level = randi() % levels.size()
-	
 	var level = levels[next_level].instance()
+	if level.has_node("LevelModifier"):
+		EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+	
 	last_level = next_level
 	current_level = level
 	add_child(level)

@@ -3,6 +3,7 @@ class_name Mob extends KinematicBody2D
 # child nodes
 onready var attack = $AttackCD
 onready var animation = $AnimatedSprite
+onready var attack_cd = $AttackCD
 
 export var max_health = 1
 var health = 1
@@ -51,7 +52,6 @@ func _process(delta):
 	rotation_degrees += 90.0
 
 func change_attack_speed():
-	var attack_cd = get_node("AttackCD")
 	attack_cd.wait_time = projectile_attack_speed
 
 func take_damage(damage):
