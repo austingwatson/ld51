@@ -21,6 +21,7 @@ onready var s2_button = $BuffSelector/VBoxContainer/Selection2/S2Button
 onready var s3_button = $BuffSelector/VBoxContainer/Selection3/S3Button
 onready var death_screen = $DeathScreen
 onready var grenade_amount = $GrenadeAmount
+onready var fps = $FPS
 
 signal paused(paused)
 signal done_hacking
@@ -99,6 +100,8 @@ func _process(delta):
 	if EntityManager.player.health <= 0:
 		emit_signal("paused", true)
 		death_screen.visible = true
+		
+	fps.text = "FPS: " + str(Engine.get_frames_per_second())
 	
 func level_set_up(remove_amount):
 	player_health.update_player_health(EntityManager.player.health)
