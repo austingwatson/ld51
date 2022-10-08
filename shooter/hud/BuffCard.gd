@@ -40,7 +40,7 @@ func show_card(x, y, buff):
 			buff_text.text = "+bullet"
 		"spawn":
 			texture = buff_spawn_texture
-			buff_text.text = "+spawn"
+			buff_text.text = "+duplicate"
 		"dot":
 			texture = buff_dot_texture
 			buff_text.text = "+acid"

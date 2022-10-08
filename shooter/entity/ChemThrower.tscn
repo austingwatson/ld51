@@ -27,7 +27,8 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="ChemThrower" groups=["ChemThrower", "Mob"] instance=ExtResource( 1 )]
+[node name="ChemThrower" groups=["ChemThrower"] instance=ExtResource( 1 )]
+enemy_name = "chem-thrower"
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 5 )
