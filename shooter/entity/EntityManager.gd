@@ -25,8 +25,33 @@ var spawners = []
 var turret_spawners = []
 
 # current buffs that the enemies have
-# stored in an int array
-var buffs = []
+# := means that the variable cannot change types
+const buff_names = []
+
+const min_health = 0
+const min_speed = 0
+const min_damage = 0
+const min_amount = 0
+const min_dot = 0
+const min_proj_range = 0
+const min_attack_speed = 0.0
+
+const max_health = 1000
+const max_speed = 1000
+const max_damage = 1000
+const max_amount = 1000
+const max_dot = 1000
+const max_proj_range = 1000
+const max_attack_speed = 100.0
+
+var current_health := 0
+var current_speed := 0
+var current_damage := 0
+var current_amount := 0
+var current_dot := 0
+var current_proj_range := 0
+var current_attack_speed := 0.0
+
 const health = 1
 const speed = 25
 const damage = 1
@@ -54,7 +79,26 @@ const general_size = Vector2(16.0, 16.0)
 const chem_thrower_size = Vector2(16.0, 16.0)
 
 func _ready():
+	buff_names.append("health")
+	buff_names.append("speed")
+	buff_names.append("damage")
+	buff_names.append("amount")
+	buff_names.append("dot")
+	buff_names.append("range")
+	buff_names.append("attack-speed")
+	buff_names.append("spawn")
+	
 	random.randomize()
+
+func _process(delta):
+	print()
+	print(current_health)
+	print(current_speed)
+	print(current_damage)
+	print(current_amount)
+	print(current_dot)
+	print(current_proj_range)
+	print(current_attack_speed)
 
 # restarts a level, removing some buffs
 func new_level(remove_amount):
@@ -76,11 +120,38 @@ func new_level(remove_amount):
 	remove_buffs(remove_amount)
 
 func remove_buffs(remove_amount):
-	var lower = buffs.size() - 1 - remove_amount
-	if lower <= 0:
-		lower = 0
-	for i in range(buffs.size() - 1, lower, -1):
-		buffs.remove(i)
+	for i in range(0, remove_amount):
+		var rng = randi() % buff_names.size()
+		
+		match rng:
+			0:
+				current_health -= health
+				if current_health < min_health:
+					current_health = min_health
+			1:
+				current_speed -= speed
+				if current_speed < min_speed:
+					current_speed = min_speed
+			2:
+				current_damage -= damage
+				if current_damage < min_damage:
+					current_damage = min_damage
+			3:
+				current_amount -= amount
+				if current_amount < min_amount:
+					current_amount = min_amount
+			4:
+				current_dot -= dot
+				if current_dot < min_dot:
+					current_dot = min_dot
+			5:
+				current_proj_range -= proj_range
+				if current_proj_range < min_proj_range:
+					current_proj_range = min_proj_range
+			6:
+				current_attack_speed -= attack_speed
+				if current_attack_speed < min_attack_speed:
+					current_attack_speed = min_attack_speed
 
 # this function might cause the game to crass
 # will have to try and see if it is overloading
@@ -106,7 +177,13 @@ func restart():
 		turret_spawner.queue_free()
 	turret_spawners.clear()
 	
-	buffs.clear()
+	current_health = 0
+	current_speed = 0
+	current_damage = 0
+	current_amount = 0
+	current_dot = 0
+	current_proj_range = 0
+	current_attack_speed = 0.0
 	
 	player_health = 0
 	player_grenades = 0
@@ -212,8 +289,8 @@ func add_enemy(enemy):
 	
 	add_node_to_root(enemy)
 	
-	for buff in buffs:
-		add_buff_to_enemy(enemy, buff)
+	#for buff in buffs:
+	#	add_buff_to_enemy(enemy, buff)
 
 func create_multi_enemy(type, x, y, amount):
 	for i in amount:
@@ -272,16 +349,55 @@ func register_spawner(spawner):
 func register_turret_spawner(spawner):
 	turret_spawners.append(spawner)
 	
-func add_buff_to_enemies(buff):
-	pass
+func add_buff_to_enemies():
+	# randomize the next enemy buff card
+	# if all enemies are dead, no more can spawn
+	# this level, but other cards can work
+	var rng = 0
+	if EntityManager.enemies.size() == 0:
+		rng = randi() % (buff_names.size() - 1)
+	else:
+		rng = randi() % buff_names.size()
+	var buff = buff_names[rng]
+	
 	if buff != "spawn":
-		buffs.append(buff)
+		match buff:
+			"health":
+				current_health += health
+				if current_health > max_health:
+					current_health = max_health
+			"speed":
+				current_speed += speed
+				if current_speed > max_speed:
+					current_speed = max_speed
+			"damage":
+				current_damage += damage
+				if current_damage > max_damage:
+					current_damage = max_damage
+			"amount":
+				current_amount += amount
+				if current_amount > max_amount:
+					current_amount = max_amount
+			"dot":
+				current_dot += dot
+				if current_dot > max_dot:
+					current_dot = max_dot
+			"range":
+				current_proj_range += proj_range
+				if current_proj_range > max_proj_range:
+					current_proj_range = max_proj_range
+			"attack-speed":
+				current_attack_speed += attack_speed
+				if current_attack_speed > max_attack_speed:
+					current_attack_speed = max_attack_speed
 	else:
 		var enemy = enemies[randi() % enemies.size()]
 		create_enemy("random", enemy.position.x + 10, enemy.position.y)
 
 	for enemy in enemies:
 		add_buff_to_enemy(enemy, buff)
+		
+	return buff
 	
 func add_buff_to_enemy(enemy, buff):
 	match buff:

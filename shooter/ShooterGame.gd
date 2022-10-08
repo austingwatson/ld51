@@ -8,8 +8,6 @@ onready var enemy_cutscene = $EnemyCutscene
 
 signal zoom_out_player
 
-const buff_names = []
-
 # custom cursor
 var cursor_image = preload("res://assets/reticule.png")
 
@@ -40,15 +38,6 @@ func _ready():
 	Input.set_custom_mouse_cursor(cursor_image)
 	
 	EntityManager.shooter_game = self
-	
-	buff_names.append("health")
-	buff_names.append("speed")
-	buff_names.append("damage")
-	buff_names.append("amount")
-	buff_names.append("dot")
-	buff_names.append("range")
-	buff_names.append("attack-speed")
-	buff_names.append("spawn")
 	
 	levels.append(level1_scene)
 	levels.append(level2_scene)
@@ -112,17 +101,9 @@ func change_from_hack_scene():
 # this function is called every ten seconds
 # this will add a difficulty modifier to the game
 func _on_TenSecondTimer_timeout():
-	# randomize the next enemy buff card
-	# if all enemies are dead, no more can spawn
-	# this level, but other cards can work
-	var rng = 0
-	if EntityManager.enemies.size() == 0:
-		rng = randi() % (buff_names.size() - 1)
-	else:
-		rng = randi() % buff_names.size()
-	EntityManager.add_buff_to_enemies(buff_names[rng])
+	var buff = EntityManager.add_buff_to_enemies()
 	
-	hud.show_buff_card(buff_names[rng])
+	hud.show_buff_card(buff)
 	EntityManager.player.ten_second_timer_timeout()
 
 func _on_Player_update_health(health):
