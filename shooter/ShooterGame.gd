@@ -3,9 +3,10 @@ extends Node
 # child nodes
 onready var ten_second_timer = $TenSecondTimer
 onready var hud = $HUD
+onready var player_cutscene = $PlayerCutscene
+onready var enemy_cutscene = $EnemyCutscene
 
 signal zoom_out_player
-signal return_to_main_menu
 
 const buff_names = []
 
@@ -30,6 +31,8 @@ const music1 = preload("res://sounds/sci-fi-sfx/loop_ambient_01.ogg")
 const music2 = preload("res://sounds/computer-room-ambience.mp3")
 const musics = []
 
+var on_new_level = false
+
 func _init():
 	randomize()
 
@@ -52,19 +55,19 @@ func _ready():
 	levels.append(level3_scene)
 	levels.append(level4_scene)
 	levels.append(level5_scene)
-	last_level = randi() % levels.size()
-	var level = levels[last_level].instance()
-	add_child(level)
-	EntityManager.spawn_full_enemies()
-	current_level = level
-	hud.level_set_up(0)
 	
 	musics.append(music1)
 	musics.append(music2)
 	
-	var root = get_tree().root
-	var current_scene = root.get_child(root.get_child_count() - 1)
-	self.connect("return_to_main_menu", current_scene, "return_to_main_menu")
+	last_level = randi() % levels.size()
+	var level = levels[last_level].instance()
+	current_level = level
+	add_child(level, 1)
+	
+	hud.level_set_up(0)
+	
+	player_cutscene.start_all()
+	get_tree().paused = true
 
 func _input(event):
 	pass
@@ -76,6 +79,8 @@ func _process(delta):
 	hud.update_ten_second_timer(ten_second_timer.time_left)
 
 func change_from_hack_scene():
+	enemy_cutscene.end_cutscene()
+	
 	current_level.queue_free()
 	
 	EntityManager.new_level(0)
@@ -118,6 +123,8 @@ func _on_Player_update_health(health):
 	hud.update_player_health(health)
 	
 func player_used_computer():
+	on_new_level = true
+	enemy_cutscene.start_random()
 	ten_second_timer.paused = true
 	
 	for child in current_level.get_children():
@@ -144,6 +151,7 @@ func _on_AmbientMusic_finished():
 	ambient_music_timer.start()
 
 func _on_HUD_restart():
+	on_new_level = false
 	EntityManager.restart()
 	
 	current_level.queue_free()
@@ -153,16 +161,23 @@ func _on_HUD_restart():
 	
 	var level = levels[next_level].instance()
 	last_level = next_level
-	add_child(level)
-	EntityManager.spawn_full_enemies()
 	current_level = level
+	add_child(level)
 	
-	for child in current_level.get_children():
-		if child.get_name() == "Player":
-			child.start_zoom()
-			#ten_second_timer.start()
-			ten_second_timer.paused = false
-			break
+	player_cutscene.start_all()
+	get_tree().paused = true
+
+func _on_PlayerCutscene_done_processing():
+	EntityManager.spawn_full_enemies()
+	
+	if on_new_level:
+		on_new_level = false
+		for child in current_level.get_children():
+			if child.get_name() == "Player":
+				child.start_zoom()
+				#ten_second_timer.start()
+				ten_second_timer.paused = false
+				break
 	
 	ten_second_timer.start()
 	get_tree().paused = false
