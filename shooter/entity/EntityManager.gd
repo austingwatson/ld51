@@ -284,7 +284,7 @@ func add_enemy(enemy):
 	enemy.projectile_dot_tick += current_dot
 	
 	enemy.projectile_range += current_proj_range
-	if enemy.get_class() == "Enemy":
+	if enemy.is_in_group("Enemy"):
 		enemy.add_sight_range(current_proj_range)
 		
 	enemy.projectile_attack_speed -= current_attack_speed
@@ -387,7 +387,7 @@ func add_buff_to_enemies():
 					current_attack_speed = max_attack_speed
 	else:
 		var enemy = enemies[randi() % enemies.size()]
-		create_enemy("random", enemy.position.x + 10, enemy.position.y)
+		create_enemy(enemy.enemy_name, enemy.position.x + 10, enemy.position.y)
 
 	for enemy in enemies:
 		add_buff_to_enemy(enemy, buff)

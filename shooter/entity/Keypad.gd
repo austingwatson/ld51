@@ -9,7 +9,7 @@ signal zoom_done
 var zoom = false
 const min_zoom_level = 0.04
 const max_zoom_level = 0.4
-const zoom_amount = 0.004
+const zoom_amount = 0.4
 
 func _ready():
 	tool_tip.visible = false
@@ -27,18 +27,19 @@ func _process(delta):
 		tool_tip.text = "Must kill all enemies to use"
 		
 	if zoom:		
-		camera.zoom -= Vector2(zoom_amount, zoom_amount)
+		camera.zoom -= Vector2(zoom_amount * delta, zoom_amount * delta)
+		print(camera.zoom)
 		if camera.zoom <= Vector2(min_zoom_level, min_zoom_level):
 			camera.zoom = Vector2(min_zoom_level, min_zoom_level)
 			zoom = false
 			emit_signal("zoom_done")
 
 func _on_Keypad_body_entered(body):
-	if body.get_class() == "Player":
+	if body.is_in_group("Player"):
 		tool_tip.visible = true
 
 func _on_Keypad_body_exited(body):
-	if body.get_class() == "Player":
+	if body.is_in_group("Player"):
 		tool_tip.visible = false
 
 func start_zoom():
