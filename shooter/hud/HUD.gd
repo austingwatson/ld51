@@ -27,7 +27,7 @@ signal paused(paused)
 signal done_hacking
 signal restart()
 
-const buff_card_scene = preload("res://shooter/BuffCard.tscn")
+const buff_card_scene = preload("res://shooter/hud/BuffCard.tscn")
 var buff_cards = []
 var next_x = 0
 var next_y = 0

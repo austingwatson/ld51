@@ -1,20 +1,20 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://assets/card-damage.png" type="Texture" id=2]
+[ext_resource path="res://shooter/hud/BuffCard.gd" type="Script" id=1]
+[ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/skull.png" type="Texture" id=3]
-[ext_resource path="res://shooter/BuffCard.gd" type="Script" id=4]
+[ext_resource path="res://assets/card-damage.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=7]
 size = 12
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 1 )
+font_data = ExtResource( 2 )
 
 [node name="BuffCard" type="Sprite"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 2 )
-script = ExtResource( 4 )
+texture = ExtResource( 4 )
+script = ExtResource( 1 )
 
 [node name="BuffText" type="Label" parent="."]
 margin_left = -28.0
