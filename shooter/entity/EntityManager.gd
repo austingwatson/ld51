@@ -90,16 +90,6 @@ func _ready():
 	
 	random.randomize()
 
-func _process(delta):
-	print()
-	print(current_health)
-	print(current_speed)
-	print(current_damage)
-	print(current_amount)
-	print(current_dot)
-	print(current_proj_range)
-	print(current_attack_speed)
-
 # restarts a level, removing some buffs
 func new_level(remove_amount):
 	difficulty_modifier += 1
@@ -257,7 +247,6 @@ func add_single_stat_to_player(stat):
 			player_dot += dot
 		"range":
 			player_range += proj_range
-			pass
 		"grenade":
 			player_grenades += 1
 		"debuff":
@@ -286,11 +275,21 @@ func add_node_to_root(node):
 
 func add_enemy(enemy):
 	enemies.append(enemy)
-	
 	add_node_to_root(enemy)
 	
-	#for buff in buffs:
-	#	add_buff_to_enemy(enemy, buff)
+	enemy.max_health += current_health
+	enemy.health += current_health
+	enemy.speed += current_speed
+	enemy.projectile_damage += current_damage
+	enemy.projectile_amount += current_amount
+	enemy.projectile_dot_tick += current_dot
+	
+	enemy.projectile_range += current_proj_range
+	if enemy.get_class() == "Enemy":
+		enemy.add_sight_range(current_proj_range)
+		
+	enemy.projectile_attack_speed -= current_attack_speed
+	enemy.change_attack_speed()
 
 func create_multi_enemy(type, x, y, amount):
 	for i in amount:
