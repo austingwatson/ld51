@@ -3,7 +3,7 @@
 [ext_resource path="res://shooter/Background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/hud/PlayerCutscene.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shooter/ShooterGame.gd" type="Script" id=3]
-[ext_resource path="res://shooter/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://shooter/hud/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://shooter/hud/EnemyCutscene.tscn" type="PackedScene" id=5]
 
 [node name="ShooterGame" type="Node"]

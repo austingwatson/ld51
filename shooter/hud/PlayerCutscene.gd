@@ -58,12 +58,14 @@ func _process(delta):
 				EndCutsceneTimer.start()
 
 func start_text(dialogue_sequence):
+	dialogue_sequence.clear()
 	visible = true
 	self.dialogue_sequence = dialogue_sequence
 	
 	play_text(dialogue_sequence[current_dialogue])
 
 func start_random():
+	dialogue_sequence.clear()
 	visible = true
 	var rng = randi() % dialogue.size()
 	self.dialogue_sequence = [rng]
@@ -71,6 +73,7 @@ func start_random():
 	play_text(dialogue_sequence[current_dialogue])
 
 func start_all():
+	dialogue_sequence.clear()
 	visible = true
 	for i in range(0, dialogue.size() - 1):
 		dialogue_sequence.append(i)
