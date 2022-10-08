@@ -15,6 +15,7 @@ var shooter_game: Node
 
 # needed to track which nodes to buff every ten seconds
 var difficulty_modifier = 1
+var level_modifier = -1
 var enemies = []
 var player = null
 var keypad = null
@@ -135,32 +136,32 @@ func spawn_full_enemies():
 	
 	if spawners.size() > 0:
 		# drone amount
-		enemy_amount = get_roomba_amount(difficulty_modifier)
+		enemy_amount = get_roomba_amount(difficulty_modifier * level_modifier)
 		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
 			spawner.spawn_one("roomba", drone_size)
 		
 		# soldiers
-		enemy_amount = get_soldier_amount(difficulty_modifier)
+		enemy_amount = get_soldier_amount(difficulty_modifier * level_modifier)
 		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
 			spawner.spawn_one("soldier", soldier_size)
 		
 		# generals
-		enemy_amount = get_general_amount(difficulty_modifier)
+		enemy_amount = get_general_amount(difficulty_modifier * level_modifier)
 		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
 			spawner.spawn_one("general", general_size)
 			
 		# chem throwers
-		enemy_amount = get_chem_thrower_amount(difficulty_modifier)
+		enemy_amount = get_chem_thrower_amount(difficulty_modifier * level_modifier)
 		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
 			spawner.spawn_one("chem-thrower", chem_thrower_size)
 		
 	# turret amount
 	if turret_spawners.size() > 0:
-		enemy_amount = get_turret_amount(difficulty_modifier)
+		enemy_amount = get_turret_amount(difficulty_modifier * level_modifier)
 		for i in range(1, enemy_amount):
 			var turret_spawner = turret_spawners[randi() % turret_spawners.size()]
 			turret_spawner.spawn_one()

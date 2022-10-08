@@ -61,6 +61,9 @@ func _ready():
 	
 	last_level = randi() % levels.size()
 	var level = levels[last_level].instance()
+	if level.has_node("LevelModifier"):
+		EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+	
 	current_level = level
 	add_child(level, 1)
 	
@@ -90,6 +93,9 @@ func change_from_hack_scene():
 		next_level = randi() % levels.size()
 	
 	var level = levels[next_level].instance()
+	if level.has_node("LevelModifier"):
+		EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+	
 	last_level = next_level
 	add_child(level)
 	EntityManager.spawn_full_enemies()
@@ -156,10 +162,10 @@ func _on_HUD_restart():
 	
 	current_level.queue_free()
 	var next_level = randi() % levels.size()
-	while last_level == next_level:
-		next_level = randi() % levels.size()
-	
 	var level = levels[next_level].instance()
+	if level.has_node("LevelModifier"):
+		EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+	
 	last_level = next_level
 	current_level = level
 	add_child(level)
