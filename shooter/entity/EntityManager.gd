@@ -3,7 +3,6 @@ extends Node
 # preload all needed entity scenes
 const projectile_scene = preload("res://shooter/projectile/Projectile.tscn")
 const explosion_scene = preload("res://shooter/projectile/Explosion.tscn")
-const test_enemy_scene = preload("res://shooter/test/TestEnemy.tscn")
 const turret_scene = preload("res://shooter/entity/Turret.tscn")
 const soldier_scene = preload("res://shooter/entity/Soldier.tscn")
 const general_scene = preload("res://shooter/entity/General.tscn")
@@ -312,9 +311,6 @@ func create_enemy(type, x, y):
 					create_enemy("chem-thrower", x, y)
 		"turret":
 			enemy = turret_scene.instance()
-			enemy.create(x, y)
-		"test-enemy":
-			enemy = test_enemy_scene.instance()
 			enemy.create(x, y)
 		"roomba":
 			enemy = drone_scene.instance()

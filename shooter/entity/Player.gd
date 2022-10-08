@@ -169,9 +169,6 @@ func _on_GrenadeTimer_timeout():
 
 func _on_MeleeTimer_timeout():
 	can_use_melee = true		
-		
-func get_class():
-	return "Player"
 	
 func _on_Timer_timeout():
 	enemy_arrow.visible = false

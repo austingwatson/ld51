@@ -44,17 +44,17 @@ func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explo
 	if shielding:
 		$Sprite.play("shield")
 		scale = Vector2(4, 4)
-	elif owner.get_class() == "Player":
+	elif owner.is_in_group("Player"):
 		if explode > 0:
 			$Sprite.play("shock")
 			scale = Vector2(3, 3)
 		else:
 			$Sprite.play("player_bullet")
 			scale = Vector2(1, 1)
-	elif owner.get_class() == "ChemThrower":
+	elif owner.is_in_group("ChemThrower"):
 		$Sprite.play("slime")
 		scale = Vector2(3, 3)
-	elif owner.get_class() == "Drone":
+	elif owner.is_in_group("Drone"):
 		$Sprite.play("close_shock")
 		scale = Vector2(4, 4)
 	else:
@@ -65,16 +65,16 @@ func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explo
 	hit_targets.clear()
 	
 	# what sound to play
-	if owner.get_class() == "Player":
+	if owner.is_in_group("Player"):
 		if explode > 0:
 			SoundManager.play_sound("player-grenade")
 		elif shielding:
 			SoundManager.play_sound("player-melee")
 		else:
 			SoundManager.play_sound("player-shot")
-	elif owner.get_class() == "Drone":
+	elif owner.is_in_group("Drone"):
 		SoundManager.play_sound("drone-shot")
-	elif owner.get_class() == "ChemThrower":
+	elif owner.is_in_group("ChemThrower"):
 		SoundManager.play_sound("chem-thrower-shot")
 	else:
 		SoundManager.play_sound("soldier-shot")
@@ -93,7 +93,7 @@ func _on_Projectile_body_entered(body):
 	# checks if the body that enters is a mob type class
 	# in godot 4 can use a more oop way to do it
 	# awful way to do this!!
-	if body.get_class() == "Mob" || body.get_class() == "Enemy" || body.get_class() == "Player" || body.get_class() == "Drone" || body.get_class() == "ChemThrower":
+	if body.is_in_group("Mob"):
 		for hit in hit_targets:
 			if hit == body:
 				return
@@ -117,7 +117,7 @@ func _on_Projectile_body_entered(body):
 		queue_free()
 
 func _on_Projectile_area_entered(area):
-	if shielding && area.get_class() == "Projectile":
+	if shielding && area.is_in_group("Projectile"):
 		area.queue_free()
 	if area.get_class() == "Crate":
 		if pierce > 1:
@@ -125,6 +125,3 @@ func _on_Projectile_area_entered(area):
 		else:
 			damage = 0
 			queue_free()
-
-func get_class():
-	return "Projectile"

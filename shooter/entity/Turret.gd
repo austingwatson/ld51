@@ -1,5 +1,7 @@
 extends "Mob.gd"
 
+export var attack_range = 100
+
 func create(x, y):
 	position.x = x
 	position.y = y
@@ -7,11 +9,9 @@ func create(x, y):
 
 func process_ai(player):
 	target = player.position
-
-func _on_AttackRange_body_entered(body):
-	if body.get_class() == "Player":
+	
+	if player_in_attack(player.position):
 		use_attack = true
 
-func _on_AttackRange_body_exited(body):
-	if body.get_class() == "Player":
-		use_attack = false
+func player_in_attack(position: Vector2) -> bool:
+	return self.position.distance_to(position) <= attack_range

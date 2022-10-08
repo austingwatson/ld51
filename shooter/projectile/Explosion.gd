@@ -32,7 +32,7 @@ func _process(delta):
 		queue_free()
 
 func _on_Grenade_body_entered(body):
-	if body.get_class() == "Mob" || body.get_class() == "Player" || body.get_class() == "Enemy" || body.get_class() == "Drone" || body.get_class() == "ChemThrower":
+	if body.is_in_group("Mob"):
 		if initial_damage:
 			body.take_damage(damage)
 			
