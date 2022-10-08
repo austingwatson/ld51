@@ -1,4 +1,4 @@
-class_name Projectile extends Area2D
+extends Area2D
 
 var velocity = Vector2.ZERO
 var start_position = Vector2.ZERO
@@ -90,9 +90,6 @@ func _process(delta):
 		queue_free()
 
 func _on_Projectile_body_entered(body):	
-	# checks if the body that enters is a mob type class
-	# in godot 4 can use a more oop way to do it
-	# awful way to do this!!
 	if body.is_in_group("Mob"):
 		for hit in hit_targets:
 			if hit == body:
@@ -119,7 +116,7 @@ func _on_Projectile_body_entered(body):
 func _on_Projectile_area_entered(area):
 	if shielding && area.is_in_group("Projectile"):
 		area.queue_free()
-	if area.get_class() == "Crate":
+	elif area.is_in_group("Crate"):
 		if pierce > 1:
 			pierce -= 1
 		else:

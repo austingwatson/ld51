@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://shooter/entity/Enemy.gd"
 }, {
-"base": "",
+"base": "EditorVCSInterface",
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://addons/godot-git-plugin/git_api.gdns"
@@ -28,18 +28,12 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://shooter/entity/Player.gd"
-}, {
-"base": "Area2D",
-"class": "Projectile",
-"language": "GDScript",
-"path": "res://shooter/projectile/Projectile.gd"
 } ]
 _global_script_class_icons={
 "Enemy": "",
 "GitAPI": "",
 "Mob": "",
-"Player": "",
-"Projectile": ""
+"Player": ""
 }
 
 [application]
@@ -52,6 +46,10 @@ config/icon="res://icon.png"
 
 EntityManager="*res://shooter/entity/EntityManager.gd"
 SoundManager="*res://SoundManager.gd"
+
+[debug]
+
+settings/fps/force_fps=60
 
 [display]
 
