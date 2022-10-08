@@ -13,7 +13,6 @@ const zoom_amount = 0.4
 
 func _ready():
 	tool_tip.visible = false
-	tool_tip.set_as_toplevel(true)
 	
 	self.connect("zoom_done", EntityManager.shooter_game, "change_to_hack_scene")
 	
