@@ -1,11 +1,11 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://shooter/HUD.gd" type="Script" id=1]
+[ext_resource path="res://shooter/hud/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/hpbase.png" type="Texture" id=2]
 [ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/timerbanner.png" type="Texture" id=4]
 [ext_resource path="res://assets/menuscreen-buttonready.png" type="Texture" id=5]
-[ext_resource path="res://shooter/PlayerHealth.gd" type="Script" id=6]
+[ext_resource path="res://shooter/hud/PlayerHealth.gd" type="Script" id=6]
 [ext_resource path="res://assets/computerscreenmenu.png" type="Texture" id=7]
 [ext_resource path="res://assets/grabber.png" type="Texture" id=8]
 [ext_resource path="res://assets/menuscreen-buttonpressed.png" type="Texture" id=9]
@@ -83,6 +83,9 @@ animations = [ {
 size = 128
 outline_size = 3
 outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=14]
 font_data = ExtResource( 3 )
 
 [node name="HUD" type="CanvasLayer"]
@@ -348,6 +351,7 @@ texture = ExtResource( 12 )
 position = Vector2( 940, 540 )
 scale = Vector2( 20, 20 )
 frames = SubResource( 11 )
+frame = 1
 playing = true
 
 [node name="Dead" type="Label" parent="DeathScreen"]
@@ -368,6 +372,12 @@ margin_bottom = 618.0
 custom_fonts/font = SubResource( 8 )
 text = "Press R to
 try again!"
+
+[node name="FPS" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 14 )
+text = "FPS: 0"
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="value_changed" from="PauseMenu/VBoxContainer/Music" to="." method="_on_Music_value_changed"]

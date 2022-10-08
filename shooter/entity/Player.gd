@@ -27,7 +27,7 @@ var use_melee = false
 var zoom = false
 const min_zoom_level = 0.04
 const max_zoom_level = 0.4
-const zoom_amount = 0.004
+const zoom_amount = 0.4
 
 var closest_enemy = Vector2.ZERO
 	
@@ -102,7 +102,7 @@ func _process(delta):
 	target = get_global_mouse_position()
 	
 	if zoom:
-		camera.zoom += Vector2(zoom_amount, zoom_amount)
+		camera.zoom += Vector2(zoom_amount * delta, zoom_amount * delta)
 		if camera.zoom >= Vector2(max_zoom_level, max_zoom_level):
 			camera.zoom = Vector2(max_zoom_level, max_zoom_level)
 			zoom = false
@@ -169,9 +169,6 @@ func _on_GrenadeTimer_timeout():
 
 func _on_MeleeTimer_timeout():
 	can_use_melee = true		
-		
-func get_class():
-	return "Player"
 	
 func _on_Timer_timeout():
 	enemy_arrow.visible = false

@@ -19,5 +19,7 @@ func _draw():
 	health_y = temp_health_y
 	
 func update_player_health(health):
+	if health > 35:
+		health = 35
 	player_health = health
 	update()

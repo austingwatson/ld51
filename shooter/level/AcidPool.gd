@@ -7,9 +7,9 @@ func _process(delta):
 		EntityManager.player.add_dot(1)
 
 func _on_AcidPool_body_entered(body):
-	if body.get_class() == "Player":
+	if body.is_in_group("Player"):
 		player_in_acid = true
 
 func _on_AcidPool_body_exited(body):
-	if body.get_class() == "Player":
+	if body.is_in_group("Player"):
 		player_in_acid = false

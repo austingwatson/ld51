@@ -4,7 +4,6 @@ class_name Enemy extends "Mob.gd"
 onready var sprite = $AnimatedSprite
 onready var nav_agent = $NavigationAgent2D
 onready var freezeCD = $FreezeCD
-var sight_shape: Shape2D
 
 # ai stuff
 # current state of the ai
@@ -15,27 +14,18 @@ enum STATE {
 	FLEE
 }
 var state = STATE.IDLE
-var player_entered_sight = false # check if the player has entered the sight range
 var next_path_find = true # a flag to only path find every 0.5 seconds
-var player_entered_attack = false # check if the player has entered the attack range
 var just_attacked = false # timer to freeze the enemy after an attack
 
 export var sight_range = 500
+export(String, "roomba", "soldier", "general", "chem-thrower") var enemy_name := "roomba"
 
 func _ready():
 	speed = 100 # need to force the speed, inspector not working
 
-	sight_shape = get_node("SightRange/CollisionShape2D").shape
-	sight_shape.radius = sight_range / 2
-	
-	var attack_range_shape = get_node("AttackRange/CollisionShape2D").shape
-	attack_range_shape.radius = projectile_range / 2
-
 func create(x, y):
 	position.x = x
 	position.y = y
-	
-	var attack_range_shape = $AttackRange/CollisionShape2D.shape
 
 func _physics_process(delta):
 	if state == STATE.MOVE || state == STATE.FLEE:
@@ -54,17 +44,17 @@ func _process(delta):
 		sprite.flip_v = true
 	
 func add_sight_range(amount):
-	sight_shape.radius += amount
+	sight_range += amount
 	
 func process_ai(player):
 	if state != STATE.FLEE:
 		if just_attacked:
 			state = STATE.IDLE
 		else:
-			if player_entered_sight:
-				state = STATE.MOVE
-			if can_use_attack && player_entered_attack:
+			if can_use_attack && player_in_attack(player.position):
 				state = STATE.ATTACK
+			elif player_in_sight(player.position):
+				state = STATE.MOVE
 	
 	if state != STATE.ATTACK:
 		use_attack = false
@@ -79,6 +69,12 @@ func process_ai(player):
 		use_attack = true
 		just_attacked = true
 		freezeCD.start()
+
+func player_in_sight(position: Vector2) -> bool:
+	return self.position.distance_to(position) <= sight_range
+
+func player_in_attack(position: Vector2) -> bool:
+	return self.position.distance_to(position) <= projectile_range
 
 func take_damage(damage):
 	.take_damage(damage)
@@ -98,28 +94,9 @@ func _on_NavigationAgent2D_velocity_computed(safe_velocity):
 		else:
 			sprite.stop()
 		velocity = move_and_slide(safe_velocity)
-
-func _on_SightRange_body_entered(body):
-	if body.get_class() == "Player":
-		player_entered_sight = true
-		
-func _on_SightRange_body_exited(body):
-	if body.get_class() == "Player":
-		player_entered_sight = false
-		
-func _on_AttackRange_body_entered(body):
-	if body.get_class() == "Player":
-		player_entered_attack = true
-		
-func _on_AttackRange_body_exited(body):
-	if body.get_class() == "Player":
-		player_entered_attack = false
 		
 func _on_PathFindTimer_timeout():
 	next_path_find = true	
 		
 func _on_FreezeCD_timeout():
 	just_attacked = false
-		
-func get_class():
-	return "Enemy"
