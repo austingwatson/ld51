@@ -22,7 +22,7 @@ func _process(delta):
 		tool_tip.text = "Press F to use"
 	else:
 		animation.play("off")
-		tool_tip.text = "Must kill all enemies to use"
+		tool_tip.text = "Kill " + str(EntityManager.enemies.size()) + " enemies to use!"
 		
 	if zoom:		
 		camera.zoom -= Vector2(zoom_amount * delta, zoom_amount * delta)
