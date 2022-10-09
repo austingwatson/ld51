@@ -17,7 +17,8 @@ var difficulty_modifier = 1
 var level_modifier = -1
 var enemies = []
 var player = null
-var keypad = null
+var keypads = []
+var keypad
 
 # the enemy spawners of the level
 var spawners = []
@@ -97,7 +98,8 @@ func new_level(remove_amount):
 		enemy.queue_free()
 	enemies.clear()
 	player.queue_free()
-	keypad.queue_free()
+	keypads.clear()
+	keypad = null
 	
 	for spawner in spawners:
 		spawner.queue_free()
@@ -157,7 +159,8 @@ func restart():
 		enemy.queue_free()
 	enemies.clear()
 	player.queue_free()
-	keypad.queue_free()
+	keypads.clear()
+	keypad = null
 	
 	for spawner in spawners:
 		spawner.queue_free()
@@ -195,6 +198,14 @@ func find_closest_enemy(position):
 			distance = dist
 			closest = enemy
 	return closest
+
+func randomize_keypad():
+	for kp in keypads:
+		kp.visible = false
+	
+	var rng = randi() % keypads.size()
+	keypad = keypads[rng]
+	keypad.visible = true
 
 func spawn_full_enemies():
 	# amount of enemies to spawn
