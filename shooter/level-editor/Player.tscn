@@ -94,7 +94,6 @@ bus = "Sound"
 
 [node name="AcidOverlay" parent="." index="12"]
 scale = Vector2( 2, 2 )
-frame = 2
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

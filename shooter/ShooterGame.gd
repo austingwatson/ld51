@@ -158,6 +158,9 @@ func _on_HUD_restart():
 	player_cutscene.start_all()
 	get_tree().paused = true
 
+func wave_cd_changed(on_cd):
+	hud.player_wave_cd(on_cd)
+
 func _on_PlayerCutscene_done_processing():
 	EntityManager.spawn_full_enemies()
 	

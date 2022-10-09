@@ -11,6 +11,10 @@ const buff_grenade_texture = preload("res://assets/card-extracell.png")
 const buff_debuff_texture = preload("res://assets/card-enemydebuff.png")
 const buff_attack_speed_texture = preload("res://assets/card-shields.png")
 
+# player wave cd bases
+const hp_base_wave_cd_empty = preload("res://assets/hpbase-backglowdim.png")
+const hp_base_wave_cd_full = preload("res://assets/hpbase-backglowfull.png")
+
 # child nodes
 onready var timer_background = $TimerBackground
 onready var ten_second_timer = $TenSecondTimer
@@ -23,6 +27,7 @@ onready var s3_button = $BuffSelector/VBoxContainer/Selection3/S3Button
 onready var death_screen = $DeathScreen
 onready var grenade_amount = $GrenadeAmount
 onready var fps = $FPS
+onready var wave_cd = $WaveCD
 
 signal paused(paused)
 signal done_hacking
@@ -201,6 +206,11 @@ func use_computer():
 				select_label.text = "+atk-speed"
 				buffs.append("attack-speed")
 		
+func player_wave_cd(on_cd):
+	if on_cd:
+		wave_cd.texture = hp_base_wave_cd_empty
+	else:
+		wave_cd.texture = hp_base_wave_cd_full
 	
 func _on_Play_pressed():
 	in_menu = false
