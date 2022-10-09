@@ -141,6 +141,7 @@ func _on_AmbientMusic_finished():
 
 func _on_HUD_restart():
 	on_new_level = false
+	hud.update_ten_second_timer(9.99)
 	EntityManager.restart()
 	
 	current_level.queue_free()
@@ -152,6 +153,7 @@ func _on_HUD_restart():
 	last_level = next_level
 	current_level = level
 	add_child(level)
+	EntityManager.randomize_keypad()
 	
 	player_cutscene.start_all()
 	get_tree().paused = true
