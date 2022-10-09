@@ -33,3 +33,8 @@ enemy_name = "roomba"
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 5 )
 frame = 2
+
+[node name="AcidOverlay" parent="." index="8"]
+visible = true
+scale = Vector2( 2, 2 )
+frame = 2

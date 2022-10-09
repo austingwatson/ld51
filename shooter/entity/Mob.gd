@@ -4,6 +4,7 @@ class_name Mob extends KinematicBody2D
 onready var attack = $AttackCD
 onready var animation = $AnimatedSprite
 onready var attack_cd = $AttackCD
+onready var acid_overlay = $AcidOverlay
 
 export var max_health = 1
 var health = 1
@@ -50,6 +51,11 @@ func _process(delta):
 		
 	look_at(target)
 	rotation_degrees += 90.0
+	
+	if effects.has("dot"):
+		acid_overlay.visible = true
+	else:
+		acid_overlay.visible = false
 
 func change_attack_speed():
 	attack_cd.wait_time = projectile_attack_speed
@@ -68,9 +74,6 @@ func add_dot(ticks):
 
 func _on_AttackCD_timeout():
 	can_use_attack = true
-	
-func get_class():
-	return "Mob"
 
 func _on_DotTimer_timeout():
 	if effects.has("dot"):
