@@ -3,8 +3,8 @@
 [ext_resource path="res://shooter/entity/Mob.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/entity/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/player-animsheet.png" type="Texture" id=3]
-[ext_resource path="res://assets/iconarrow-yellow.png" type="Texture" id=4]
-[ext_resource path="res://assets/iconarrow-blue.png" type="Texture" id=5]
+[ext_resource path="res://assets/icon-waypoint-blue.png" type="Texture" id=4]
+[ext_resource path="res://assets/icon-waypoint-yellow.png" type="Texture" id=5]
 [ext_resource path="res://sounds/player/paino.wav" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=4]
@@ -77,12 +77,12 @@ wait_time = 3.0
 [node name="ComputerArrow" type="Sprite" parent="." index="9"]
 visible = false
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 
 [node name="EnemyArrow" type="Sprite" parent="." index="10"]
 visible = false
 scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Timer" type="Timer" parent="EnemyArrow" index="0"]
 one_shot = true
@@ -91,6 +91,9 @@ autostart = true
 [node name="PlayerHit" type="AudioStreamPlayer" parent="." index="11"]
 stream = ExtResource( 6 )
 bus = "Sound"
+
+[node name="AcidOverlay" parent="." index="12"]
+scale = Vector2( 2, 2 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

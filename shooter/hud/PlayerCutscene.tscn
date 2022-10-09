@@ -18,20 +18,20 @@ script = ExtResource( 1 )
 type = 1
 
 [node name="TextBackground" type="Sprite" parent="."]
-position = Vector2( 1095, 844 )
+position = Vector2( 1083, 932 )
 scale = Vector2( 2, 4 )
 texture = ExtResource( 4 )
 
 [node name="Portrait" type="Sprite" parent="."]
-position = Vector2( 610, 844 )
+position = Vector2( 598, 932 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 
 [node name="Text" type="Label" parent="."]
-margin_left = 761.0
-margin_top = 753.0
-margin_right = 1424.0
-margin_bottom = 907.0
+margin_left = 749.0
+margin_top = 841.0
+margin_right = 1412.0
+margin_bottom = 995.0
 custom_fonts/font = SubResource( 1 )
 text = "Ready to Breach!Ready to Breach!Ready to Breach!Ready to Breach!Ready to Breach!"
 autowrap = true
@@ -42,10 +42,10 @@ wait_time = 5.0
 one_shot = true
 
 [node name="KeyPress" type="Label" parent="."]
-margin_left = 1214.0
-margin_top = 914.0
-margin_right = 1424.0
-margin_bottom = 939.0
+margin_left = 1202.0
+margin_top = 1002.0
+margin_right = 1419.0
+margin_bottom = 1027.0
 custom_fonts/font = SubResource( 1 )
 text = "Press F to continue.."
 

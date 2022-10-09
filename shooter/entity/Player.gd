@@ -11,6 +11,7 @@ onready var player_hit = $PlayerHit
 
 signal update_health(health)
 signal use_computer
+signal wave_cd_changed(on_cd)
 
 var movement = [false, false, false, false]
 var touching_keypad = false
@@ -37,7 +38,8 @@ func _ready():
 	
 	self.connect("update_health", EntityManager.shooter_game, "_on_Player_update_health")
 	self.connect("use_computer", EntityManager.shooter_game, "player_used_computer")
-	
+	self.connect("wave_cd_changed", EntityManager.shooter_game, "wave_cd_changed")
+
 	EntityManager.add_stats_to_player()
 	emit_signal("update_health", health)
 	
@@ -119,6 +121,7 @@ func _process(delta):
 		can_use_melee = false
 		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, projectile_pierce * 2, projectile_dot_tick, 0, projectile_explode_type, true)
 		melee_timer.start()
+		emit_signal("wave_cd_changed", true)
 		
 	if EntityManager.enemies.size() == 0:
 		computer_arrow.visible = true
@@ -168,7 +171,8 @@ func _on_GrenadeTimer_timeout():
 	can_use_grenade = true
 
 func _on_MeleeTimer_timeout():
-	can_use_melee = true		
+	can_use_melee = true
+	emit_signal("wave_cd_changed", false)	
 	
 func _on_Timer_timeout():
 	enemy_arrow.visible = false
