@@ -43,6 +43,3 @@ func start_zoom():
 	camera.current = true
 	camera.zoom = Vector2(max_zoom_level, max_zoom_level)
 	zoom = true
-
-func get_class():
-	return "Keypad"

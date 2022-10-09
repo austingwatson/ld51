@@ -117,7 +117,7 @@ func player_used_computer():
 	ten_second_timer.paused = true
 	
 	for child in current_level.get_children():
-		if child.get_name() == "Keypad":
+		if child == EntityManager.keypad:
 			child.start_zoom()
 			break
 
