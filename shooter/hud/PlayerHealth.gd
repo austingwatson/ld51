@@ -1,15 +1,15 @@
 extends Control
 
 export (AnimatedTexture) var health_texture
-const health_y_offset = 64
-const health_x = 83
+const health_y_offset = 32
+const health_x = 99
 var health_y = 0
-const health_size = 64
+const health_size = 32
 
 var player_health = 10
 
 func _ready():
-	health_y = get_viewport_rect().size.y - health_size - 206
+	health_y = get_viewport_rect().size.y - health_size - 180
 	
 func _draw():
 	var temp_health_y = health_y
@@ -19,7 +19,7 @@ func _draw():
 	health_y = temp_health_y
 	
 func update_player_health(health):
-	if health > 15:
-		health = 15
+	if health > 40:
+		health = 40
 	player_health = health
 	update()
