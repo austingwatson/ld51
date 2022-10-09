@@ -21,3 +21,7 @@ attack_range = 100
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 1 )
+
+[node name="AcidOverlay" parent="." index="5"]
+scale = Vector2( 2, 2 )
+frame = 3

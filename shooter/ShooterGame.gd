@@ -55,6 +55,7 @@ func _ready():
 	
 	current_level = level
 	add_child(level, 1)
+	EntityManager.randomize_keypad()
 	
 	hud.level_set_up(0)
 	
@@ -87,6 +88,7 @@ func change_from_hack_scene():
 	
 	last_level = next_level
 	add_child(level)
+	EntityManager.randomize_keypad()
 	EntityManager.spawn_full_enemies()
 	current_level = level
 	hud.level_set_up(0)
@@ -115,7 +117,7 @@ func player_used_computer():
 	ten_second_timer.paused = true
 	
 	for child in current_level.get_children():
-		if child.get_name() == "Keypad":
+		if child == EntityManager.keypad:
 			child.start_zoom()
 			break
 

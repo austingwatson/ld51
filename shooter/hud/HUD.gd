@@ -12,6 +12,7 @@ const buff_debuff_texture = preload("res://assets/card-enemydebuff.png")
 const buff_attack_speed_texture = preload("res://assets/card-shields.png")
 
 # child nodes
+onready var timer_background = $TimerBackground
 onready var ten_second_timer = $TenSecondTimer
 onready var player_health = $PlayerHealth
 onready var pause_menu = $PauseMenu
@@ -27,6 +28,8 @@ signal paused(paused)
 signal done_hacking
 signal restart()
 
+const blue_timer_background = preload("res://assets/timerbanner.png")
+const green_timer_background = preload("res://assets/timerbanner-green.png")
 const buff_card_scene = preload("res://shooter/hud/BuffCard.tscn")
 var buff_cards = []
 var next_x = 0
@@ -125,6 +128,10 @@ func remove_buffs(remove_amount):
 
 func update_ten_second_timer(time):
 	ten_second_timer.text = "%.2f" % time
+	if time <= 0.5:
+		timer_background.texture = green_timer_background
+	else:
+		timer_background.texture = blue_timer_background
 	
 func update_player_health(health):
 	player_health.update_player_health(health)

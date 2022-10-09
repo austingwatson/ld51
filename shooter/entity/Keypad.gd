@@ -9,14 +9,12 @@ signal zoom_done
 var zoom = false
 const min_zoom_level = 0.04
 const max_zoom_level = 0.4
-const zoom_amount = 0.4
+const zoom_amount = 0.6
 
 func _ready():
 	tool_tip.visible = false
-	
 	self.connect("zoom_done", EntityManager.shooter_game, "change_to_hack_scene")
-	
-	EntityManager.keypad = self
+	EntityManager.keypads.append(self)
 
 func _process(delta):
 	if EntityManager.enemies.size() == 0:
@@ -28,7 +26,6 @@ func _process(delta):
 		
 	if zoom:		
 		camera.zoom -= Vector2(zoom_amount * delta, zoom_amount * delta)
-		print(camera.zoom)
 		if camera.zoom <= Vector2(min_zoom_level, min_zoom_level):
 			camera.zoom = Vector2(min_zoom_level, min_zoom_level)
 			zoom = false
@@ -46,6 +43,3 @@ func start_zoom():
 	camera.current = true
 	camera.zoom = Vector2(max_zoom_level, max_zoom_level)
 	zoom = true
-
-func get_class():
-	return "Keypad"

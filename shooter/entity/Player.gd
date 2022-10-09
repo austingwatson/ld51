@@ -27,7 +27,7 @@ var use_melee = false
 var zoom = false
 const min_zoom_level = 0.04
 const max_zoom_level = 0.4
-const zoom_amount = 0.4
+const zoom_amount = 0.6
 
 var closest_enemy = Vector2.ZERO
 	
@@ -152,11 +152,11 @@ func take_damage(damage):
 	player_hit.play()
 
 func _on_Area2D_area_entered(area):
-	if area.get_class() == "Keypad":
+	if area == EntityManager.keypad:
 		touching_keypad = true
 
 func _on_Area2D_area_exited(area):
-	if area.get_class() == "Keypad":
+	if area == EntityManager.keypad:
 		touching_keypad = false
 
 func start_zoom():
