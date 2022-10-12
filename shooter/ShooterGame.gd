@@ -25,8 +25,8 @@ var last_level = 0
 onready var ambient_music = $AmbientMusic
 onready var ambient_music_timer = $AmbientMusicTimer
 
-const music1 = preload("res://sounds/sci-fi-sfx/loop_ambient_01.ogg")
-const music2 = preload("res://sounds/computer-room-ambience.mp3")
+const music1 = preload("res://sounds/Chiptune Techno.mp3")
+const music2 = preload("res://sounds/Cyberpunk Moonlight Sonata v2.mp3")
 const musics = []
 
 var on_new_level = false
