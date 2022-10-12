@@ -134,6 +134,9 @@ func _process(delta):
 		enemy_arrow.look_at(closest_enemy)
 		enemy_arrow.rotation_degrees += 90.0
 
+func force_hud_update():
+	emit_signal("update_health", health)
+
 func ten_second_timer_timeout():
 	var enemy = EntityManager.find_closest_enemy(self.position)
 	if enemy != null:

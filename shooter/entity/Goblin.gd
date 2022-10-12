@@ -7,6 +7,8 @@ var flee := false
 func _ready():
 	remove_child(plus_health)
 	EntityManager.shooter_game.add_child(plus_health)
+	
+	alive = true
 
 func _physics_process(delta):
 	if !plus_health.visible && flee:
@@ -17,30 +19,42 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 		
 func _process(delta):
-	if flee:
-		sprite.flip_v = true
+	process_ai(EntityManager.player)
 	
-	look_at(target)
-	rotation_degrees += 90.0
+	if flee:
+		animation.play("default")
+		sprite.flip_v = true
+	else:
+		animation.stop()
 	
 	if effects.has("dot"):
 		acid_overlay.visible = true
 	else:
 		acid_overlay.visible = false
-		
-	process_ai(EntityManager.player)
 	
-	if !plus_health.visible && !alive:
-		EntityManager.add_single_stat_to_player("health")
-		EntityManager.add_single_stat_to_player("health")
+	if !alive:
+		animation.play("dead")
 		
-		plus_health.visible = true
-		plus_health.rect_position = position
-		plus_health.rect_position -= plus_health.rect_size / 2
-		plus_health.rect_position.y -= 20
-		$ShowPlusHealthTimer.start()
+		if !plus_health.visible:
+			EntityManager.add_single_stat_to_player("health")
+			EntityManager.add_single_stat_to_player("health")
+			EntityManager.player.max_health += 2
+			EntityManager.player.health += 2
+			EntityManager.player.force_hud_update()
+		
+			plus_health.visible = true
+			plus_health.rect_position = position
+			plus_health.rect_position -= plus_health.rect_size / 2
+			plus_health.rect_position.y -= 20
+			$ShowPlusHealthTimer.start()
+	else:
+		look_at(target)
+		rotation_degrees += 90.0
 		
 func process_ai(player):
+	if !alive:
+		return
+	
 	if player_in_sight(player.position):
 		flee = true
 		
