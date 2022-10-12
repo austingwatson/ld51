@@ -19,9 +19,10 @@ scale = Vector2( 9.96875, 10.6875 )
 texture = ExtResource( 3 )
 
 [node name="Text" parent="." index="2"]
-margin_left = 1230.0
-margin_right = 1553.0
-margin_bottom = 876.0
+margin_left = 1231.0
+margin_top = 759.0
+margin_right = 1554.0
+margin_bottom = 868.0
 
 [node name="KeyPress" parent="." index="4"]
 visible = false
