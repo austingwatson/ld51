@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://shooter/entity/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/yellowkeycard.png" type="Texture" id=2]
+[ext_resource path="res://shooter/entity/Goblin.gd" type="Script" id=3]
+[ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 8, 8 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[node name="Goblin" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+projectile_speed = 0
+projectile_range = 0
+projectile_damage = 0
+projectile_pierce = 0
+projectile_amount = 0
+projectile_accuracy = 0.0
+projectile_attack_speed = 5000.0
+enemy_name = "other"
+
+[node name="AnimatedSprite" parent="." index="0"]
+frames = SubResource( 2 )
+
+[node name="AcidOverlay" parent="." index="8"]
+frame = 3
+
+[node name="ShowPlusHealthTimer" type="Timer" parent="." index="9"]
+wait_time = 2.0
+one_shot = true
+
+[node name="PlusHealthLabel" type="Label" parent="." index="10"]
+visible = false
+margin_left = -70.0
+margin_top = -28.0
+margin_right = 89.0
+margin_bottom = -12.0
+custom_fonts/font = SubResource( 3 )
+text = "Plus 2 Max Health"
+
+[connection signal="timeout" from="ShowPlusHealthTimer" to="." method="_on_ShowPlusHealthTimer_timeout"]
