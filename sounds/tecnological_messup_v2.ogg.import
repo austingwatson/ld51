@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/tecnological_messup_v2.ogg-38fcdf5f7144ce9bd408b1dab86446ee.oggstr"
+
+[deps]
+
+source_file="res://sounds/tecnological_messup_v2.ogg"
+dest_files=[ "res://.import/tecnological_messup_v2.ogg-38fcdf5f7144ce9bd408b1dab86446ee.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
