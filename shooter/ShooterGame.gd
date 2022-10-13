@@ -31,6 +31,10 @@ const musics = []
 
 var on_new_level = false
 
+# total score and total time
+var levels_complete := 0
+var time_alive := 0.0
+
 func _init():
 	randomize()
 
@@ -69,9 +73,11 @@ func _process(delta):
 	EntityManager.process_enemies()
 	EntityManager.remove_dead_enemies()
 	
-	hud.update_ten_second_timer(ten_second_timer.time_left)
+	hud.update_ten_second_timer(get_time_left())
 
 func change_from_hack_scene():
+	levels_complete += 1
+	
 	enemy_cutscene.end_cutscene()
 	
 	current_level.queue_free()
@@ -103,6 +109,8 @@ func change_from_hack_scene():
 # this function is called every ten seconds
 # this will add a difficulty modifier to the game
 func _on_TenSecondTimer_timeout():
+	time_alive += 10.0
+	
 	var buff = EntityManager.add_buff_to_enemies()
 	
 	hud.show_buff_card(buff)
@@ -140,6 +148,9 @@ func _on_AmbientMusic_finished():
 	ambient_music_timer.start()
 
 func _on_HUD_restart():
+	levels_complete = 0
+	time_alive = 0.0
+	
 	on_new_level = false
 	hud.update_ten_second_timer(9.99)
 	EntityManager.restart()
@@ -175,3 +186,6 @@ func _on_PlayerCutscene_done_processing():
 	
 	ten_second_timer.start()
 	get_tree().paused = false
+	
+func get_time_left():
+	return ten_second_timer.time_left

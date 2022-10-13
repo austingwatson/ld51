@@ -24,6 +24,7 @@ onready var death_screen = $DeathScreen
 onready var grenade_amount = $GrenadeAmount
 onready var fps = $FPS
 onready var wave_cd = $WaveCD
+onready var score = $DeathScreen/Score
 
 signal paused(paused)
 signal done_hacking
@@ -101,8 +102,11 @@ func _process(delta):
 	
 	grenade_amount.text = str(EntityManager.player.grenades)
 		
-	if EntityManager.player.health <= 0:
+	if !death_screen.visible && EntityManager.player.health <= 0:
 		emit_signal("paused", true)
+		EntityManager.shooter_game.time_alive += EntityManager.shooter_game.get_time_left()
+		var time_alive = "%.2f" % EntityManager.shooter_game.time_alive
+		score.text = "Levels Complete: " + str(EntityManager.shooter_game.levels_complete) + "\nTime Alive: " + time_alive + " seconds"
 		death_screen.visible = true
 		
 	fps.text = "FPS: " + str(Engine.get_frames_per_second())
