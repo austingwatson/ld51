@@ -165,7 +165,8 @@ func restart():
 	keypads.clear()
 	keypad = null
 	
-	goblin.queue_free()
+	if goblin != null:
+		goblin.queue_free()
 	goblin = null
 	
 	spawners.clear()
