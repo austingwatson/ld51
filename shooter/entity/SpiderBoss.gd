@@ -33,6 +33,17 @@ func _ready():
 	rotation_speed = deg2rad(rotation_speed)
 
 func _physics_process(delta):
+	if state == STATE.MOVE:
+		var move_direction = position.direction_to(nav_agent.get_next_location())
+		velocity = move_direction * speed
+		velocity = move_and_slide(velocity)
+		if velocity.length() > 0:
+			sprite.play("default")
+		else:
+			sprite.stop()
+	
+	velocity = Vector2.ZERO
+	
 	if rotating:
 		var player_position = EntityManager.player.global_position
 		var player_angle = (player_position - global_position).angle() + deg2rad(90.0)
@@ -46,7 +57,6 @@ func _physics_process(delta):
 			rotating = false
 			animation.stop()
 			pick_attack()
-			
 			just_attacked = true
 
 func _process(delta):
