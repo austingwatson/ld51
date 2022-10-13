@@ -4,6 +4,7 @@
 [ext_resource path="res://shooter/level/scripts/Crate.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -13,6 +14,7 @@ region = Rect2( 112, 16, 16, 16 )
 script = ExtResource( 2 )
 damage = 10
 explosion_timer = 100
+explosion_type = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
