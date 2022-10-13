@@ -1,16 +1,6 @@
 extends AnimatedSprite
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	var frame = frames.get_frame("default", 0)
+	$StaticBody2D/CollisionShape2D.shape.extents = Vector2(frame.get_size().x / 2, frame.get_size().y / 2)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
