@@ -35,12 +35,10 @@ func _physics_process(delta):
 		if state == STATE.FLEE:
 			velocity = -velocity
 		nav_agent.set_velocity(velocity)
-	else:
-		velocity = Vector2.ZERO
+	
+	velocity = Vector2.ZERO
 	
 func _process(delta):
-	._process(delta)
-	
 	if state == STATE.FLEE:
 		sprite.flip_v = true
 	
@@ -64,7 +62,7 @@ func process_ai(player):
 		if next_path_find:
 			next_path_find = false
 			nav_agent.set_target_location(player.position)
-		target = player.position
+		target = player.global_position
 	elif state == STATE.ATTACK:
 		target = player.global_position
 		use_attack = true

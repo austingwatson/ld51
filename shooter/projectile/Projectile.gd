@@ -57,6 +57,13 @@ func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explo
 	elif owner.is_in_group("Drone"):
 		$Sprite.play("close_shock")
 		scale = Vector2(4, 4)
+	elif owner.is_in_group("SpiderBoss"):
+		if explode > 0:
+			$Sprite.play("normal_explode")
+			scale = Vector2(3, 3)
+		else:
+			$Sprite.play("default")
+			scale = Vector2(1, 1)
 	else:
 		$Sprite.play("default")
 		scale = Vector2(1, 1)

@@ -26,18 +26,21 @@ export var projectile_amount = 1
 export var projectile_accuracy = 1.0
 export var projectile_dot_tick = 0
 export var projectile_explode = 0
-export var projectile_explode_type = 0
+export(int, "Shock", "Slime", "Normal") var projectile_explode_type = 0
 export var projectile_shielding = false
 export var projectile_attack_speed = 1.0
 
 var effects = {}
 
-func _ready():
+var look_at_target = true
+
+func _ready():	
 	health = max_health
 	change_attack_speed()
 
 func _physics_process(delta):
-	velocity = move_and_slide(velocity)
+	if velocity.length() > 0:
+		velocity = move_and_slide(velocity)
 
 func _process(delta):
 	if use_attack and can_use_attack:
@@ -49,8 +52,9 @@ func _process(delta):
 		
 		attack.start()
 		
-	look_at(target)
-	rotation_degrees += 90.0
+	if look_at_target:	
+		look_at(target)
+		rotation_degrees += 90.0
 	
 	if effects.has("dot"):
 		acid_overlay.visible = true

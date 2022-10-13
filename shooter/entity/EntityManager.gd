@@ -8,6 +8,8 @@ const soldier_scene = preload("res://shooter/entity/Soldier.tscn")
 const general_scene = preload("res://shooter/entity/General.tscn")
 const chem_thrower_scene = preload("res://shooter/entity/ChemThrower.tscn")
 const drone_scene = preload("res://shooter/entity/Drone.tscn")
+const spider_boss_scene = preload("res://shooter/entity/SpiderBoss.tscn")
+const big_shot_scene = preload("res://shooter/projectile/BigShot.tscn")
 
 # keep track of the scene that things should be added to
 var shooter_game: Node
@@ -25,6 +27,7 @@ var goblin
 var spawners = []
 var turret_spawners = []
 var goblin_spawners = []
+var spider_boss_spawners = []
 
 # current buffs that the enemies have
 # := means that the variable cannot change types
@@ -110,6 +113,7 @@ func new_level(remove_amount):
 	spawners.clear()
 	turret_spawners.clear()
 	goblin_spawners.clear()
+	spider_boss_spawners.clear()
 	
 	remove_buffs(remove_amount)
 
@@ -172,6 +176,7 @@ func restart():
 	spawners.clear()
 	turret_spawners.clear()
 	goblin_spawners.clear()
+	spider_boss_spawners.clear()
 	
 	current_health = 0
 	current_speed = 0
@@ -212,7 +217,12 @@ func randomize_keypad():
 	keypad.visible = true
 
 func spawn_full_enemies():
-	# spawn a goblin
+	# spawn a spider boss if there is one
+	if spider_boss_spawners.size() > 0:
+		var rng = randi() % spider_boss_spawners.size()
+		spider_boss_spawners[rng].spawn_boss()
+	
+	# spawn a goblin if there is one
 	if goblin_spawners.size() > 0:
 		var rng = randi() % goblin_spawners.size()
 		goblin = goblin_spawners[rng].spawn_goblin()
@@ -332,27 +342,31 @@ func create_enemy(type, x, y):
 					create_enemy("chem-thrower", x, y)
 		"turret":
 			enemy = turret_scene.instance()
-			enemy.create(x, y)
 		"roomba":
 			enemy = drone_scene.instance()
-			enemy.create(x, y)
 		"soldier":
 			enemy = soldier_scene.instance()
-			enemy.create(x, y)
 		"general":
 			enemy = general_scene.instance()
-			enemy.create(x, y)
 		"chem-thrower":
 			enemy = chem_thrower_scene.instance()
-			enemy.create(x, y)
+		"spider-boss":
+			enemy = spider_boss_scene.instance()
 		
 	if enemy != null:
+		enemy.create(x, y)
 		add_enemy(enemy)
 
 func create_projectile(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	var projectile = projectile_scene.instance()
 	add_node_to_root(projectile)
 	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
+	
+func create_big_shot(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
+	var big_shot = big_shot_scene.instance()
+	add_node_to_root(big_shot)
+	big_shot.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
+	big_shot.offset_big_shot()
 	
 func create_explosion(owner, damage, timer, dot, type):
 	var explosion = explosion_scene.instance()
@@ -368,13 +382,21 @@ func register_turret_spawner(spawner):
 func register_goblin(goblin):
 	goblin_spawners.append(goblin)
 	
+func register_spider_boss_spawner(boss_spawner):
+	spider_boss_spawners.append(boss_spawner)
+	
 func add_buff_to_enemies():
 	# randomize the next enemy buff card
 	# if all enemies are dead, no more can spawn
 	# this level, but other cards can work
 	var rng = 0
-	if EntityManager.enemies.size() == 0:
+	if enemies.size() == 0:
 		rng = randi() % (buff_names.size() - 1)
+	elif spider_boss_spawners.size() == 1:
+		if enemies.size() > 1:
+			rng = randi() % buff_names.size()
+		else:
+			rng = randi() % (buff_names.size() - 1)
 	else:
 		rng = randi() % buff_names.size()
 	var buff = buff_names[rng]
