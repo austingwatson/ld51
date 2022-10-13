@@ -1,36 +1,36 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://shooter/entity/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/prime-specimen.png" type="Texture" id=2]
-[ext_resource path="res://shooter/entity/Goblin.gd" type="Script" id=3]
-[ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://shooter/entity/Goblin.gd" type="Script" id=2]
+[ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/prime-specimen.png" type="Texture" id=4]
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 96, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 64, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 80, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=2]
@@ -50,10 +50,16 @@ animations = [ {
 size = 20
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 4 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="CircleShape2D" id=11]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id=12]
+resource_local_to_scene = true
 
 [node name="Goblin" instance=ExtResource( 1 )]
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 projectile_speed = 0
 projectile_range = 0
 projectile_damage = 0
@@ -61,6 +67,7 @@ projectile_pierce = 0
 projectile_amount = 0
 projectile_accuracy = 0.0
 projectile_attack_speed = 5000.0
+sight_range = 200
 enemy_name = "other"
 
 [node name="AnimatedSprite" parent="." index="0"]
@@ -68,7 +75,7 @@ frames = SubResource( 2 )
 animation = "dead"
 
 [node name="AcidOverlay" parent="." index="8"]
-frame = 2
+frame = 3
 
 [node name="ShowPlusHealthTimer" type="Timer" parent="." index="9"]
 wait_time = 2.0
@@ -82,5 +89,11 @@ margin_right = 89.0
 margin_bottom = -12.0
 custom_fonts/font = SubResource( 3 )
 text = "Plus 2 Max Health"
+
+[node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
+shape = SubResource( 11 )
+
+[node name="CollisionShape2D" parent="AttackRangeDebug" index="0"]
+shape = SubResource( 12 )
 
 [connection signal="timeout" from="ShowPlusHealthTimer" to="." method="_on_ShowPlusHealthTimer_timeout"]
