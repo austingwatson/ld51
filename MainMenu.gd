@@ -11,6 +11,7 @@ onready var volume_sound = $VBoxContainer/Volume/AudioStreamPlayer
 onready var quit_sound = $VBoxContainer/Quit/AudioStreamPlayer
 onready var main_menu_music = $MainMenuMusic
 onready var play_music_timer = $PlayMusicTimer
+onready var play_button = $VBoxContainer/Play
 
 var start_music = false
 
@@ -26,7 +27,7 @@ func _ready():
 	self.connect("play", current_scene, "play")
 
 func _input(event):
-	if !start_music && event.is_pressed():
+	if !start_music && !play_button.is_hovered() && event.is_pressed():
 		start_music = true
 		main_menu_music.play()
 
