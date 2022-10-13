@@ -33,6 +33,9 @@ func _ready():
 	rotation_speed = deg2rad(rotation_speed)
 
 func _physics_process(delta):
+	if health <= 0:
+		return
+	
 	if state == STATE.MOVE:
 		var move_direction = position.direction_to(nav_agent.get_next_location())
 		velocity = move_direction * speed
@@ -60,6 +63,9 @@ func _physics_process(delta):
 			just_attacked = true
 
 func _process(delta):
+	if health <= 0:
+		return
+	
 	if use_main_attack and can_use_attack:
 		can_use_attack = false
 		
@@ -131,7 +137,7 @@ func spawn_drone():
 	use_spawn_drone = false
 	
 func process_ai(player):
-	if show_death_anim:
+	if health <= 0:
 		return
 	
 	if just_attacked:
@@ -163,7 +169,9 @@ func pick_attack():
 
 func take_damage(damage):
 	health -= damage
+	print(health)
 	if !show_death_anim && health <= 0:
+		z_index = 0
 		show_death_anim = true
 		animation.play("death")
 		collision_shape.set_deferred("disabled", true)
@@ -173,7 +181,7 @@ func add_sight_range(amount):
 	ray_cast.cast_to.y -= amount
 		
 func _on_NavigationAgent2D_velocity_computed(safe_velocity):
-	if show_death_anim:
+	if health <= 0:
 		return
 	
 	if !arrived_at_location():
@@ -206,6 +214,9 @@ func _on_EndOfDroneAttackTimer_timeout():
 	animation.stop()
 
 func _on_RealHitBox_area_entered(area):
+	if health <= 0:
+		return
+	
 	if area.is_in_group("Projectile"):
 		take_damage(area.damage)
 		

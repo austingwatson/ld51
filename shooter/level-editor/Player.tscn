@@ -47,6 +47,7 @@ extents = Vector2( 32, 32 )
 
 [node name="Player" groups=["Mob", "Player"] instance=ExtResource( 1 )]
 position = Vector2( 375, 225 )
+z_index = 1
 collision_mask = 6
 script = ExtResource( 2 )
 max_health = 10
