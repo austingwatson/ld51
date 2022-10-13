@@ -46,10 +46,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="DynamicFont" id=3]
-size = 20
+[sub_resource type="DynamicFont" id=11]
+size = 12
 outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
+outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
 font_data = ExtResource( 4 )
 
 [node name="Goblin" instance=ExtResource( 1 )]
@@ -65,10 +65,10 @@ enemy_name = "other"
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 2 )
-animation = "dead"
+speed_scale = 2.0
 
 [node name="AcidOverlay" parent="." index="8"]
-frame = 2
+frame = 3
 
 [node name="ShowPlusHealthTimer" type="Timer" parent="." index="9"]
 wait_time = 2.0
@@ -80,7 +80,8 @@ margin_left = -70.0
 margin_top = -28.0
 margin_right = 89.0
 margin_bottom = -12.0
-custom_fonts/font = SubResource( 3 )
-text = "Plus 2 Max Health"
+custom_fonts/font = SubResource( 11 )
+text = "Sample Obtained
++2 Max Health"
 
 [connection signal="timeout" from="ShowPlusHealthTimer" to="." method="_on_ShowPlusHealthTimer_timeout"]
