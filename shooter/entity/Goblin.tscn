@@ -46,9 +46,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="DynamicFont" id=3]
-size = 20
+[sub_resource type="DynamicFont" id=11]
+size = 12
 outline_size = 1
+<<<<<<< HEAD:shooter/entity/Goblin.tscn
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
@@ -57,6 +58,10 @@ resource_local_to_scene = true
 
 [sub_resource type="CircleShape2D" id=12]
 resource_local_to_scene = true
+=======
+outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
+font_data = ExtResource( 4 )
+>>>>>>> dc6d6a47eae8b65295752d41aeb60a902bf5510a:shooter/level-editor/Goblin.tscn
 
 [node name="Goblin" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -72,7 +77,7 @@ enemy_name = "other"
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 2 )
-animation = "dead"
+speed_scale = 2.0
 
 [node name="AcidOverlay" parent="." index="8"]
 frame = 3
@@ -87,8 +92,9 @@ margin_left = -70.0
 margin_top = -28.0
 margin_right = 89.0
 margin_bottom = -12.0
-custom_fonts/font = SubResource( 3 )
-text = "Plus 2 Max Health"
+custom_fonts/font = SubResource( 11 )
+text = "Sample Obtained
++2 Max Health"
 
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 11 )

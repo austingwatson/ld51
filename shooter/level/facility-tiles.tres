@@ -62,8 +62,10 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [sub_resource type="ConvexPolygonShape2D" id=34]
 points = PoolVector2Array( 64, 32, 0, 32, 0, 0, 64, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=35]
-points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
+[sub_resource type="NavigationPolygon" id=38]
+vertices = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 ) ]
 
 [sub_resource type="ConvexPolygonShape2D" id=36]
 points = PoolVector2Array( 64, 32, 0, 32, 0, 6.52049, 64, 6.36497 )
@@ -483,18 +485,12 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 24/tile_mode = 0
 24/occluder_offset = Vector2( 0, 0 )
 24/navigation_offset = Vector2( 0, 0 )
+24/navigation = SubResource( 38 )
 24/shape_offset = Vector2( 0, 0 )
 24/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-24/shape = SubResource( 35 )
 24/shape_one_way = false
-24/shape_one_way_margin = 1.0
-24/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 35 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
+24/shape_one_way_margin = 0.0
+24/shapes = [  ]
 24/z_index = 0
 25/name = "tileset-facility.png 25"
 25/texture = ExtResource( 1 )
