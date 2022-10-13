@@ -26,7 +26,7 @@ onready var ambient_music = $AmbientMusic
 onready var ambient_music_timer = $AmbientMusicTimer
 
 const music1 = preload("res://sounds/Chiptune Techno.mp3")
-const music2 = preload("res://sounds/Cyberpunk Moonlight Sonata v2.mp3")
+#const music2 = preload("res://sounds/Cyberpunk Moonlight Sonata v2.mp3")
 const musics = []
 
 var on_new_level = false
@@ -46,7 +46,7 @@ func _ready():
 	levels.append(level5_scene)
 	
 	musics.append(music1)
-	musics.append(music2)
+	#musics.append(music2)
 	
 	last_level = randi() % levels.size()
 	var level = levels[last_level].instance()

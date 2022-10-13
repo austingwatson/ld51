@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/Sprite-0003BANNER.png" type="Texture" id=8]
 [ext_resource path="res://MainMenu.gd" type="Script" id=9]
 [ext_resource path="res://sounds/sci-fi-sfx/terminal_06.ogg" type="AudioStream" id=10]
-[ext_resource path="res://sounds/main_menu_music.ogg" type="AudioStream" id=11]
+[ext_resource path="res://sounds/Cyberpunk Moonlight Sonata v2.mp3" type="AudioStream" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 3

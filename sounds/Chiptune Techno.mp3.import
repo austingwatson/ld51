@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Chiptune Techno.mp3-faabfe77e46285b2db9b678634474dfb
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
