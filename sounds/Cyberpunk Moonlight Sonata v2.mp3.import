@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Cyberpunk Moonlight Sonata v2.mp3-3f9aeb9ab6f1026681
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
