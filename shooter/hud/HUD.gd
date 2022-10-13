@@ -11,10 +11,6 @@ const buff_grenade_texture = preload("res://assets/card-extracell.png")
 const buff_debuff_texture = preload("res://assets/card-enemydebuff.png")
 const buff_attack_speed_texture = preload("res://assets/card-shields.png")
 
-# player wave cd bases
-const hp_base_wave_cd_empty = preload("res://assets/hpbase-backglowdim.png")
-const hp_base_wave_cd_full = preload("res://assets/hpbase-backglowfull.png")
-
 # child nodes
 onready var timer_background = $TimerBackground
 onready var ten_second_timer = $TenSecondTimer
@@ -208,9 +204,10 @@ func use_computer():
 		
 func player_wave_cd(on_cd):
 	if on_cd:
-		wave_cd.texture = hp_base_wave_cd_empty
+		wave_cd.visible = false
 	else:
-		wave_cd.texture = hp_base_wave_cd_full
+		wave_cd.visible = true
+		wave_cd.play("full")
 	
 func _on_Play_pressed():
 	in_menu = false
