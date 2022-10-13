@@ -5,6 +5,8 @@ onready var plus_health = $PlusHealthLabel
 var flee := false
 
 func _ready():
+	nav_agent.set_target_location(position)
+	
 	remove_child(plus_health)
 	EntityManager.shooter_game.add_child(plus_health)
 	
@@ -14,6 +16,7 @@ func _physics_process(delta):
 	if !plus_health.visible && flee:
 		var move_direction = position.direction_to(nav_agent.get_next_location())
 		velocity = move_direction * -speed
+		velocity = move_and_slide(velocity)
 		nav_agent.set_velocity(velocity)
 	else:
 		velocity = Vector2.ZERO
@@ -63,6 +66,9 @@ func process_ai(player):
 			next_path_find = false
 			nav_agent.set_target_location(player.position)
 		target = player.position
+
+func _on_NavigationAgent2D_velocity_computed(safe_velocity):
+	pass
 
 func _on_ShowPlusHealthTimer_timeout():
 	plus_health.queue_free()
