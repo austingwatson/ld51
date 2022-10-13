@@ -75,7 +75,7 @@ func start_random():
 func start_all():
 	dialogue_sequence.clear()
 	visible = true
-	for i in range(0, dialogue.size() - 1):
+	for i in range(0, dialogue.size()):
 		dialogue_sequence.append(i)
 	
 	play_text(dialogue_sequence[current_dialogue])
