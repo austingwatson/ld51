@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://shooter/level/AcidPool.gd" type="Script" id=1]
+[ext_resource path="res://shooter/level/scripts/AcidPool.gd" type="Script" id=1]
 [ext_resource path="res://assets/props-spritesheet1.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=2]
