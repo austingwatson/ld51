@@ -6,7 +6,6 @@
 [ext_resource path="res://shooter/level-editor/EnemySpawn.tscn" type="PackedScene" id=4]
 [ext_resource path="res://shooter/level-editor/Keypad.tscn" type="PackedScene" id=5]
 [ext_resource path="res://shooter/level-editor/Crate.tscn" type="PackedScene" id=6]
-[ext_resource path="res://shooter/entity/Goblin.tscn" type="PackedScene" id=7]
 
 [node name="level-snakehall" type="TileMap"]
 tile_set = ExtResource( 1 )
@@ -85,9 +84,6 @@ explosion_type = 1
 position = Vector2( 361, 512 )
 rotation = -0.744492
 explosion_type = 1
-
-[node name="Goblin" parent="." instance=ExtResource( 7 )]
-position = Vector2( 338, 59 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 65, 62 )
