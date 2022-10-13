@@ -1,0 +1,7 @@
+[gd_scene format=2]
+
+[node name="CollidingAnimatedProp" type="AnimatedSprite"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
