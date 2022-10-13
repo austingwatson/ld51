@@ -19,10 +19,12 @@ var enemies = []
 var player = null
 var keypads = []
 var keypad
+var goblin
 
 # the enemy spawners of the level
 var spawners = []
 var turret_spawners = []
+var goblin_spawners = []
 
 # current buffs that the enemies have
 # := means that the variable cannot change types
@@ -97,16 +99,17 @@ func new_level(remove_amount):
 	for enemy in enemies:
 		enemy.queue_free()
 	enemies.clear()
-	player.queue_free()
+	#player.queue_free()
 	keypads.clear()
 	keypad = null
 	
-	for spawner in spawners:
-		spawner.queue_free()
+	if goblin != null:
+		goblin.queue_free()
+	goblin = null
+	
 	spawners.clear()
-	for turret_spawner in turret_spawners:
-		turret_spawner.queue_free()
 	turret_spawners.clear()
+	goblin_spawners.clear()
 	
 	remove_buffs(remove_amount)
 
@@ -158,16 +161,17 @@ func restart():
 	for enemy in enemies:
 		enemy.queue_free()
 	enemies.clear()
-	player.queue_free()
+	#player.queue_free()
 	keypads.clear()
 	keypad = null
 	
-	for spawner in spawners:
-		spawner.queue_free()
+	if goblin != null:
+		goblin.queue_free()
+	goblin = null
+	
 	spawners.clear()
-	for turret_spawner in turret_spawners:
-		turret_spawner.queue_free()
 	turret_spawners.clear()
+	goblin_spawners.clear()
 	
 	current_health = 0
 	current_speed = 0
@@ -208,6 +212,12 @@ func randomize_keypad():
 	keypad.visible = true
 
 func spawn_full_enemies():
+	# spawn a goblin
+	if goblin_spawners.size() > 0:
+		var rng = randi() % goblin_spawners.size()
+		goblin = goblin_spawners[rng].spawn_goblin()
+		shooter_game.add_child(goblin)
+	
 	# amount of enemies to spawn
 	var enemy_amount = 0
 	
@@ -354,6 +364,9 @@ func register_spawner(spawner):
 	
 func register_turret_spawner(spawner):
 	turret_spawners.append(spawner)
+
+func register_goblin(goblin):
+	goblin_spawners.append(goblin)
 	
 func add_buff_to_enemies():
 	# randomize the next enemy buff card
