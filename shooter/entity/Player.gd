@@ -119,7 +119,7 @@ func _process(delta):
 		
 	if use_melee && can_use_melee:
 		can_use_melee = false
-		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, projectile_pierce * 2, projectile_dot_tick, 0, projectile_explode_type, true)
+		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, 1000, projectile_dot_tick, 0, projectile_explode_type, true)
 		melee_timer.start()
 		emit_signal("wave_cd_changed", true)
 		

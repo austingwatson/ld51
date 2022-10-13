@@ -4,8 +4,10 @@
 [ext_resource path="res://shooter/entity/Enemy.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
+resource_local_to_scene = true
 
 [sub_resource type="CircleShape2D" id=2]
+resource_local_to_scene = true
 
 [node name="Enemy" groups=["Enemy", "Mob"] instance=ExtResource( 1 )]
 position = Vector2( 193, 221 )

@@ -11,10 +11,6 @@ const buff_grenade_texture = preload("res://assets/card-extracell.png")
 const buff_debuff_texture = preload("res://assets/card-enemydebuff.png")
 const buff_attack_speed_texture = preload("res://assets/card-shields.png")
 
-# player wave cd bases
-const hp_base_wave_cd_empty = preload("res://assets/hpbase-backglowdim.png")
-const hp_base_wave_cd_full = preload("res://assets/hpbase-backglowfull.png")
-
 # child nodes
 onready var timer_background = $TimerBackground
 onready var ten_second_timer = $TenSecondTimer
@@ -28,6 +24,7 @@ onready var death_screen = $DeathScreen
 onready var grenade_amount = $GrenadeAmount
 onready var fps = $FPS
 onready var wave_cd = $WaveCD
+onready var score = $DeathScreen/Score
 
 signal paused(paused)
 signal done_hacking
@@ -105,8 +102,11 @@ func _process(delta):
 	
 	grenade_amount.text = str(EntityManager.player.grenades)
 		
-	if EntityManager.player.health <= 0:
+	if !death_screen.visible && EntityManager.player.health <= 0:
 		emit_signal("paused", true)
+		EntityManager.shooter_game.time_alive += EntityManager.shooter_game.get_time_left()
+		var time_alive = "%.2f" % EntityManager.shooter_game.time_alive
+		score.text = "Levels Complete: " + str(EntityManager.shooter_game.levels_complete) + "\nTime Alive: " + time_alive + " seconds"
 		death_screen.visible = true
 		
 	fps.text = "FPS: " + str(Engine.get_frames_per_second())
@@ -208,9 +208,10 @@ func use_computer():
 		
 func player_wave_cd(on_cd):
 	if on_cd:
-		wave_cd.texture = hp_base_wave_cd_empty
+		wave_cd.visible = false
 	else:
-		wave_cd.texture = hp_base_wave_cd_full
+		wave_cd.visible = true
+		wave_cd.play("full")
 	
 func _on_Play_pressed():
 	in_menu = false
