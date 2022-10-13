@@ -49,7 +49,7 @@ func _process(delta):
 			plus_health.rect_position = position
 			plus_health.rect_position -= plus_health.rect_size / 2
 			plus_health.rect_position.y -= 20
-			$ShowPlusHealthTimer.start()
+			$PlusHealthTimer.start()
 	else:
 		look_at(target)
 		rotation_degrees += 90.0
@@ -70,7 +70,8 @@ func process_ai(player):
 func _on_NavigationAgent2D_velocity_computed(safe_velocity):
 	pass
 
-func _on_ShowPlusHealthTimer_timeout():
+func _on_PlusHealthTimer_timeout():
+	print("goblin done")
 	plus_health.queue_free()
 	EntityManager.goblin = null
 	queue_free()
