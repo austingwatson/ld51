@@ -1,11 +1,11 @@
 class_name SpiderBoss extends "Enemy.gd"
 
-onready var collision_shape = $CollisionShape2D
 onready var big_shot_timer = $BigShotTimer
 onready var spawn_drone_timer = $SpawnDroneTimer
 onready var burst_timer = $BurstTimer
 onready var ray_cast = $RayCast2D
 onready var end_of_drone_timer = $EndOfDroneAttackTimer
+onready var player_interaction = $PlayerInteraction/CollisionShape2D
 
 var use_main_attack := false
 var use_big_shot_attack := false
@@ -27,10 +27,17 @@ export var spawn_drone_freeze = 1
 var rotating = false
 export(float) var rotation_speed := 90.0
 
-var temp_range = 0
+export(DynamicFont) var player_interaction_font
+var player_interaction_label
 
 func _ready():
 	rotation_speed = deg2rad(rotation_speed)
+	
+	player_interaction_label = Label.new()
+	player_interaction_label.add_font_override("font", player_interaction_font)
+	player_interaction_label.text = "Press F to override SECURITY augmentations."
+	player_interaction_label.visible = false
+	get_parent().add_child(player_interaction_label)
 
 func _physics_process(delta):
 	if health <= 0:
@@ -63,6 +70,8 @@ func _physics_process(delta):
 			just_attacked = true
 
 func _process(delta):
+	player_interaction_label.rect_rotation = 0
+	
 	if health <= 0:
 		return
 	
@@ -90,10 +99,10 @@ func _process(delta):
 	if next_burst && using_burst > 0:
 		next_burst = false
 		using_burst -= 1
-		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
 		
 		for i in range(1, projectile_amount):
-			EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
+			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
 		burst_timer.start()
 
 func burst_shot():
@@ -108,10 +117,10 @@ func burst_shot():
 		use_spawn_drone = false
 	
 func grenade():
-	EntityManager.create_projectile(self, target, projectile_speed / 3, projectile_accuracy, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
+	EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed / 3, projectile_accuracy, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
 	
 	for i in range(1, projectile_amount):
-		EntityManager.create_projectile(self, target, projectile_speed / 3, projectile_accuracy - 0.2, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed / 3, projectile_accuracy - 0.2, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
 	
 	freezeCD.start(grenade_freeze)	
 	
@@ -121,7 +130,7 @@ func grenade():
 		
 func big_shot():
 	animation.play("big_shot")
-	EntityManager.create_big_shot(self, target, 0, projectile_accuracy, projectile_range * 2, projectile_damage * 2, projectile_pierce * 2, projectile_dot_tick, projectile_explode, projectile_explode_type, true)
+	EntityManager.create_big_shot(self, bullet_spawn.global_position, target, 0, projectile_accuracy, projectile_range * 2, projectile_damage * 2, projectile_pierce * 2, projectile_dot_tick, projectile_explode, projectile_explode_type, true)
 	freezeCD.start(big_shot_freeze)
 	
 	use_main_attack = false
@@ -167,14 +176,20 @@ func pick_attack():
 	else:
 		use_main_attack = true
 
-func take_damage(damage):
+func take_damage(damage, location):
 	health -= damage
-	print(health)
+
 	if !show_death_anim && health <= 0:
+		health = -10000 # set health to -10000 for quick fix for zombie boss
 		z_index = 0
 		show_death_anim = true
 		animation.play("death")
 		collision_shape.set_deferred("disabled", true)
+		player_interaction.set_deferred("disabled", false)
+		
+		player_interaction_label.rect_position = position - player_interaction_label.rect_size / 2 - Vector2(0, 40)
+		
+		EntityManager.create_explosion(self, 0, 0, 2, 4)
 
 func add_sight_range(amount):
 	.add_sight_range(amount)
@@ -218,11 +233,21 @@ func _on_RealHitBox_area_entered(area):
 		return
 	
 	if area.is_in_group("Projectile"):
-		take_damage(area.damage)
+		take_damage(area.damage, area.position)
 		
 		if area.dot > 0:
 			add_dot(area.dot)
 		if area.explode > 0:
-				EntityManager.create_explosion(area, area.damage, area.explode, area.dot, area.explode_type)
+				EntityManager.create_explosion(area, area.damage, area.dot, area.explode_type, 1)
 		
 		area.queue_free()
+
+func _on_PlayerInteraction_body_entered(body):
+	if health <= 0:
+		if body.is_in_group("Player"):
+			player_interaction_label.visible = true
+
+func _on_PlayerInteraction_body_exited(body):
+	if health <= 0:
+		if body.is_in_group("Player"):
+			player_interaction_label.visible = false

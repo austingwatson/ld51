@@ -75,8 +75,8 @@ func player_in_sight(position: Vector2) -> bool:
 func player_in_attack(position: Vector2) -> bool:
 	return self.position.distance_to(position) <= projectile_range
 
-func take_damage(damage):
-	.take_damage(damage)
+func take_damage(damage, location):
+	.take_damage(damage, location)
 	
 	if health > 0 && health <= max_health * 0.25:
 		var rng = randi() % 5

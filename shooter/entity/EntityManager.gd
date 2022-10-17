@@ -117,6 +117,11 @@ func new_level(remove_amount):
 	
 	remove_buffs(remove_amount)
 
+func remove_spider_boss():
+	kill_all_enemies()
+	remove_buffs(6)
+	shooter_game.remove_enemy_buff_from_hud(6)
+
 func remove_buffs(remove_amount):
 	for i in range(0, remove_amount):
 		var rng = randi() % buff_names.size()
@@ -151,7 +156,7 @@ func remove_buffs(remove_amount):
 				if current_attack_speed < min_attack_speed:
 					current_attack_speed = min_attack_speed
 
-# this function might cause the game to crass
+# this function might cause the game to crash
 # will have to try and see if it is overloading
 # queue free
 func kill_all_enemies():
@@ -357,20 +362,20 @@ func create_enemy(type, x, y):
 		enemy.create(x, y)
 		add_enemy(enemy)
 
-func create_projectile(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
+func create_projectile(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	var projectile = projectile_scene.instance()
 	add_node_to_root(projectile)
-	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
+	projectile.create(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
 	
-func create_big_shot(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
+func create_big_shot(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	var big_shot = big_shot_scene.instance()
 	add_node_to_root(big_shot)
-	big_shot.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
+	big_shot.create(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
 	big_shot.offset_big_shot()
 	
-func create_explosion(owner, damage, timer, dot, type):
+func create_explosion(owner, damage, dot, type, loops):
 	var explosion = explosion_scene.instance()
-	explosion.create(owner, damage, timer, dot, type)
+	explosion.create(owner, damage, dot, type, loops)
 	add_node_to_root(explosion)
 
 func register_spawner(spawner):

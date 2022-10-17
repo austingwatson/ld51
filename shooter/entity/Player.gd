@@ -31,6 +31,8 @@ const max_zoom_level = 0.4
 const zoom_amount = 0.6
 
 var closest_enemy = Vector2.ZERO
+
+var in_spider_boss_range = false
 	
 func _ready():
 	._ready()
@@ -70,6 +72,9 @@ func _input(event):
 	elif event.is_action_pressed("activate"):
 		if touching_keypad && EntityManager.enemies.size() == 0:
 			emit_signal("use_computer")
+		elif in_spider_boss_range:
+			in_spider_boss_range = false
+			EntityManager.remove_spider_boss()
 			
 	elif event.is_action_released("grenade"):
 		use_grenade = true
@@ -113,13 +118,13 @@ func _process(delta):
 		if grenades > 0 && can_use_grenade:
 			grenades -= 1
 			can_use_grenade = false
-			EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, 0.3, projectile_explode_type, false)
+			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, 0.3, projectile_explode_type, false)
 			grenade_timer.start()
 		use_grenade = false
 		
 	if use_melee && can_use_melee:
 		can_use_melee = false
-		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, 1000, projectile_dot_tick, 0, projectile_explode_type, true)
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, 1000, projectile_dot_tick, 0, projectile_explode_type, true)
 		melee_timer.start()
 		emit_signal("wave_cd_changed", true)
 		
@@ -145,11 +150,11 @@ func ten_second_timer_timeout():
 		#enemy_arrow.position = position
 		enemy_arrow_timer.start()
 
-func take_damage(damage):
+func take_damage(damage, location):
 	if damage >= max_health:
 		damage = max_health - 1
 	
-	.take_damage(damage)
+	.take_damage(damage, location)
 	
 	if health <= 0:
 		SoundManager.play_sound("player-death")
@@ -160,10 +165,15 @@ func take_damage(damage):
 func _on_Area2D_area_entered(area):
 	if area == EntityManager.keypad:
 		touching_keypad = true
+	
+	elif area.is_in_group("SpiderBoss"):
+		in_spider_boss_range = true
 
 func _on_Area2D_area_exited(area):
 	if area == EntityManager.keypad:
 		touching_keypad = false
+	elif area.is_in_group("SpiderBoss"):
+		in_spider_boss_range = false
 
 func start_zoom():
 	camera.current = true
