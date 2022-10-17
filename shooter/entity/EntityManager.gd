@@ -357,20 +357,20 @@ func create_enemy(type, x, y):
 		enemy.create(x, y)
 		add_enemy(enemy)
 
-func create_projectile(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
+func create_projectile(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	var projectile = projectile_scene.instance()
 	add_node_to_root(projectile)
-	projectile.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
+	projectile.create(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
 	
-func create_big_shot(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
+func create_big_shot(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
 	var big_shot = big_shot_scene.instance()
 	add_node_to_root(big_shot)
-	big_shot.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
+	big_shot.create(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
 	big_shot.offset_big_shot()
 	
-func create_explosion(owner, damage, timer, dot, type):
+func create_explosion(owner, damage, dot, type, loops):
 	var explosion = explosion_scene.instance()
-	explosion.create(owner, damage, timer, dot, type)
+	explosion.create(owner, damage, dot, type, loops)
 	add_node_to_root(explosion)
 
 func register_spawner(spawner):

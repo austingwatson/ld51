@@ -51,5 +51,37 @@ visible = false
 frames = SubResource( 6 )
 playing = true
 
+[node name="BulletSpawn" type="Position2D" parent="."]
+
+[node name="MuzzleFlash" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.15
+one_shot = true
+direction = Vector2( 0, -1 )
+spread = 20.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 200.0
+scale_amount = 2.0
+color = Color( 0.890196, 0.960784, 0.945098, 1 )
+
+[node name="BulletImpact" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.1
+one_shot = true
+gravity = Vector2( 0, 0 )
+initial_velocity = 200.0
+scale_amount = 2.0
+color = Color( 1, 0, 0, 1 )
+
+[node name="RandomBulletImpact" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.1
+one_shot = true
+spread = 180.0
+initial_velocity = 200.0
+color = Color( 1, 0, 0, 1 )
+
 [connection signal="timeout" from="AttackCD" to="." method="_on_AttackCD_timeout"]
 [connection signal="timeout" from="DotTimer" to="." method="_on_DotTimer_timeout"]

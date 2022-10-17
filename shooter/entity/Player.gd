@@ -113,13 +113,13 @@ func _process(delta):
 		if grenades > 0 && can_use_grenade:
 			grenades -= 1
 			can_use_grenade = false
-			EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, 0.3, projectile_explode_type, false)
+			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, 0.3, projectile_explode_type, false)
 			grenade_timer.start()
 		use_grenade = false
 		
 	if use_melee && can_use_melee:
 		can_use_melee = false
-		EntityManager.create_projectile(self, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, 1000, projectile_dot_tick, 0, projectile_explode_type, true)
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, 1000, projectile_dot_tick, 0, projectile_explode_type, true)
 		melee_timer.start()
 		emit_signal("wave_cd_changed", true)
 		
@@ -145,11 +145,11 @@ func ten_second_timer_timeout():
 		#enemy_arrow.position = position
 		enemy_arrow_timer.start()
 
-func take_damage(damage):
+func take_damage(damage, location):
 	if damage >= max_health:
 		damage = max_health - 1
 	
-	.take_damage(damage)
+	.take_damage(damage, location)
 	
 	if health <= 0:
 		SoundManager.play_sound("player-death")

@@ -11,9 +11,9 @@ var explode_type = 0
 var shielding = false
 var hit_targets = []
 
-func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
-	position = owner.position
-	start_position = position
+func create(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
+	position = start_position
+	self.start_position = start_position
 	
 	look_at(target)
 	rotation_degrees += 90.0
@@ -92,7 +92,7 @@ func _physics_process(delta):
 func _process(delta):
 	if position.distance_to(start_position) >= distance:
 		if explode > 0:
-			EntityManager.create_explosion(self, damage, explode, dot, explode_type)
+			EntityManager.create_explosion(self, damage, dot, explode_type, 1)
 		damage = 0
 		queue_free()
 
@@ -102,7 +102,7 @@ func _on_Projectile_body_entered(body):
 			if hit == body:
 				return
 		
-		body.take_damage(damage)
+		body.take_damage(damage, global_position)
 		if dot > 0:
 			body.add_dot(dot)
 		
@@ -111,17 +111,17 @@ func _on_Projectile_body_entered(body):
 			pierce -= 1
 		else:
 			if explode > 0:
-				EntityManager.create_explosion(self, damage, explode, dot, explode_type)
+				EntityManager.create_explosion(self, damage, dot, explode_type, 1)
 			damage = 0
 			queue_free()
 	elif !shielding:
 		if explode:
-			EntityManager.create_explosion(self, damage, explode, dot, explode_type)
+			EntityManager.create_explosion(self, damage, dot, explode_type, 1)
 		damage = 0
 		queue_free()
 
 func _on_Projectile_area_entered(area):
-	if shielding && area.is_in_group("Projectile"):
+	if shielding && area.is_in_group("Projectile") && !area.shielding:
 		area.queue_free()
 	elif area.is_in_group("Crate"):
 		if pierce > 1:

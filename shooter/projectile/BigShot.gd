@@ -5,12 +5,14 @@ const max_size = Vector2(12, 12)
 const added_size = Vector2(0.1, 0.1)
 const speed = 200
 
+var proj_owner
 var target
 var send_shot = false
 
-func create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
-	.create(owner, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
+func create(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding):
+	.create(owner, start_position, target, speed, accuracy, distance, damage, pierce, dot, explode, explode_type, shielding)
 	
+	self.proj_owner = owner
 	self.target = target
 	scale = start_size
 
@@ -29,3 +31,6 @@ func _process(delta):
 			var theta = atan2(target.y - position.y, target.x - position.x)
 			velocity.x = cos(theta) * speed
 			velocity.y = sin(theta) * speed
+	
+	if proj_owner.health <= 0:
+		queue_free()
