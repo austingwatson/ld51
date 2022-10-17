@@ -108,6 +108,9 @@ func change_from_hack_scene():
 			ten_second_timer.paused = false
 			break
 	
+func remove_enemy_buff_from_hud(remove_amount):
+	hud.remove_buffs(remove_amount)
+	
 # this function is called every ten seconds
 # this will add a difficulty modifier to the game
 func _on_TenSecondTimer_timeout():
