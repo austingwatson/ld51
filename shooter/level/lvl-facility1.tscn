@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://shooter/level/facility-tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://shooter/level-editor/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://shooter/level-editor/LevelModifier.tscn" type="PackedScene" id=8]
 [ext_resource path="res://shooter/level-editor/SpiderBossSpawn.tscn" type="PackedScene" id=9]
 [ext_resource path="res://shooter/level-editor/GoblinSpawn.tscn" type="PackedScene" id=10]
+[ext_resource path="res://shooter/level-editor/AcidPoolCrate.tscn" type="PackedScene" id=11]
 
 [node name="lvl-facility1" type="TileMap"]
 position = Vector2( 16, 3 )
@@ -66,3 +67,6 @@ margin_left = 911.0
 margin_top = 328.0
 margin_right = 951.0
 margin_bottom = 368.0
+
+[node name="AcidPoolCrate" parent="." instance=ExtResource( 11 )]
+position = Vector2( 432, 72 )
