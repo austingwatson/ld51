@@ -117,6 +117,11 @@ func new_level(remove_amount):
 	
 	remove_buffs(remove_amount)
 
+func remove_spider_boss():
+	kill_all_enemies()
+	remove_buffs(6)
+	shooter_game.remove_enemy_buff_from_hud(6)
+
 func remove_buffs(remove_amount):
 	for i in range(0, remove_amount):
 		var rng = randi() % buff_names.size()
@@ -151,7 +156,7 @@ func remove_buffs(remove_amount):
 				if current_attack_speed < min_attack_speed:
 					current_attack_speed = min_attack_speed
 
-# this function might cause the game to crass
+# this function might cause the game to crash
 # will have to try and see if it is overloading
 # queue free
 func kill_all_enemies():

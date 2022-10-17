@@ -1,8 +1,14 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://shooter/entity/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/bossbot-animsheet.png" type="Texture" id=2]
 [ext_resource path="res://shooter/entity/SpiderBoss.gd" type="Script" id=3]
+[ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=16]
+outline_size = 1
+outline_color = Color( 0.247059, 0.627451, 0.643137, 1 )
+font_data = ExtResource( 4 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
@@ -76,6 +82,10 @@ resource_local_to_scene = true
 [sub_resource type="CircleShape2D" id=2]
 resource_local_to_scene = true
 
+[sub_resource type="CircleShape2D" id=15]
+resource_local_to_scene = true
+radius = 150.0
+
 [node name="SpiderBoss" groups=["SpiderBoss"] instance=ExtResource( 1 )]
 z_index = 2
 script = ExtResource( 3 )
@@ -91,11 +101,13 @@ grenade_freeze = 1
 big_shot_freeze = 3
 spawn_drone_freeze = 3
 rotation_speed = 90.0
+player_interaction_font = SubResource( 16 )
 
 [node name="AnimatedSprite" parent="." index="0"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
 animation = "spawn_drone"
+frame = 1
 
 [node name="RealHitBox" type="Area2D" parent="." index="1"]
 collision_layer = 2
@@ -111,14 +123,14 @@ disabled = true
 [node name="NavigationAgent2D" parent="." index="8"]
 avoidance_enabled = false
 
+[node name="AcidOverlay" parent="." index="9"]
+frame = 3
+
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D" parent="AttackRangeDebug" index="0"]
 shape = SubResource( 2 )
-
-[node name="AcidOverlay" parent="." index="11"]
-frame = 2
 
 [node name="BigShotTimer" type="Timer" parent="." index="12"]
 wait_time = 15.0
@@ -139,8 +151,16 @@ cast_to = Vector2( 0, -5000 )
 [node name="EndOfDroneAttackTimer" type="Timer" parent="." index="16"]
 one_shot = true
 
+[node name="PlayerInteraction" type="Area2D" parent="." index="21" groups=["SpiderBoss"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerInteraction" index="0"]
+shape = SubResource( 15 )
+disabled = true
+
 [connection signal="area_entered" from="RealHitBox" to="." method="_on_RealHitBox_area_entered"]
 [connection signal="timeout" from="BigShotTimer" to="." method="_on_BigShotTimer_timeout"]
 [connection signal="timeout" from="SpawnDroneTimer" to="." method="_on_SpawnDroneTimer_timeout"]
 [connection signal="timeout" from="BurstTimer" to="." method="_on_BurstTimer_timeout"]
 [connection signal="timeout" from="EndOfDroneAttackTimer" to="." method="_on_EndOfDroneAttackTimer_timeout"]
+[connection signal="body_entered" from="PlayerInteraction" to="." method="_on_PlayerInteraction_body_entered"]
+[connection signal="body_exited" from="PlayerInteraction" to="." method="_on_PlayerInteraction_body_exited"]

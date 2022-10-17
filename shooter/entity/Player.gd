@@ -31,6 +31,8 @@ const max_zoom_level = 0.4
 const zoom_amount = 0.6
 
 var closest_enemy = Vector2.ZERO
+
+var in_spider_boss_range = false
 	
 func _ready():
 	._ready()
@@ -70,6 +72,9 @@ func _input(event):
 	elif event.is_action_pressed("activate"):
 		if touching_keypad && EntityManager.enemies.size() == 0:
 			emit_signal("use_computer")
+		elif in_spider_boss_range:
+			in_spider_boss_range = false
+			EntityManager.remove_spider_boss()
 			
 	elif event.is_action_released("grenade"):
 		use_grenade = true
@@ -160,10 +165,15 @@ func take_damage(damage, location):
 func _on_Area2D_area_entered(area):
 	if area == EntityManager.keypad:
 		touching_keypad = true
+	
+	elif area.is_in_group("SpiderBoss"):
+		in_spider_boss_range = true
 
 func _on_Area2D_area_exited(area):
 	if area == EntityManager.keypad:
 		touching_keypad = false
+	elif area.is_in_group("SpiderBoss"):
+		in_spider_boss_range = false
 
 func start_zoom():
 	camera.current = true

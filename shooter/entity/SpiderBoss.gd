@@ -5,6 +5,7 @@ onready var spawn_drone_timer = $SpawnDroneTimer
 onready var burst_timer = $BurstTimer
 onready var ray_cast = $RayCast2D
 onready var end_of_drone_timer = $EndOfDroneAttackTimer
+onready var player_interaction = $PlayerInteraction/CollisionShape2D
 
 var use_main_attack := false
 var use_big_shot_attack := false
@@ -26,10 +27,17 @@ export var spawn_drone_freeze = 1
 var rotating = false
 export(float) var rotation_speed := 90.0
 
-var temp_range = 0
+export(DynamicFont) var player_interaction_font
+var player_interaction_label
 
 func _ready():
 	rotation_speed = deg2rad(rotation_speed)
+	
+	player_interaction_label = Label.new()
+	player_interaction_label.add_font_override("font", player_interaction_font)
+	player_interaction_label.text = "Press F to override SECURITY augmentations."
+	player_interaction_label.visible = false
+	get_parent().add_child(player_interaction_label)
 
 func _physics_process(delta):
 	if health <= 0:
@@ -62,6 +70,8 @@ func _physics_process(delta):
 			just_attacked = true
 
 func _process(delta):
+	player_interaction_label.rect_rotation = 0
+	
 	if health <= 0:
 		return
 	
@@ -175,6 +185,9 @@ func take_damage(damage, location):
 		show_death_anim = true
 		animation.play("death")
 		collision_shape.set_deferred("disabled", true)
+		player_interaction.set_deferred("disabled", false)
+		
+		player_interaction_label.rect_position = position - player_interaction_label.rect_size / 2 - Vector2(0, 40)
 		
 		EntityManager.create_explosion(self, 0, 0, 2, 4)
 
@@ -228,3 +241,13 @@ func _on_RealHitBox_area_entered(area):
 				EntityManager.create_explosion(area, area.damage, area.dot, area.explode_type, 1)
 		
 		area.queue_free()
+
+func _on_PlayerInteraction_body_entered(body):
+	if health <= 0:
+		if body.is_in_group("Player"):
+			player_interaction_label.visible = true
+
+func _on_PlayerInteraction_body_exited(body):
+	if health <= 0:
+		if body.is_in_group("Player"):
+			player_interaction_label.visible = false
