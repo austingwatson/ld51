@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://shooter/hud/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/hpbase.png" type="Texture" id=2]
@@ -67,6 +67,12 @@ fps = 1.0
 frame_0/texture = ExtResource( 14 )
 frame_1/texture = ExtResource( 13 )
 frame_1/delay_sec = 0.0
+
+[sub_resource type="DynamicFont" id=34]
+size = 32
+outline_size = 3
+outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=13]
 size = 32
@@ -168,6 +174,16 @@ texture = ExtResource( 2 )
 [node name="PlayerHealth" type="Control" parent="."]
 script = ExtResource( 6 )
 health_texture = SubResource( 12 )
+health_bulb = ExtResource( 2 )
+
+[node name="ExtraHealth" type="Label" parent="PlayerHealth"]
+margin_left = 81.0
+margin_top = 64.0
+margin_right = 150.0
+margin_bottom = 103.0
+custom_fonts/font = SubResource( 34 )
+text = "999"
+align = 2
 
 [node name="Grenade" type="Sprite" parent="."]
 position = Vector2( 115, 965 )
@@ -402,7 +418,6 @@ texture = ExtResource( 12 )
 position = Vector2( 940, 540 )
 scale = Vector2( 20, 20 )
 frames = SubResource( 11 )
-frame = 1
 playing = true
 
 [node name="Dead" type="Label" parent="DeathScreen"]

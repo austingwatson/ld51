@@ -30,7 +30,7 @@ func _process(delta):
 	else:
 		animation.stop()
 	
-	if effects.has("dot"):
+	if dot_amount > 0:
 		acid_overlay.visible = true
 	else:
 		acid_overlay.visible = false

@@ -13,7 +13,7 @@ region = Rect2( 112, 16, 16, 16 )
 [node name="Crate" type="Area2D" groups=["Crate"]]
 script = ExtResource( 2 )
 damage = 10
-explosion_timer = 100
+explosion_loops = 1
 explosion_type = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

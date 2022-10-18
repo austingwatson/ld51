@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://shooter/entity/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/bossbot-animsheet.png" type="Texture" id=2]
@@ -10,9 +10,17 @@ outline_size = 1
 outline_color = Color( 0.247059, 0.627451, 0.643137, 1 )
 font_data = ExtResource( 4 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 288, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 320, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
@@ -48,7 +56,12 @@ region = Rect2( 256, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 17 ) ],
+"loop": true,
+"name": "basic_shot",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "big_shot",
 "speed": 5.0
@@ -75,6 +88,7 @@ radius = 67.0
 
 [sub_resource type="CircleShape2D" id=13]
 resource_local_to_scene = true
+radius = 14.3178
 
 [sub_resource type="CircleShape2D" id=1]
 resource_local_to_scene = true
@@ -96,6 +110,7 @@ projectile_range = 300
 projectile_explode_type = 2
 projectile_attack_speed = 2.0
 enemy_name = "other"
+drone_waves = 3
 burst_freeze = 1
 grenade_freeze = 1
 big_shot_freeze = 3
@@ -106,8 +121,7 @@ player_interaction_font = SubResource( 16 )
 [node name="AnimatedSprite" parent="." index="0"]
 scale = Vector2( 4, 4 )
 frames = SubResource( 7 )
-animation = "spawn_drone"
-frame = 1
+animation = "basic_shot"
 
 [node name="RealHitBox" type="Area2D" parent="." index="1"]
 collision_layer = 2
@@ -118,13 +132,12 @@ shape = SubResource( 14 )
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource( 13 )
-disabled = true
 
 [node name="NavigationAgent2D" parent="." index="8"]
 avoidance_enabled = false
 
 [node name="AcidOverlay" parent="." index="9"]
-frame = 3
+frame = 1
 
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 1 )
@@ -157,6 +170,9 @@ one_shot = true
 shape = SubResource( 15 )
 disabled = true
 
+[node name="DroneWaveTimer" type="Timer" parent="." index="22"]
+one_shot = true
+
 [connection signal="area_entered" from="RealHitBox" to="." method="_on_RealHitBox_area_entered"]
 [connection signal="timeout" from="BigShotTimer" to="." method="_on_BigShotTimer_timeout"]
 [connection signal="timeout" from="SpawnDroneTimer" to="." method="_on_SpawnDroneTimer_timeout"]
@@ -164,3 +180,4 @@ disabled = true
 [connection signal="timeout" from="EndOfDroneAttackTimer" to="." method="_on_EndOfDroneAttackTimer_timeout"]
 [connection signal="body_entered" from="PlayerInteraction" to="." method="_on_PlayerInteraction_body_entered"]
 [connection signal="body_exited" from="PlayerInteraction" to="." method="_on_PlayerInteraction_body_exited"]
+[connection signal="timeout" from="DroneWaveTimer" to="." method="_on_DroneWaveTimer_timeout"]

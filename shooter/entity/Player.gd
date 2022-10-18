@@ -35,7 +35,6 @@ var closest_enemy = Vector2.ZERO
 var in_spider_boss_range = false
 	
 func _ready():
-	._ready()
 	EntityManager.player = self
 	
 	self.connect("update_health", EntityManager.shooter_game, "_on_Player_update_health")
@@ -88,8 +87,6 @@ func _input(event):
 		print(EntityManager.find_closest_enemy(get_global_mouse_position()))
 
 func _process(delta):
-	._process(delta)
-	
 	velocity = Vector2.ZERO
 	if movement[0]:
 		velocity.y -= 1
@@ -147,7 +144,6 @@ func ten_second_timer_timeout():
 	if enemy != null:
 		closest_enemy = enemy.position
 		enemy_arrow.visible = true
-		#enemy_arrow.position = position
 		enemy_arrow_timer.start()
 
 func take_damage(damage, location):

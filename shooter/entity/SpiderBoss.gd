@@ -6,6 +6,7 @@ onready var burst_timer = $BurstTimer
 onready var ray_cast = $RayCast2D
 onready var end_of_drone_timer = $EndOfDroneAttackTimer
 onready var player_interaction = $PlayerInteraction/CollisionShape2D
+onready var drone_wave_timer = $DroneWaveTimer
 
 var use_main_attack := false
 var use_big_shot_attack := false
@@ -18,6 +19,9 @@ var show_death_anim := false
 
 var next_burst := false
 var using_burst := 0
+
+export var drone_waves = 3
+var drone_waves_left = 0
 
 export var burst_freeze = 1
 export var grenade_freeze = 1
@@ -106,6 +110,7 @@ func _process(delta):
 		burst_timer.start()
 
 func burst_shot():
+	animation.play("basic_shot")
 	if using_burst <= 0:
 		next_burst = true
 		using_burst = 3
@@ -117,6 +122,7 @@ func burst_shot():
 		use_spawn_drone = false
 	
 func grenade():
+	animation.play("basic_shot")
 	EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed / 3, projectile_accuracy, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
 	
 	for i in range(1, projectile_amount):
@@ -139,7 +145,8 @@ func big_shot():
 
 func spawn_drone():
 	animation.play("spawn_drone")
-	end_of_drone_timer.start(spawn_drone_freeze)
+	drone_wave_timer.start(spawn_drone_freeze)
+	drone_waves_left = drone_waves
 	
 	use_main_attack = false
 	use_big_shot_attack = false
@@ -220,13 +227,6 @@ func _on_BurstTimer_timeout():
 func _on_EndOfDroneAttackTimer_timeout():
 	if health <= 0:
 		return
-	
-	EntityManager.create_enemy("roomba", position.x + 25, position.y)
-	EntityManager.create_enemy("roomba", position.x - 25, position.y)
-	freezeCD.start(spawn_drone_freeze)
-	
-	animation.play("default")
-	animation.stop()
 
 func _on_RealHitBox_area_entered(area):
 	if health <= 0:
@@ -238,7 +238,7 @@ func _on_RealHitBox_area_entered(area):
 		if area.dot > 0:
 			add_dot(area.dot)
 		if area.explode > 0:
-				EntityManager.create_explosion(area, area.damage, area.dot, area.explode_type, 1)
+			EntityManager.create_explosion(area, area.damage, area.dot, area.explode_type, 1)
 		
 		area.queue_free()
 
@@ -251,3 +251,14 @@ func _on_PlayerInteraction_body_exited(body):
 	if health <= 0:
 		if body.is_in_group("Player"):
 			player_interaction_label.visible = false
+			
+func _on_DroneWaveTimer_timeout():
+	EntityManager.create_enemy("roomba", position.x + 25, position.y)
+	EntityManager.create_enemy("roomba", position.x - 25, position.y)
+	
+	drone_waves_left -= 1
+	if drone_waves_left <= 0:
+		animation.play("default")
+		just_attacked = false
+	else:
+		drone_wave_timer.start(spawn_drone_freeze)
