@@ -59,7 +59,9 @@ func _process(delta):
 		for i in range(1, projectile_amount):
 			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
 		
-		muzzle_flash.emitting = true
+		muzzle_flash.visible = true
+		muzzle_flash.frame = 0
+		muzzle_flash.play("default")
 		attack.start()
 		
 	if look_at_target:	
@@ -105,3 +107,7 @@ func _on_DotTimer_timeout():
 		effects["dot"] = effects["dot"] - 1
 		if effects["dot"] == 0:
 			effects.erase("dot")
+
+func _on_MuzzleFlash_animation_finished():
+	muzzle_flash.stop()
+	muzzle_flash.visible = false
