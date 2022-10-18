@@ -4,10 +4,11 @@ var animation: AnimatedSprite
 
 var damage = 0
 var dot = 0
-var initial_damage = true
 var loops = 1
 var current_loop = 0
 var animation_restarted = false
+
+var mobs_hit = []
 
 func create(owner, damage, dot, type, loops):
 	position = owner.position
@@ -15,7 +16,7 @@ func create(owner, damage, dot, type, loops):
 	self.collision_layer = owner.collision_layer
 	self.collision_mask = owner.collision_mask
 	
-	self.damage = damage * 2
+	self.damage = damage
 	self.dot = dot
 	self.loops = loops
 	
@@ -29,9 +30,6 @@ func create(owner, damage, dot, type, loops):
 		
 	SoundManager.play_sound("player-grenade-explosion")
 
-func _physics_process(delta):
-	initial_damage = false
-
 func _process(delta):
 	if animation.frame == 0:
 		animation_restarted = true
@@ -43,8 +41,11 @@ func _process(delta):
 
 func _on_Grenade_body_entered(body):
 	if body.is_in_group("Mob"):
-		if initial_damage:
-			body.take_damage(damage, global_position)
-			
+		for mob_hit in mobs_hit:
+			if body == mob_hit:
+				return
+	
+		mobs_hit.append(body)
+		body.take_damage(damage, null)
 		if dot > 0:
 			body.add_dot(dot)

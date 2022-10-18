@@ -227,10 +227,6 @@ func _on_BurstTimer_timeout():
 func _on_EndOfDroneAttackTimer_timeout():
 	if health <= 0:
 		return
-	
-	#freezeCD.start(spawn_drone_freeze)
-	#animation.play("default")
-	#nimation.stop()
 
 func _on_RealHitBox_area_entered(area):
 	if health <= 0:
@@ -242,7 +238,7 @@ func _on_RealHitBox_area_entered(area):
 		if area.dot > 0:
 			add_dot(area.dot)
 		if area.explode > 0:
-				EntityManager.create_explosion(area, area.damage, area.dot, area.explode_type, 1)
+			EntityManager.create_explosion(area, area.damage, area.dot, area.explode_type, 1)
 		
 		area.queue_free()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://shooter/level/facility-tiles.tres" type="TileSet" id=1]
 [ext_resource path="res://shooter/level-editor/TurretSpawn.tscn" type="PackedScene" id=2]
@@ -74,16 +74,13 @@ margin_bottom = 1262.0
 [node name="Crate" parent="." instance=ExtResource( 6 )]
 position = Vector2( 358, 390 )
 rotation = 0.28274
-explosion_type = 1
 
 [node name="Crate2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 345, 532 )
-explosion_type = 1
 
 [node name="Crate3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 361, 512 )
 rotation = -0.744492
-explosion_type = 1
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 65, 62 )
