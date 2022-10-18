@@ -37,7 +37,7 @@ export(int, "Shock", "Slime", "Normal") var projectile_explode_type = 0
 export var projectile_shielding = false
 export var projectile_attack_speed = 1.0
 
-var effects = {}
+var dot_amount = 0
 
 var look_at_target = true
 
@@ -68,7 +68,7 @@ func _process(delta):
 		look_at(target)
 		rotation_degrees += 90.0
 	
-	if effects.has("dot"):
+	if dot_amount > 0:
 		acid_overlay.visible = true
 	else:
 		acid_overlay.visible = false
@@ -92,21 +92,16 @@ func take_damage(damage, location):
 		alive = false
 		
 func add_dot(ticks):
-	if effects.has("dot"):
-		if ticks > effects["dot"]:
-			effects["dot"] = ticks
-	else:
-		effects["dot"] = ticks
+	if ticks > dot_amount:
+		dot_amount = ticks
 
 func _on_AttackCD_timeout():
 	can_use_attack = true
 
 func _on_DotTimer_timeout():
-	if effects.has("dot"):
+	if dot_amount > 0:
 		take_damage(1, null)
-		effects["dot"] = effects["dot"] - 1
-		if effects["dot"] == 0:
-			effects.erase("dot")
+		dot_amount -= 1
 
 func _on_MuzzleFlash_animation_finished():
 	muzzle_flash.stop()
