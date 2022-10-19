@@ -15,8 +15,12 @@ const big_shot_scene = preload("res://shooter/projectile/BigShot.tscn")
 var shooter_game: Node
 
 # needed to track which nodes to buff every ten seconds
+var enemy_percent = [1.0, 0.0, 0.0, 0.0]
+var enemy_percent_increase = [-0.17, 0.1, 0.05, 0.02]
+var enemy_percent_min = [0.4, 0.0, 0.0, 0.0]
+var enemy_percent_max = [1.0, 0.3, 0.2, 0.1]
 var difficulty_modifier = 1
-var level_modifier = -1
+var level_modifier = 0
 var enemies = []
 var player = null
 var keypads = []
@@ -95,9 +99,21 @@ func _ready():
 	
 	random.randomize()
 
+func reset_enemy_percent():
+	enemy_percent[0] = 1.0
+	for i in range(1, enemy_percent.size()):
+		enemy_percent[i] = 0.0
+
 # restarts a level, removing some buffs
 func new_level(remove_amount):
-	difficulty_modifier += 1
+	difficulty_modifier += 2
+	
+	for i in range(0, enemy_percent.size()):
+		enemy_percent[i] += enemy_percent_increase[i]
+		if enemy_percent[i] >= enemy_percent_max[i]:
+			enemy_percent[i] = enemy_percent_max[i]
+		if enemy_percent[i] <= enemy_percent_min[i]:
+			enemy_percent[i] = enemy_percent_min[i]
 	
 	for enemy in enemies:
 		enemy.queue_free()
@@ -167,6 +183,10 @@ func kill_all_enemies():
 func restart():
 	difficulty_modifier = 1
 	
+	enemy_percent[0] = 1.0
+	for i in range(1, enemy_percent.size()):
+		enemy_percent[i] = 0.0
+	
 	for enemy in enemies:
 		enemy.queue_free()
 	enemies.clear()
@@ -235,35 +255,40 @@ func spawn_full_enemies():
 	
 	# amount of enemies to spawn
 	var enemy_amount = 0
+	var enemy_amount_left = difficulty_modifier + level_modifier
 	
 	if spawners.size() > 0:
 		# drone amount
-		enemy_amount = get_roomba_amount(difficulty_modifier * level_modifier)
+		enemy_amount = get_roomba_amount(enemy_amount_left)
+		enemy_amount_left -= enemy_amount
 		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
 			spawner.spawn_one("roomba", drone_size)
 		
 		# soldiers
-		enemy_amount = get_soldier_amount(difficulty_modifier * level_modifier)
+		enemy_amount = get_soldier_amount(enemy_amount_left)
+		enemy_amount_left -= enemy_amount
 		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
 			spawner.spawn_one("soldier", soldier_size)
 		
 		# generals
-		enemy_amount = get_general_amount(difficulty_modifier * level_modifier)
+		enemy_amount = get_general_amount(enemy_amount_left)
+		enemy_amount_left -= enemy_amount
 		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
 			spawner.spawn_one("general", general_size)
 			
 		# chem throwers
-		enemy_amount = get_chem_thrower_amount(difficulty_modifier * level_modifier)
+		enemy_amount = get_chem_thrower_amount(enemy_amount_left)
+		enemy_amount_left -= enemy_amount
 		for i in range(0, enemy_amount):
 			var spawner = spawners[randi() % spawners.size()]
 			spawner.spawn_one("chem-thrower", chem_thrower_size)
 		
 	# turret amount
 	if turret_spawners.size() > 0:
-		enemy_amount = get_turret_amount(difficulty_modifier * level_modifier)
+		enemy_amount = get_turret_amount(difficulty_modifier + level_modifier)
 		for i in range(1, enemy_amount):
 			var turret_spawner = turret_spawners[randi() % turret_spawners.size()]
 			turret_spawner.spawn_one()
@@ -482,26 +507,17 @@ func remove_dead_enemies():
 	
 # math functions to find how many enemies to spawn
 func get_roomba_amount(x):
-	var lb = x
-	var ub = x + 2
-	return random.randi_range(lb, ub)
+	print(x, ", ", ceil(enemy_percent[0] * x))
+	return ceil(enemy_percent[0] * x)
 	
 func get_turret_amount(x):
-	var lb = x
-	var ub = x
-	return random.randi_range(lb, ub)
+	return ceil(enemy_percent[1] * x)
 	
 func get_soldier_amount(x):
-	var lb = x - 2
-	var ub = x - 1
-	return random.randi_range(lb, ub)
+	return ceil(enemy_percent[2] * x)
 	
 func get_general_amount(x):
-	var lb = x - 4
-	var ub = x - 2
-	return random.randi_range(lb, ub)
+	return ceil(enemy_percent[3] * x)
 	
 func get_chem_thrower_amount(x):
-	var lb = x - 6
-	var ub = x - 4
-	return random.randi_range(lb, ub)
+	return x

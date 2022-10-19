@@ -26,6 +26,7 @@ var last_level = 0
 
 const boss_level = preload("res://shooter/level/level-bossarena.tscn")
 var next_boss_level = 9
+var on_boss_level = false
 
 # ambient music to use
 onready var ambient_music = $AmbientMusic
@@ -65,6 +66,8 @@ func _ready():
 	var level = levels[last_level].instance()
 	if level.has_node("LevelModifier"):
 		EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+	else:
+		EntityManager.level_modifier = 0
 	
 	current_level = level
 	add_child(level, 1)
@@ -93,10 +96,16 @@ func change_from_hack_scene():
 	
 	var level
 	if levels_complete >= next_boss_level:
+		on_boss_level = true
+		
 		level = boss_level.instance()
-		EntityManager.level_modifier = 1
+		EntityManager.level_modifier = 0
 		next_boss_level += 10
 	else:
+		if on_boss_level:
+			EntityManager.reset_enemy_percent()
+		on_boss_level = false
+		
 		var next_level = randi() % levels.size()
 		while last_level == next_level:
 			next_level = randi() % levels.size()
@@ -105,7 +114,7 @@ func change_from_hack_scene():
 		if level.has_node("LevelModifier"):
 			EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
 		else:
-			EntityManager.level_modifier = 1
+			EntityManager.level_modifier = 0
 	
 		last_level = next_level
 	add_child(level)
