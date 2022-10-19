@@ -253,6 +253,9 @@ func _on_PlayerInteraction_body_exited(body):
 			player_interaction_label.visible = false
 			
 func _on_DroneWaveTimer_timeout():
+	if health <= 0:
+		return
+	
 	EntityManager.create_enemy("roomba", position.x + 25, position.y)
 	EntityManager.create_enemy("roomba", position.x - 25, position.y)
 	
