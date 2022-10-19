@@ -71,7 +71,7 @@ func _on_NavigationAgent2D_velocity_computed(safe_velocity):
 	pass
 
 func _on_PlusHealthTimer_timeout():
-	print("goblin done")
+	plus_health.visible = false
 	plus_health.queue_free()
 	EntityManager.goblin = null
 	queue_free()

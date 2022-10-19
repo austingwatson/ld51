@@ -21,6 +21,7 @@ const level5_scene = preload("res://shooter/level/basic-map.tscn")
 const level6_scene = preload("res://shooter/level/level-snakehall.tscn")
 const level7_scene = preload("res://shooter/level/level-brainframe.tscn")
 const level8_scene = preload("res://shooter/level/level-redcross.tscn")
+const level9_scene = preload("res://shooter/level/t-map.tscn")
 var current_level: TileMap
 var last_level = 0
 
@@ -58,6 +59,7 @@ func _ready():
 	levels.append(level6_scene)
 	levels.append(level7_scene)
 	levels.append(level8_scene)
+	levels.append(level9_scene)
 	
 	musics.append(music1)
 	#musics.append(music2)

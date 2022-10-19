@@ -507,7 +507,6 @@ func remove_dead_enemies():
 	
 # math functions to find how many enemies to spawn
 func get_roomba_amount(x):
-	print(x, ", ", ceil(enemy_percent[0] * x))
 	return ceil(enemy_percent[0] * x)
 	
 func get_turret_amount(x):
