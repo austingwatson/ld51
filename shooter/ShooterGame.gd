@@ -24,6 +24,9 @@ const level8_scene = preload("res://shooter/level/level-redcross.tscn")
 var current_level: TileMap
 var last_level = 0
 
+const boss_level = preload("res://shooter/level/level-bossarena.tscn")
+var next_boss_level = 9
+
 # ambient music to use
 onready var ambient_music = $AmbientMusic
 onready var ambient_music_timer = $AmbientMusicTimer
@@ -85,20 +88,26 @@ func change_from_hack_scene():
 	levels_complete += 1
 	
 	enemy_cutscene.end_cutscene()
-	
 	current_level.queue_free()
-	
 	EntityManager.new_level(0)
 	
-	var next_level = randi() % levels.size()
-	while last_level == next_level:
-		next_level = randi() % levels.size()
+	var level
+	if levels_complete >= next_boss_level:
+		level = boss_level.instance()
+		EntityManager.level_modifier = 1
+		next_boss_level += 10
+	else:
+		var next_level = randi() % levels.size()
+		while last_level == next_level:
+			next_level = randi() % levels.size()
 	
-	var level = levels[next_level].instance()
-	if level.has_node("LevelModifier"):
-		EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+		level = levels[next_level].instance()
+		if level.has_node("LevelModifier"):
+			EntityManager.level_modifier = level.get_node("LevelModifier").level_modifier
+		else:
+			EntityManager.level_modifier = 1
 	
-	last_level = next_level
+		last_level = next_level
 	add_child(level)
 	EntityManager.randomize_keypad()
 	EntityManager.spawn_full_enemies()
@@ -157,6 +166,7 @@ func _on_AmbientMusic_finished():
 	ambient_music_timer.start()
 
 func _on_HUD_restart():
+	next_boss_level = 9
 	levels_complete = 0
 	time_alive = 0.0
 	
