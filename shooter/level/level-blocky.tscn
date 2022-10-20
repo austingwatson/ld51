@@ -103,317 +103,315 @@ tile_data = PoolIntArray( -196618, -1073741817, 0, -196617, -1073741817, 0, -196
 [node name="CollidingAnimatedProp" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1208, 120 )
 frames = SubResource( 7 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="CollidingAnimatedProp7" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 40, 0 )
 frames = SubResource( 7 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="CollidingAnimatedProp5" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -80, 240 )
 frames = SubResource( 7 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="CollidingAnimatedProp8" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -40, 240 )
 frames = SubResource( 7 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp9" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 0, 240 )
 frames = SubResource( 7 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp10" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 40, 240 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp2" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -120, 240 )
 frames = SubResource( 7 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp11" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -624, 448 )
 frames = SubResource( 7 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp12" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -584, 448 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp13" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -544, 448 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp14" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -504, 448 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp15" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -664, 448 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp21" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -704, 608 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp22" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -704, 568 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp23" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -704, 528 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp24" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -704, 488 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp25" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -704, 648 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp26" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1120, 960 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp27" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1120, 920 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp28" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1120, 880 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp29" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1120, 840 )
 rotation = -1.57079
 frames = SubResource( 7 )
+frame = 5
 playing = true
 
 [node name="CollidingAnimatedProp30" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1120, 1000 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp31" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 80, 160 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp32" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 80, 120 )
 rotation = -1.57079
 frames = SubResource( 7 )
+frame = 5
 playing = true
 
 [node name="CollidingAnimatedProp33" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 80, 80 )
 rotation = -1.57079
 frames = SubResource( 7 )
+frame = 5
 playing = true
 
 [node name="CollidingAnimatedProp34" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 80, 40 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="CollidingAnimatedProp35" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 80, 200 )
 rotation = -1.57079
 frames = SubResource( 7 )
+frame = 5
 playing = true
 
 [node name="CollidingAnimatedProp36" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 464 )
 rotation = -1.57079
 frames = SubResource( 7 )
+frame = 5
 playing = true
 
 [node name="CollidingAnimatedProp37" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 424 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="CollidingAnimatedProp38" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 384 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="CollidingAnimatedProp39" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 344 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="CollidingAnimatedProp41" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 696 )
 rotation = -1.57079
 frames = SubResource( 7 )
+frame = 5
 playing = true
 
 [node name="CollidingAnimatedProp42" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 656 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="CollidingAnimatedProp43" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 616 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="CollidingAnimatedProp44" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 576 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 4
+frame = 3
 playing = true
 
 [node name="CollidingAnimatedProp45" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( 72, 736 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 5
+frame = 4
 playing = true
 
 [node name="CollidingAnimatedProp16" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1040, 1040 )
 frames = SubResource( 7 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp17" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1000, 1040 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp18" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -960, 1040 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp19" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -920, 1040 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp20" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1080, 1040 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp3" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -40, 0 )
 frames = SubResource( 7 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp4" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -120, 0 )
 frames = SubResource( 7 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp6" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -80, 0 )
 frames = SubResource( 7 )
-frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp40" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -936, 216 )
 frames = SubResource( 14 )
-frame = 5
+frame = 4
 speed_scale = 2.0
 playing = true
 
 [node name="CollidingAnimatedProp46" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -904, 216 )
 frames = SubResource( 14 )
-frame = 4
+frame = 3
 speed_scale = 2.0
 playing = true
 
 [node name="CollidingAnimatedProp47" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -968, 216 )
 frames = SubResource( 14 )
-frame = 4
+frame = 3
 speed_scale = 2.0
 playing = true
 
 [node name="CollidingAnimatedProp48" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1000, 216 )
 frames = SubResource( 14 )
-frame = 3
+frame = 2
 speed_scale = 2.0
 playing = true
 
 [node name="CollidingAnimatedProp49" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1032, 216 )
 frames = SubResource( 14 )
-frame = 3
+frame = 2
 speed_scale = 2.0
 playing = true
 
@@ -488,17 +486,16 @@ texture = SubResource( 15 )
 [node name="AnimatedProp" parent="." instance=ExtResource( 5 )]
 position = Vector2( 580, 36 )
 rotation = 1.57079
-frame = 0
+frame = 2
 
 [node name="AnimatedProp2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1244, 860 )
 rotation = 4.71238
-frame = 0
+frame = 2
 
 [node name="AnimatedProp3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 35, 451 )
 rotation = 7.85397
-frame = 3
 
 [node name="Prop" parent="." instance=ExtResource( 4 )]
 position = Vector2( 584, 280 )
@@ -1200,37 +1197,6 @@ position = Vector2( 1232, 178 )
 rotation = -0.785397
 texture = SubResource( 18 )
 
-[node name="Keypad" parent="." instance=ExtResource( 3 )]
-position = Vector2( 280, 1112 )
-rotation = -3.92699
-
-[node name="ToolTip" parent="Keypad" index="2"]
-margin_left = 74.9535
-margin_top = 207.889
-margin_right = 520.953
-margin_bottom = 246.889
-rect_rotation = -135.0
-
-[node name="Keypad2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1224, 168 )
-
-[node name="ToolTip" parent="Keypad2" index="2"]
-margin_left = -202.0
-margin_top = -80.0
-margin_right = 244.0
-margin_bottom = -41.0
-
-[node name="Keypad3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 952, 864 )
-rotation = -3.14159
-
-[node name="ToolTip" parent="Keypad3" index="2"]
-margin_left = 184.0
-margin_top = 88.9996
-margin_right = 630.0
-margin_bottom = 128.0
-rect_rotation = -180.0
-
 [node name="Crate" parent="." instance=ExtResource( 6 )]
 position = Vector2( 992, 480 )
 rotation = -0.785397
@@ -1274,6 +1240,37 @@ margin_left = 208.0
 margin_top = 178.0
 margin_right = 248.0
 margin_bottom = 218.0
+
+[node name="Keypad" parent="." instance=ExtResource( 3 )]
+position = Vector2( 280, 1112 )
+rotation = 2.3562
+
+[node name="ToolTip" parent="Keypad" index="2"]
+margin_left = 74.9535
+margin_top = 207.889
+margin_right = 520.953
+margin_bottom = 246.889
+rect_rotation = -135.0
+
+[node name="Keypad2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1224, 168 )
+
+[node name="ToolTip" parent="Keypad2" index="2"]
+margin_left = -202.0
+margin_top = -80.0
+margin_right = 244.0
+margin_bottom = -41.0
+
+[node name="Keypad3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 952, 864 )
+rotation = -3.14159
+
+[node name="ToolTip" parent="Keypad3" index="2"]
+margin_left = 184.0
+margin_top = 88.9996
+margin_right = 630.0
+margin_bottom = 128.0
+rect_rotation = -180.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1168, 240 )
