@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://shooter/hud/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/hpbase.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://assets/hpbase-backglowdim.png" type="Texture" id=17]
 [ext_resource path="res://assets/text-dead-glitchy.png" type="Texture" id=18]
 [ext_resource path="res://assets/skullred.png" type="Texture" id=19]
+[ext_resource path="res://assets/bodyscan-animsheet.png" type="Texture" id=20]
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 17 )
@@ -81,6 +82,38 @@ size = 32
 outline_size = 3
 outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
 font_data = ExtResource( 3 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 20 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 20 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 20 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 20 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 20 )
+region = Rect2( 640, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=58]
+animations = [ {
+"frames": [ SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="DynamicFont" id=6]
 size = 32
@@ -244,6 +277,7 @@ health_texture = SubResource( 12 )
 health_bulb = ExtResource( 2 )
 
 [node name="ExtraHealth" type="Label" parent="PlayerHealth"]
+visible = false
 margin_left = 81.0
 margin_top = 64.0
 margin_right = 150.0
@@ -266,19 +300,26 @@ custom_fonts/font = SubResource( 13 )
 text = "1"
 
 [node name="BuffSelector" type="Node2D" parent="."]
-visible = false
 position = Vector2( -960, -540 )
 scale = Vector2( 2, 2 )
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="BuffSelector"]
+position = Vector2( 960, 540 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 58 )
+frame = 5
+playing = true
+
 [node name="Sprite" type="Sprite" parent="BuffSelector"]
+visible = false
 position = Vector2( 960, 540 )
 texture = ExtResource( 7 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BuffSelector"]
-margin_left = 882.0
-margin_top = 414.0
-margin_right = 1028.0
-margin_bottom = 705.0
+margin_left = 887.0
+margin_top = 394.0
+margin_right = 1033.0
+margin_bottom = 685.0
 size_flags_vertical = 4
 custom_constants/separation = 20
 
@@ -471,6 +512,7 @@ align = 1
 valign = 1
 
 [node name="DeathScreen" type="Node2D" parent="."]
+visible = false
 z_index = 1
 
 [node name="Background" type="TextureRect" parent="DeathScreen"]
@@ -484,13 +526,14 @@ texture = ExtResource( 12 )
 position = Vector2( 698, 556 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 11 )
+frame = 4
 playing = true
 
 [node name="Dead" type="AnimatedSprite" parent="DeathScreen"]
 position = Vector2( 716, 166 )
 scale = Vector2( 6, 6 )
 frames = SubResource( 47 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Label" type="Label" parent="DeathScreen"]
