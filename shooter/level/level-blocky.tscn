@@ -385,35 +385,35 @@ playing = true
 [node name="CollidingAnimatedProp40" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -936, 216 )
 frames = SubResource( 14 )
-frame = 3
+frame = 5
 speed_scale = 2.0
 playing = true
 
 [node name="CollidingAnimatedProp46" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -904, 216 )
 frames = SubResource( 14 )
-frame = 2
+frame = 4
 speed_scale = 2.0
 playing = true
 
 [node name="CollidingAnimatedProp47" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -968, 216 )
 frames = SubResource( 14 )
-frame = 2
+frame = 4
 speed_scale = 2.0
 playing = true
 
 [node name="CollidingAnimatedProp48" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1000, 216 )
 frames = SubResource( 14 )
-frame = 1
+frame = 3
 speed_scale = 2.0
 playing = true
 
 [node name="CollidingAnimatedProp49" parent="CollidingAnimatedProp" instance=ExtResource( 12 )]
 position = Vector2( -1032, 216 )
 frames = SubResource( 14 )
-frame = 1
+frame = 3
 speed_scale = 2.0
 playing = true
 
@@ -1204,12 +1204,32 @@ texture = SubResource( 18 )
 position = Vector2( 280, 1112 )
 rotation = -3.92699
 
+[node name="ToolTip" parent="Keypad" index="2"]
+margin_left = 74.9535
+margin_top = 207.889
+margin_right = 520.953
+margin_bottom = 246.889
+rect_rotation = -135.0
+
 [node name="Keypad2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1224, 168 )
+
+[node name="ToolTip" parent="Keypad2" index="2"]
+margin_left = -202.0
+margin_top = -80.0
+margin_right = 244.0
+margin_bottom = -41.0
 
 [node name="Keypad3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 952, 864 )
 rotation = -3.14159
+
+[node name="ToolTip" parent="Keypad3" index="2"]
+margin_left = 184.0
+margin_top = 88.9996
+margin_right = 630.0
+margin_bottom = 128.0
+rect_rotation = -180.0
 
 [node name="Crate" parent="." instance=ExtResource( 6 )]
 position = Vector2( 992, 480 )
@@ -1257,3 +1277,7 @@ margin_bottom = 218.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1168, 240 )
+
+[editable path="Keypad"]
+[editable path="Keypad2"]
+[editable path="Keypad3"]

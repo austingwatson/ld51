@@ -47,15 +47,6 @@ margin_right = 1443.0
 margin_bottom = 1090.0
 max_turrets = 1
 
-[node name="Keypad" parent="." instance=ExtResource( 5 )]
-position = Vector2( 249, 378 )
-
-[node name="Keypad2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 560, 739 )
-
-[node name="Keypad3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1465, 1117 )
-
 [node name="EnemySpawn" parent="." instance=ExtResource( 4 )]
 margin_left = 240.0
 margin_top = 417.0
@@ -85,22 +76,19 @@ position = Vector2( 345, 532 )
 position = Vector2( 361, 512 )
 rotation = -0.744492
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 65, 62 )
-
 [node name="AnimatedProp" parent="." instance=ExtResource( 8 )]
 position = Vector2( 228, 388 )
 rotation = 1.57079
-frame = 3
+frame = 0
 
 [node name="AnimatedProp2" parent="." instance=ExtResource( 8 )]
 position = Vector2( 506, 740 )
 rotation = 1.57079
-frame = 2
+frame = 3
 
 [node name="AnimatedProp3" parent="." instance=ExtResource( 8 )]
 position = Vector2( 228, 1244 )
-frame = 2
+frame = 3
 
 [node name="AcidPoolCrate" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1306, 1236 )
@@ -127,3 +115,15 @@ margin_left = 672.0
 margin_top = 449.0
 margin_right = 712.0
 margin_bottom = 489.0
+
+[node name="Keypad" parent="." instance=ExtResource( 5 )]
+position = Vector2( 249, 378 )
+
+[node name="Keypad2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 560, 739 )
+
+[node name="Keypad3" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1465, 1117 )
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 65, 62 )

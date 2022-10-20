@@ -176,6 +176,10 @@ func remove_buffs(remove_amount):
 				current_attack_speed -= attack_speed
 				if current_attack_speed < min_attack_speed:
 					current_attack_speed = min_attack_speed
+			"spawn":
+				difficulty_modifier -= 1
+				if difficulty_modifier < 2:
+					difficulty_modifier = 2
 
 # this function might cause the game to crash
 # will have to try and see if it is overloading

@@ -140,12 +140,13 @@ playing = true
 [node name="CollidingAnimatedProp7" parent="." instance=ExtResource( 11 )]
 position = Vector2( 16, 1104 )
 frames = SubResource( 13 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollidingAnimatedProp8" parent="." instance=ExtResource( 11 )]
 position = Vector2( -16, 1104 )
 frames = SubResource( 13 )
+frame = 4
 playing = true
 
 [node name="bendpipe" parent="." instance=ExtResource( 13 )]
@@ -674,10 +675,6 @@ margin_right = 32.0
 margin_bottom = 960.0
 max_turrets = 4
 
-[node name="Keypad" parent="." instance=ExtResource( 7 )]
-position = Vector2( 80, 1120 )
-rotation = -3.14159
-
 [node name="AcidPoolCrate" parent="." instance=ExtResource( 2 )]
 position = Vector2( 96, 496 )
 rotation = -0.785397
@@ -757,40 +754,40 @@ texture = SubResource( 14 )
 
 [node name="AnimatedProp" parent="." instance=ExtResource( 12 )]
 position = Vector2( -93, 125 )
-frame = 3
+frame = 2
 
 [node name="AnimatedProp2" parent="." instance=ExtResource( 12 )]
 position = Vector2( 135, 388 )
 rotation = -3.14159
-frame = 2
 
 [node name="AnimatedProp3" parent="." instance=ExtResource( 12 )]
 position = Vector2( 105, 1117 )
 rotation = -6.28318
-frame = 2
 
 [node name="AnimatedProp4" parent="." instance=ExtResource( 12 )]
 position = Vector2( -105, 1117 )
 rotation = -7.85397
+frame = 0
 
 [node name="AnimatedProp5" parent="." instance=ExtResource( 12 )]
 position = Vector2( 253, 765 )
 rotation = -7.85397
-frame = 0
+frame = 3
 
 [node name="AnimatedProp6" parent="." instance=ExtResource( 12 )]
 position = Vector2( -253, 765 )
 rotation = -6.28318
-frame = 0
+frame = 3
 
 [node name="AnimatedProp7" parent="." instance=ExtResource( 12 )]
 position = Vector2( 253, 509 )
 rotation = -7.85397
+frame = 0
 
 [node name="AnimatedProp8" parent="." instance=ExtResource( 12 )]
 position = Vector2( -253, 509 )
 rotation = -6.28318
-frame = 0
+frame = 3
 
 [node name="pipebend" parent="." instance=ExtResource( 13 )]
 position = Vector2( -120, 1064 )
@@ -1087,5 +1084,18 @@ texture = SubResource( 16 )
 [node name="AcidPoolCrate10" parent="." instance=ExtResource( 2 )]
 position = Vector2( 88, 992 )
 
+[node name="Keypad" parent="." instance=ExtResource( 7 )]
+position = Vector2( 80, 1120 )
+rotation = -3.14159
+
+[node name="ToolTip" parent="Keypad" index="2"]
+margin_left = 200.0
+margin_top = 95.9995
+margin_right = 646.0
+margin_bottom = 135.0
+rect_rotation = 180.0
+
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 64 )
+
+[editable path="Keypad"]
