@@ -9,7 +9,8 @@ const buff_dot_texture = preload("res://assets/card-biohazard.png")
 const buff_range_texture = preload("res://assets/card-eye.png")
 const buff_grenade_texture = preload("res://assets/card-extracell.png")
 const buff_debuff_texture = preload("res://assets/card-enemydebuff.png")
-const buff_attack_speed_texture = preload("res://assets/card-shields.png")
+const buff_attack_speed_texture = preload("res://assets/card-attackspeed.png")
+const buff_pierce_texture = preload("res://assets/card-shields.png")
 
 # child nodes
 onready var timer_background = $TimerBackground
@@ -69,10 +70,18 @@ func _input(event):
 	if event.is_action_released("ui_cancel"):
 		in_menu = !in_menu
 		pause_menu.visible = in_menu
-		emit_signal("paused", in_menu)
+		
+		if in_menu:
+			EntityManager.shooter_game.stop_music()
+		else:
+			EntityManager.shooter_game.play_music()
+		
+		if !buff_selector.visible:
+			emit_signal("paused", in_menu)
 	if event.is_action_released("restart"):
 		if death_screen.visible:
 			death_screen.visible = false
+			EntityManager.shooter_game._on_AmbientMusicTimer_timeout()
 			
 			for buff_card in buff_cards:
 				buff_card.queue_free()
@@ -103,10 +112,11 @@ func _process(delta):
 	grenade_amount.text = str(EntityManager.player.grenades)
 		
 	if !death_screen.visible && EntityManager.player.health <= 0:
+		EntityManager.shooter_game.play_death_music()
 		emit_signal("paused", true)
-		EntityManager.shooter_game.time_alive += EntityManager.shooter_game.get_time_left()
+		EntityManager.shooter_game.time_alive += 9.99 - EntityManager.shooter_game.get_time_left()
 		var time_alive = "%.2f" % EntityManager.shooter_game.time_alive
-		score.text = "Levels Complete: " + str(EntityManager.shooter_game.levels_complete) + "\nTime Alive: " + time_alive + " seconds"
+		score.text = "Stages Complete: " + str(EntityManager.shooter_game.levels_complete) + "\nTime Alive: " + time_alive + " s"
 		death_screen.visible = true
 		
 	fps.text = "FPS: " + str(Engine.get_frames_per_second())
@@ -116,9 +126,9 @@ func level_set_up(remove_amount):
 	remove_buffs(remove_amount)
 
 func remove_buffs(remove_amount):
-	var lower = buff_cards.size() - 1 - remove_amount
-	if lower <= 0:
-		lower = 0
+	var lower = buff_cards.size() - remove_amount - 1
+	if lower <= -1:
+		lower = -1
 	for i in range(buff_cards.size() - 1, lower, -1):
 		var buff_card = buff_cards[i]
 		buff_card.queue_free()
@@ -167,7 +177,7 @@ func use_computer():
 		var select_button = get_node("BuffSelector/VBoxContainer/Selection%d/S%dButton" % [(i + 1), (i + 1)])
 		var select_label = get_node("BuffSelector/VBoxContainer/Selection%d/S%dButton/Label%d" % [(i + 1), (i + 1), (i + 1)])
 		
-		var rng = randi() % 9 # amount of buff cards the player can get
+		var rng = randi() % 10 # amount of buff cards the player can get
 		match rng:
 			0:
 				select_button.texture_normal = buff_health_texture
@@ -205,6 +215,10 @@ func use_computer():
 				select_button.texture_normal = buff_attack_speed_texture
 				select_label.text = "+atk-speed"
 				buffs.append("attack-speed")
+			9:
+				select_button.texture_normal = buff_pierce_texture
+				select_label.text = "+pierce"
+				buffs.append("pierce")
 		
 func player_wave_cd(on_cd):
 	if on_cd:
@@ -214,9 +228,12 @@ func player_wave_cd(on_cd):
 		wave_cd.play("full")
 	
 func _on_Play_pressed():
+	EntityManager.shooter_game.play_music()
 	in_menu = false
 	pause_menu.visible = in_menu
-	emit_signal("paused", in_menu)
+	
+	if !buff_selector.visible:
+		emit_signal("paused", in_menu)
 
 func _on_Music_value_changed(value):
 	AudioServer.set_bus_volume_db(music_db, value)

@@ -88,7 +88,7 @@ one_shot = true
 gravity = Vector2( 0, 0 )
 initial_velocity = 200.0
 scale_amount = 2.0
-color = Color( 1, 0, 0, 1 )
+color = Color( 0.239216, 0.0784314, 0.188235, 1 )
 
 [node name="RandomBulletImpact" type="CPUParticles2D" parent="."]
 emitting = false
@@ -97,7 +97,7 @@ lifetime = 0.1
 one_shot = true
 spread = 180.0
 initial_velocity = 200.0
-color = Color( 1, 0, 0, 1 )
+color = Color( 0.239216, 0.0784314, 0.188235, 1 )
 
 [connection signal="timeout" from="AttackCD" to="." method="_on_AttackCD_timeout"]
 [connection signal="timeout" from="DotTimer" to="." method="_on_DotTimer_timeout"]

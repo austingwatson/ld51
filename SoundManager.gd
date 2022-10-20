@@ -8,6 +8,7 @@ var player_grenade: AudioStreamPlayer
 var player_grenade_explosion: AudioStreamPlayer
 var chem_thrower_shot: AudioStreamPlayer
 var player_death: AudioStreamPlayer
+var teleport: AudioStreamPlayer
 
 func _ready():
 	pause_mode = PAUSE_MODE_PROCESS
@@ -51,6 +52,11 @@ func _ready():
 	player_death.stream = preload("res://sounds/player/die2.wav")
 	player_death.bus = "Sound"
 	add_child(player_death)
+	
+	teleport = AudioStreamPlayer.new()
+	teleport.stream = preload("res://sounds/player/teleport_02.ogg")
+	teleport.bus = "Sound"
+	add_child(teleport)
 
 func play_sound(name):
 	match name:
@@ -78,3 +84,6 @@ func play_sound(name):
 		"player-death":
 			if !player_death.playing:
 				player_death.play()
+		"teleport":
+			if !teleport.playing:
+				teleport.play(0.0)

@@ -136,9 +136,6 @@ shape = SubResource( 13 )
 [node name="NavigationAgent2D" parent="." index="8"]
 avoidance_enabled = false
 
-[node name="AcidOverlay" parent="." index="9"]
-frame = 1
-
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 1 )
 
@@ -163,6 +160,12 @@ cast_to = Vector2( 0, -5000 )
 
 [node name="EndOfDroneAttackTimer" type="Timer" parent="." index="16"]
 one_shot = true
+
+[node name="BulletImpact" parent="." index="19"]
+color = Color( 1, 0, 0, 1 )
+
+[node name="RandomBulletImpact" parent="." index="20"]
+color = Color( 1, 0, 0, 1 )
 
 [node name="PlayerInteraction" type="Area2D" parent="." index="21" groups=["SpiderBoss"]]
 

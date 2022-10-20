@@ -33,7 +33,10 @@ one_shot = true
 path_desired_distance = 5.0
 target_desired_distance = 5.0
 avoidance_enabled = true
-radius = 26.0
+radius = 16.0
+
+[node name="AcidOverlay" parent="." index="8"]
+frame = 1
 
 [node name="SightRangeDebug" type="Area2D" parent="." index="9"]
 collision_layer = 0

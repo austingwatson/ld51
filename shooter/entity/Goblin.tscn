@@ -53,7 +53,7 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 
 [sub_resource type="DynamicFont" id=11]
-size = 20
+size = 12
 outline_size = 3
 outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
 font_data = ExtResource( 3 )
@@ -66,6 +66,9 @@ speed = 300
 frames = SubResource( 8 )
 animation = "dead"
 
+[node name="AcidOverlay" parent="." index="8"]
+frame = 1
+
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 9 )
 
@@ -74,10 +77,10 @@ shape = SubResource( 10 )
 
 [node name="PlusHealthLabel" type="Label" parent="." index="11"]
 visible = false
-margin_left = -79.0
-margin_top = -67.0
-margin_right = 87.0
-margin_bottom = -14.0
+margin_left = -51.0
+margin_top = -59.0
+margin_right = 50.0
+margin_bottom = -24.0
 custom_fonts/font = SubResource( 11 )
 text = "Speciman Killed
 +2 Max Health"
@@ -85,5 +88,16 @@ text = "Speciman Killed
 [node name="PlusHealthTimer" type="Timer" parent="." index="12"]
 wait_time = 2.0
 one_shot = true
+
+[node name="DeadParticles" type="CPUParticles2D" parent="." index="17"]
+emitting = false
+amount = 30
+lifetime = 0.75
+one_shot = true
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 30.0
+scale_amount = 2.0
+color = Color( 0.364706, 0.654902, 0.364706, 1 )
 
 [connection signal="timeout" from="PlusHealthTimer" to="." method="_on_PlusHealthTimer_timeout"]

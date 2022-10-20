@@ -97,7 +97,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "close_shock"
-frame = 2
+frame = 3
 playing = true
 
 [node name="FireSound" type="AudioStreamPlayer" parent="."]

@@ -26,7 +26,7 @@ var current_level: TileMap
 var last_level = 0
 
 const boss_level = preload("res://shooter/level/level-bossarena.tscn")
-var next_boss_level = 9
+var next_boss_level = 2
 var on_boss_level = false
 
 # ambient music to use
@@ -35,9 +35,12 @@ onready var ambient_music_timer = $AmbientMusicTimer
 
 const music1 = preload("res://sounds/Chiptune Techno.mp3")
 #const music2 = preload("res://sounds/Cyberpunk Moonlight Sonata v2.mp3")
+const boss_music = preload("res://sounds/tecnological_messup_v2.ogg")
+const death_music = preload("res://sounds/Cyberpunk Moonlight Sonata v2.mp3")
 const musics = []
 
 var on_new_level = false
+var played_ready_breach = false
 
 # total score and total time
 var levels_complete := 0
@@ -77,7 +80,8 @@ func _ready():
 	
 	hud.level_set_up(0)
 	
-	player_cutscene.start_all()
+	player_cutscene.change_type(1)
+	player_cutscene.start_text([0, 1])
 	get_tree().paused = true
 
 func _input(event):
@@ -88,8 +92,16 @@ func _process(delta):
 	EntityManager.remove_dead_enemies()
 	
 	hud.update_ten_second_timer(get_time_left())
+	
+	if EntityManager.enemies.size() <= 0:
+		all_enemies_killed()
+
+func spider_boss_killed():
+	ambient_music.stop()
 
 func change_from_hack_scene():
+	#played_ready_breach = false
+	
 	levels_complete += 1
 	
 	enemy_cutscene.end_cutscene()
@@ -103,9 +115,14 @@ func change_from_hack_scene():
 		level = boss_level.instance()
 		EntityManager.level_modifier = 0
 		next_boss_level += 10
+		
+		ambient_music.stop()
+		ambient_music.stream = boss_music
+		ambient_music.play()
 	else:
 		if on_boss_level:
 			EntityManager.reset_enemy_percent()
+			ambient_music_timer.start()
 		on_boss_level = false
 		
 		var next_level = randi() % levels.size()
@@ -147,8 +164,16 @@ func _on_TenSecondTimer_timeout():
 
 func _on_Player_update_health(health):
 	hud.update_player_health(health)
+
+func all_enemies_killed():
+	if !played_ready_breach:
+		played_ready_breach = true
+	
+		player_cutscene.change_type(0)
+		player_cutscene.start_text([2])
 	
 func player_used_computer():
+	player_cutscene.end_cutscene()
 	on_new_level = true
 	enemy_cutscene.start_random()
 	ten_second_timer.paused = true
@@ -165,7 +190,20 @@ func change_to_hack_scene():
 func _on_HUD_paused(paused):
 	get_tree().paused = paused
 
+func play_music():
+	if !ambient_music.playing:
+		ambient_music.play()
+
+func stop_music():
+	ambient_music.stop()
+
+func play_death_music():
+	ambient_music.stop()
+	ambient_music.stream = death_music
+	ambient_music.play()
+
 func play_random_music():
+	ambient_music.stop()
 	var rng = randi() % musics.size()
 	ambient_music.stream = musics[rng]
 	ambient_music.play()
@@ -174,9 +212,13 @@ func _on_AmbientMusicTimer_timeout():
 	play_random_music()
 
 func _on_AmbientMusic_finished():
-	ambient_music_timer.start()
+	#ambient_music_timer.start()
+	pass
 
 func _on_HUD_restart():
+	played_ready_breach = false
+	#ambient_music_timer.start()
+	
 	next_boss_level = 9
 	levels_complete = 0
 	time_alive = 0.0
@@ -196,7 +238,8 @@ func _on_HUD_restart():
 	add_child(level)
 	EntityManager.randomize_keypad()
 	
-	player_cutscene.start_all()
+	player_cutscene.change_type(1)
+	player_cutscene.start_text([0, 1])
 	get_tree().paused = true
 
 func wave_cd_changed(on_cd):

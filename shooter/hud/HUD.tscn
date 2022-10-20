@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://shooter/hud/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/hpbase.png" type="Texture" id=2]
@@ -10,13 +10,15 @@
 [ext_resource path="res://assets/grabber.png" type="Texture" id=8]
 [ext_resource path="res://assets/menuscreen-buttonpressed.png" type="Texture" id=9]
 [ext_resource path="res://assets/card-template.png" type="Texture" id=10]
-[ext_resource path="res://assets/skullred.png" type="Texture" id=11]
+[ext_resource path="res://assets/portrait-antagonist-animsheet.png" type="Texture" id=11]
 [ext_resource path="res://assets/backgroundscreen.png" type="Texture" id=12]
 [ext_resource path="res://assets/hp_full2.png" type="Texture" id=13]
 [ext_resource path="res://assets/hp_full1.png" type="Texture" id=14]
 [ext_resource path="res://assets/powercellstatic.png" type="Texture" id=15]
 [ext_resource path="res://assets/hpbase-backglowfull.png" type="Texture" id=16]
 [ext_resource path="res://assets/hpbase-backglowdim.png" type="Texture" id=17]
+[ext_resource path="res://assets/text-dead-glitchy.png" type="Texture" id=18]
+[ext_resource path="res://assets/skullred.png" type="Texture" id=19]
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 17 )
@@ -80,6 +82,17 @@ outline_size = 3
 outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=6]
+size = 32
+outline_size = 3
+outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 12
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
 [sub_resource type="DynamicFont" id=2]
 outline_size = 3
 outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
@@ -97,44 +110,98 @@ region_rect = Rect2( 0, 0, 96, 32 )
 texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 96, 32 )
 
-[sub_resource type="DynamicFont" id=6]
-size = 32
-outline_size = 3
-outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=7]
-size = 12
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 3 )
-
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 16, 16 )
+region = Rect2( 0, 0, 128, 128 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=36]
 atlas = ExtResource( 11 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 128, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 11 )
+region = Rect2( 256, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 11 )
+region = Rect2( 384, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 11 )
+region = Rect2( 512, 0, 128, 128 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 11 )
+region = Rect2( 640, 0, 128, 128 )
 
 [sub_resource type="SpriteFrames" id=11]
+resource_local_to_scene = true
 animations = [ {
-"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ) ],
 "loop": true,
 "name": "default",
 "speed": 10.0
 } ]
 
-[sub_resource type="DynamicFont" id=8]
-size = 128
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 256, 32 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 32, 256, 32 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 64, 256, 32 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 96, 256, 32 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 128, 256, 32 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 160, 256, 32 )
+
+[sub_resource type="SpriteFrames" id=47]
+animations = [ {
+"frames": [ SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=48]
+size = 64
 outline_size = 3
 outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=33]
-size = 32
+size = 64
 outline_size = 3
 outline_color = Color( 0.156863, 0.376471, 0.501961, 1 )
 font_data = ExtResource( 3 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 19 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=51]
+animations = [ {
+"frames": [ SubResource( 49 ), SubResource( 50 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="DynamicFont" id=14]
 font_data = ExtResource( 3 )
@@ -197,6 +264,99 @@ margin_right = 124.0
 margin_bottom = 968.0
 custom_fonts/font = SubResource( 13 )
 text = "1"
+
+[node name="BuffSelector" type="Node2D" parent="."]
+visible = false
+position = Vector2( -960, -540 )
+scale = Vector2( 2, 2 )
+
+[node name="Sprite" type="Sprite" parent="BuffSelector"]
+position = Vector2( 960, 540 )
+texture = ExtResource( 7 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BuffSelector"]
+margin_left = 882.0
+margin_top = 414.0
+margin_right = 1028.0
+margin_bottom = 705.0
+size_flags_vertical = 4
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="BuffSelector/VBoxContainer"]
+margin_right = 146.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 6 )
+text = "Select 2."
+align = 1
+
+[node name="Selection1" type="HBoxContainer" parent="BuffSelector/VBoxContainer"]
+margin_top = 59.0
+margin_right = 146.0
+margin_bottom = 123.0
+alignment = 1
+
+[node name="S1Button" type="TextureButton" parent="BuffSelector/VBoxContainer/Selection1"]
+margin_left = 41.0
+margin_right = 105.0
+margin_bottom = 64.0
+toggle_mode = true
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label1" type="Label" parent="BuffSelector/VBoxContainer/Selection1/S1Button"]
+margin_left = 1.5
+margin_top = 2.0
+margin_right = 61.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "+damage"
+
+[node name="Selection2" type="HBoxContainer" parent="BuffSelector/VBoxContainer"]
+margin_top = 143.0
+margin_right = 146.0
+margin_bottom = 207.0
+alignment = 1
+
+[node name="S2Button" type="TextureButton" parent="BuffSelector/VBoxContainer/Selection2"]
+margin_left = 41.0
+margin_right = 105.0
+margin_bottom = 64.0
+toggle_mode = true
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 10 )
+
+[node name="Label2" type="Label" parent="BuffSelector/VBoxContainer/Selection2/S2Button"]
+margin_left = 2.0
+margin_top = 1.5
+margin_right = 62.0
+margin_bottom = 17.5
+custom_fonts/font = SubResource( 7 )
+text = "+damage"
+
+[node name="Selection3" type="HBoxContainer" parent="BuffSelector/VBoxContainer"]
+margin_top = 227.0
+margin_right = 146.0
+margin_bottom = 291.0
+alignment = 1
+
+[node name="S3Button" type="TextureButton" parent="BuffSelector/VBoxContainer/Selection3"]
+margin_left = 41.0
+margin_right = 105.0
+margin_bottom = 64.0
+toggle_mode = true
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 10 )
+
+[node name="Label3" type="Label" parent="BuffSelector/VBoxContainer/Selection3/S3Button"]
+margin_left = 1.5
+margin_top = 0.5
+margin_right = 50.5
+margin_bottom = 16.5
+custom_fonts/font = SubResource( 7 )
+text = "+health"
 
 [node name="PauseMenu" type="Node2D" parent="."]
 visible = false
@@ -310,101 +470,7 @@ text = "Quit"
 align = 1
 valign = 1
 
-[node name="BuffSelector" type="Node2D" parent="."]
-visible = false
-position = Vector2( -960, -540 )
-scale = Vector2( 2, 2 )
-
-[node name="Sprite" type="Sprite" parent="BuffSelector"]
-position = Vector2( 960, 540 )
-texture = ExtResource( 7 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BuffSelector"]
-margin_left = 882.0
-margin_top = 414.0
-margin_right = 1028.0
-margin_bottom = 705.0
-size_flags_vertical = 4
-custom_constants/separation = 20
-
-[node name="Label" type="Label" parent="BuffSelector/VBoxContainer"]
-margin_right = 146.0
-margin_bottom = 39.0
-custom_fonts/font = SubResource( 6 )
-text = "Select 2."
-align = 1
-
-[node name="Selection1" type="HBoxContainer" parent="BuffSelector/VBoxContainer"]
-margin_top = 59.0
-margin_right = 146.0
-margin_bottom = 123.0
-alignment = 1
-
-[node name="S1Button" type="TextureButton" parent="BuffSelector/VBoxContainer/Selection1"]
-margin_left = 41.0
-margin_right = 105.0
-margin_bottom = 64.0
-toggle_mode = true
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label1" type="Label" parent="BuffSelector/VBoxContainer/Selection1/S1Button"]
-margin_left = 1.5
-margin_top = 2.0
-margin_right = 61.5
-margin_bottom = 18.0
-custom_fonts/font = SubResource( 7 )
-text = "+damage"
-
-[node name="Selection2" type="HBoxContainer" parent="BuffSelector/VBoxContainer"]
-margin_top = 143.0
-margin_right = 146.0
-margin_bottom = 207.0
-alignment = 1
-
-[node name="S2Button" type="TextureButton" parent="BuffSelector/VBoxContainer/Selection2"]
-margin_left = 41.0
-margin_right = 105.0
-margin_bottom = 64.0
-toggle_mode = true
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 10 )
-
-[node name="Label2" type="Label" parent="BuffSelector/VBoxContainer/Selection2/S2Button"]
-margin_left = 2.0
-margin_top = 1.5
-margin_right = 62.0
-margin_bottom = 17.5
-custom_fonts/font = SubResource( 7 )
-text = "+damage"
-
-[node name="Selection3" type="HBoxContainer" parent="BuffSelector/VBoxContainer"]
-margin_top = 227.0
-margin_right = 146.0
-margin_bottom = 291.0
-alignment = 1
-
-[node name="S3Button" type="TextureButton" parent="BuffSelector/VBoxContainer/Selection3"]
-margin_left = 41.0
-margin_right = 105.0
-margin_bottom = 64.0
-toggle_mode = true
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 10 )
-
-[node name="Label3" type="Label" parent="BuffSelector/VBoxContainer/Selection3/S3Button"]
-margin_left = 1.5
-margin_top = 0.5
-margin_right = 50.5
-margin_bottom = 16.5
-custom_fonts/font = SubResource( 7 )
-text = "+health"
-
 [node name="DeathScreen" type="Node2D" parent="."]
-visible = false
 z_index = 1
 
 [node name="Background" type="TextureRect" parent="DeathScreen"]
@@ -415,38 +481,46 @@ margin_bottom = 40.0
 texture = ExtResource( 12 )
 
 [node name="Sprite" type="AnimatedSprite" parent="DeathScreen"]
-position = Vector2( 940, 540 )
-scale = Vector2( 20, 20 )
+position = Vector2( 698, 556 )
+scale = Vector2( 4, 4 )
 frames = SubResource( 11 )
 playing = true
 
-[node name="Dead" type="Label" parent="DeathScreen"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 100.0
-margin_right = 1920.0
-margin_bottom = 255.0
-custom_fonts/font = SubResource( 8 )
-text = "DEAD"
-align = 1
+[node name="Dead" type="AnimatedSprite" parent="DeathScreen"]
+position = Vector2( 716, 166 )
+scale = Vector2( 6, 6 )
+frames = SubResource( 47 )
+frame = 1
+playing = true
 
 [node name="Label" type="Label" parent="DeathScreen"]
-margin_left = 1147.0
-margin_top = 305.0
-margin_right = 1850.0
-margin_bottom = 618.0
-custom_fonts/font = SubResource( 8 )
-text = "Press R to
-try again!"
+margin_left = 369.0
+margin_top = 869.0
+margin_right = 1110.0
+margin_bottom = 1028.0
+custom_fonts/font = SubResource( 48 )
+text = "Press R to try again!"
 
 [node name="Score" type="Label" parent="DeathScreen"]
-margin_left = 70.0
-margin_top = 446.0
-margin_right = 773.0
-margin_bottom = 591.0
+margin_left = 995.0
+margin_top = 464.0
+margin_right = 1917.0
+margin_bottom = 713.0
 custom_fonts/font = SubResource( 33 )
-text = "Levels Complete: 10
-Time Alive: 14.99 seconds"
+text = "Stages Complete: 10
+Time Alive: 14.99s"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="DeathScreen"]
+position = Vector2( 326, 909 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 51 )
+playing = true
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="DeathScreen"]
+position = Vector2( 1093, 909 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 51 )
+playing = true
 
 [node name="FPS" type="Label" parent="."]
 margin_right = 40.0
@@ -454,10 +528,10 @@ margin_bottom = 14.0
 custom_fonts/font = SubResource( 14 )
 text = "FPS: 0"
 
+[connection signal="toggled" from="BuffSelector/VBoxContainer/Selection1/S1Button" to="." method="_on_S1Button_toggled"]
+[connection signal="toggled" from="BuffSelector/VBoxContainer/Selection2/S2Button" to="." method="_on_S2Button_toggled"]
+[connection signal="toggled" from="BuffSelector/VBoxContainer/Selection3/S3Button" to="." method="_on_S3Button_toggled"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="value_changed" from="PauseMenu/VBoxContainer/Music" to="." method="_on_Music_value_changed"]
 [connection signal="value_changed" from="PauseMenu/VBoxContainer/Volume" to="." method="_on_Volume_value_changed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
-[connection signal="toggled" from="BuffSelector/VBoxContainer/Selection1/S1Button" to="." method="_on_S1Button_toggled"]
-[connection signal="toggled" from="BuffSelector/VBoxContainer/Selection2/S2Button" to="." method="_on_S2Button_toggled"]
-[connection signal="toggled" from="BuffSelector/VBoxContainer/Selection3/S3Button" to="." method="_on_S3Button_toggled"]

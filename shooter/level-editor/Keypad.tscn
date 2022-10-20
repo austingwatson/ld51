@@ -34,6 +34,7 @@ animations = [ {
 extents = Vector2( 50, 50 )
 
 [sub_resource type="DynamicFont" id=2]
+size = 32
 outline_size = 1
 outline_color = Color( 0.247059, 0.627451, 0.643137, 1 )
 font_data = ExtResource( 3 )
