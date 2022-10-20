@@ -87,3 +87,12 @@ func play_sound(name):
 		"teleport":
 			if !teleport.playing:
 				teleport.play(0.0)
+
+func force_play_sound(name):
+	match name:
+		"player-shot":
+			player_shot.play()
+		"player-melee":
+			player_melee.play()
+		"player-grenade":
+			player_grenade.play()

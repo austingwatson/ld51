@@ -28,6 +28,6 @@ animations = [ {
 
 [node name="AnimatedProp" type="AnimatedSprite"]
 frames = SubResource( 5 )
-frame = 1
+frame = 3
 speed_scale = 0.25
 playing = true

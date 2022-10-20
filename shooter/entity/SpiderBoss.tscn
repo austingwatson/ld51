@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://shooter/entity/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/bossbot-animsheet.png" type="Texture" id=2]
 [ext_resource path="res://shooter/entity/SpiderBoss.gd" type="Script" id=3]
 [ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/muzzleflash.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=16]
 outline_size = 1
@@ -96,14 +97,34 @@ resource_local_to_scene = true
 [sub_resource type="CircleShape2D" id=2]
 resource_local_to_scene = true
 
-[sub_resource type="CircleShape2D" id=15]
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 5 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 5 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "default",
+"speed": 15.0
+} ]
+
+[sub_resource type="CircleShape2D" id=23]
 resource_local_to_scene = true
 radius = 150.0
 
 [node name="SpiderBoss" groups=["SpiderBoss"] instance=ExtResource( 1 )]
 z_index = 2
 script = ExtResource( 3 )
-max_health = 20
+max_health = 50
 speed = 50
 projectile_speed = 200
 projectile_range = 300
@@ -115,7 +136,7 @@ burst_freeze = 1
 grenade_freeze = 1
 big_shot_freeze = 3
 spawn_drone_freeze = 3
-rotation_speed = 90.0
+rotation_speed = 145.0
 player_interaction_font = SubResource( 16 )
 
 [node name="AnimatedSprite" parent="." index="0"]
@@ -135,6 +156,9 @@ shape = SubResource( 13 )
 
 [node name="NavigationAgent2D" parent="." index="8"]
 avoidance_enabled = false
+
+[node name="AcidOverlay" parent="." index="9"]
+frame = 3
 
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 1 )
@@ -161,6 +185,9 @@ cast_to = Vector2( 0, -5000 )
 [node name="EndOfDroneAttackTimer" type="Timer" parent="." index="16"]
 one_shot = true
 
+[node name="MuzzleFlash" parent="." index="18"]
+frames = SubResource( 15 )
+
 [node name="BulletImpact" parent="." index="19"]
 color = Color( 1, 0, 0, 1 )
 
@@ -170,7 +197,7 @@ color = Color( 1, 0, 0, 1 )
 [node name="PlayerInteraction" type="Area2D" parent="." index="21" groups=["SpiderBoss"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerInteraction" index="0"]
-shape = SubResource( 15 )
+shape = SubResource( 23 )
 disabled = true
 
 [node name="DroneWaveTimer" type="Timer" parent="." index="22"]

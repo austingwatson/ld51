@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://shooter/entity/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/soldierheavy-animsheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/muzzleflash.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
@@ -27,7 +28,38 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="CircleShape2D" id=10]
+resource_local_to_scene = true
+
+[sub_resource type="CircleShape2D" id=11]
+resource_local_to_scene = true
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "default",
+"speed": 15.0
+} ]
+
 [node name="General" instance=ExtResource( 1 )]
+max_health = 4
+projectile_speed = 250
+projectile_range = 225
+attack_range = 200
+sight_range = 400
 enemy_name = "general"
 
 [node name="AnimatedSprite" parent="." index="0"]
@@ -36,4 +68,18 @@ frame = 1
 
 [node name="AcidOverlay" parent="." index="8"]
 scale = Vector2( 2, 2 )
-frame = 1
+frame = 3
+
+[node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
+shape = SubResource( 10 )
+
+[node name="CollisionShape2D" parent="AttackRangeDebug" index="0"]
+shape = SubResource( 11 )
+
+[node name="BulletSpawn" parent="." index="11"]
+position = Vector2( 0, -16 )
+
+[node name="MuzzleFlash" parent="." index="12"]
+position = Vector2( 1, -32 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 15 )

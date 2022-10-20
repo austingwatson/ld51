@@ -16,6 +16,7 @@ collision_mask = 5
 collision/safe_margin = 1.0
 script = ExtResource( 2 )
 speed = 100
+attack_range = 300
 sight_range = 500
 enemy_name = "roomba"
 

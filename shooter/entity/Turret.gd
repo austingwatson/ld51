@@ -14,6 +14,8 @@ func process_ai(player):
 	
 	if player_in_attack(player.position):
 		use_attack = true
+	else:
+		use_attack = false
 
 func player_in_attack(position: Vector2) -> bool:
 	return self.position.distance_to(position) <= attack_range

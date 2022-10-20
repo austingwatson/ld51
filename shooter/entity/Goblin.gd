@@ -28,7 +28,7 @@ func _process(delta):
 	
 	if flee:
 		animation.play("default")
-		sprite.flip_v = true
+		animation.flip_v = true
 	else:
 		animation.stop()
 	

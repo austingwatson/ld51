@@ -11,6 +11,8 @@ atlas = ExtResource( 1 )
 region = Rect2( 112, 16, 16, 16 )
 
 [node name="Crate" type="Area2D" groups=["Crate"]]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource( 2 )
 damage = 10
 explosion_loops = 1
@@ -23,6 +25,8 @@ shape = SubResource( 1 )
 texture = SubResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 1 )

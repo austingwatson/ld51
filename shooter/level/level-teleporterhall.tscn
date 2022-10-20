@@ -112,12 +112,11 @@ margin_bottom = 284.0
 
 [node name="AnimatedProp" parent="." instance=ExtResource( 10 )]
 position = Vector2( 482, 479 )
-frame = 2
 
 [node name="AnimatedProp2" parent="." instance=ExtResource( 10 )]
 position = Vector2( 457, -862 )
 rotation = 1.57248
-frame = 3
+frame = 2
 
 [node name="Keypad" parent="." instance=ExtResource( 4 )]
 position = Vector2( 591, -862 )
