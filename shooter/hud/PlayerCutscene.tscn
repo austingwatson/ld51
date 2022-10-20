@@ -1,9 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://shooter/hud/PlayerCutscene.gd" type="Script" id=1]
 [ext_resource path="res://assets/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/portrait-player.png" type="Texture" id=3]
 [ext_resource path="res://assets/menu-computerscreen-horizontal.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -22,10 +34,10 @@ position = Vector2( 1083, 932 )
 scale = Vector2( 2, 4 )
 texture = ExtResource( 4 )
 
-[node name="Portrait" type="Sprite" parent="."]
+[node name="Portrait" type="AnimatedSprite" parent="."]
 position = Vector2( 598, 932 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
+frames = SubResource( 3 )
 
 [node name="Text" type="Label" parent="."]
 margin_left = 749.0
@@ -38,7 +50,7 @@ autowrap = true
 percent_visible = 0.0
 
 [node name="EndCutsceneTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
 [node name="KeyPress" type="Label" parent="."]

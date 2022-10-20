@@ -10,6 +10,7 @@ onready var bullet_spawn = $BulletSpawn
 onready var bullet_impact = $BulletImpact
 onready var random_bullet_impact = $RandomBulletImpact
 onready var collision_shape = $CollisionShape2D
+onready var dot_timer = $DotTimer
 
 var radius = 0
 
@@ -46,6 +47,8 @@ func _ready():
 	
 	health = max_health
 	change_attack_speed()
+	
+	dot_timer.paused = true
 
 func _physics_process(delta):
 	if velocity.length() > 0:
@@ -92,7 +95,8 @@ func take_damage(damage, location):
 		alive = false
 		
 func add_dot(ticks):
-	if ticks > dot_amount:
+	dot_timer.paused = false
+	if ticks >= dot_amount:
 		dot_amount = ticks
 
 func _on_AttackCD_timeout():
@@ -102,6 +106,9 @@ func _on_DotTimer_timeout():
 	if dot_amount > 0:
 		take_damage(1, null)
 		dot_amount -= 1
+		
+		if dot_amount == 0:
+			dot_timer.paused = true
 
 func _on_MuzzleFlash_animation_finished():
 	muzzle_flash.stop()

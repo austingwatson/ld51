@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://shooter/entity/Mob.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/entity/Player.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/icon-waypoint-blue.png" type="Texture" id=4]
 [ext_resource path="res://assets/icon-waypoint-yellow.png" type="Texture" id=5]
 [ext_resource path="res://sounds/player/paino.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/teleport-anim.png" type="Texture" id=7]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
@@ -45,12 +46,68 @@ radius = 14.0
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 32, 32 )
 
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 7 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 7 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 7 )
+region = Rect2( 128, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 7 )
+region = Rect2( 192, 64, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 7 )
+region = Rect2( 128, 128, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 7 )
+region = Rect2( 192, 128, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=23]
+animations = [ {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="Player" groups=["Mob", "Player"] instance=ExtResource( 1 )]
 position = Vector2( 375, 225 )
 z_index = 1
 collision_mask = 6
 script = ExtResource( 2 )
-max_health = 1000
+max_health = 20
 projectile_range = 400
 
 [node name="AnimatedSprite" parent="." index="0"]
@@ -95,20 +152,38 @@ bus = "Sound"
 
 [node name="AcidOverlay" parent="." index="12"]
 scale = Vector2( 2, 2 )
-frame = 3
 
 [node name="BulletSpawn" parent="." index="13"]
 position = Vector2( 0, -16 )
 
 [node name="MuzzleFlash" parent="." index="14"]
-position = Vector2( 0, -16 )
+position = Vector2( 1, -32 )
+scale = Vector2( 2, 2 )
 
 [node name="BulletImpact" parent="." index="15"]
 amount = 10
 initial_velocity = 100.0
+
+[node name="AcidParticles" type="CPUParticles2D" parent="." index="17"]
+visible = false
+amount = 5
+lifetime = 1.5
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 10.0
+scale_amount = 2.0
+color = Color( 0.364706, 0.654902, 0.364706, 1 )
+
+[node name="Teleport" type="AnimatedSprite" parent="." index="18"]
+visible = false
+frames = SubResource( 23 )
+speed_scale = 2.0
+playing = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="timeout" from="GrenadeTimer" to="." method="_on_GrenadeTimer_timeout"]
 [connection signal="timeout" from="MeleeTimer" to="." method="_on_MeleeTimer_timeout"]
 [connection signal="timeout" from="EnemyArrow/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="animation_finished" from="Teleport" to="." method="_on_Teleport_animation_finished"]
+[connection signal="frame_changed" from="Teleport" to="." method="_on_Teleport_frame_changed"]

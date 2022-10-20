@@ -19,7 +19,7 @@ var enemy_percent = [1.0, 0.0, 0.0, 0.0]
 var enemy_percent_increase = [-0.17, 0.1, 0.05, 0.02]
 var enemy_percent_min = [0.4, 0.0, 0.0, 0.0]
 var enemy_percent_max = [1.0, 0.3, 0.2, 0.1]
-var difficulty_modifier = 1
+var difficulty_modifier = 2
 var level_modifier = 0
 var enemies = []
 var player = null
@@ -36,6 +36,7 @@ var spider_boss_spawners = []
 # current buffs that the enemies have
 # := means that the variable cannot change types
 const buff_names = []
+var buff_cards = []
 
 const min_health = 0
 const min_speed = 0
@@ -78,6 +79,7 @@ var player_amount = 0
 var player_dot = 0
 var player_range = 0
 var player_attack_speed = 0
+var player_pierce = 0
 
 var random = RandomNumberGenerator.new()
 
@@ -134,40 +136,43 @@ func new_level(remove_amount):
 	remove_buffs(remove_amount)
 
 func remove_spider_boss():
+	shooter_game.spider_boss_killed()
 	kill_all_enemies()
 	remove_buffs(6)
 	shooter_game.remove_enemy_buff_from_hud(6)
 
 func remove_buffs(remove_amount):
 	for i in range(0, remove_amount):
-		var rng = randi() % buff_names.size()
-		
-		match rng:
-			0:
+		if buff_cards.size() == 0:
+			return
+			
+		var buff_name = buff_cards.pop_back()
+		match buff_name:
+			"health":
 				current_health -= health
 				if current_health < min_health:
 					current_health = min_health
-			1:
+			"speed":
 				current_speed -= speed
 				if current_speed < min_speed:
 					current_speed = min_speed
-			2:
+			"damage":
 				current_damage -= damage
 				if current_damage < min_damage:
 					current_damage = min_damage
-			3:
+			"amount":
 				current_amount -= amount
 				if current_amount < min_amount:
 					current_amount = min_amount
-			4:
+			"dot":
 				current_dot -= dot
 				if current_dot < min_dot:
 					current_dot = min_dot
-			5:
+			"range":
 				current_proj_range -= proj_range
 				if current_proj_range < min_proj_range:
 					current_proj_range = min_proj_range
-			6:
+			"attack-speed":
 				current_attack_speed -= attack_speed
 				if current_attack_speed < min_attack_speed:
 					current_attack_speed = min_attack_speed
@@ -177,11 +182,14 @@ func remove_buffs(remove_amount):
 # queue free
 func kill_all_enemies():
 	for enemy in enemies:
-		enemy.queue_free()
+		if !enemy.is_in_group("SpiderBoss"):
+			enemy.queue_free()
+		else:
+			enemy.disable_player_interaction()
 	enemies.clear()
 
 func restart():
-	difficulty_modifier = 1
+	difficulty_modifier = 2
 	
 	enemy_percent[0] = 1.0
 	for i in range(1, enemy_percent.size()):
@@ -219,6 +227,7 @@ func restart():
 	player_dot = 0
 	player_range = 0
 	player_attack_speed = 0
+	player_pierce = 0
 	
 	random.randomize()
 
@@ -288,8 +297,8 @@ func spawn_full_enemies():
 		
 	# turret amount
 	if turret_spawners.size() > 0:
-		enemy_amount = get_turret_amount(difficulty_modifier + level_modifier)
-		for i in range(1, enemy_amount):
+		enemy_amount = floor(get_turret_amount(difficulty_modifier + level_modifier))
+		for i in range(0, enemy_amount):
 			var turret_spawner = turret_spawners[randi() % turret_spawners.size()]
 			turret_spawner.spawn_one()
 
@@ -312,7 +321,9 @@ func add_single_stat_to_player(stat):
 		"debuff":
 			remove_buffs(2)
 		"attack-speed":
-			player_attack_speed += attack_speed
+			player_attack_speed -= attack_speed
+		"pierce":
+			player_pierce += 1
 
 # adds the stats to the player
 func add_stats_to_player():
@@ -326,6 +337,7 @@ func add_stats_to_player():
 	player.projectile_range += player_range
 	player.projectile_attack_speed += player_attack_speed
 	player.change_attack_speed()
+	player.projectile_pierce += player_pierce
 
 # adds the entity to the main node
 # so it shows up on screen
@@ -430,6 +442,7 @@ func add_buff_to_enemies():
 	else:
 		rng = randi() % buff_names.size()
 	var buff = buff_names[rng]
+	buff_cards.append(buff)
 	
 	if buff != "spawn":
 		match buff:
@@ -510,13 +523,13 @@ func get_roomba_amount(x):
 	return ceil(enemy_percent[0] * x)
 	
 func get_turret_amount(x):
-	return ceil(enemy_percent[1] * x)
+	return x
 	
 func get_soldier_amount(x):
-	return ceil(enemy_percent[2] * x)
+	return ceil(enemy_percent[1] * x)
 	
 func get_general_amount(x):
-	return ceil(enemy_percent[3] * x)
+	return ceil(enemy_percent[2] * x)
 	
 func get_chem_thrower_amount(x):
-	return x
+	return ceil(enemy_percent[3] * x)

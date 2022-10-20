@@ -1,5 +1,7 @@
 extends Area2D
 
+const hit_wall_scene = preload("res://shooter/projectile/WallHit.tscn")
+
 var velocity = Vector2.ZERO
 var start_position = Vector2.ZERO
 var distance = Vector2.ZERO
@@ -96,7 +98,12 @@ func _process(delta):
 		damage = 0
 		queue_free()
 
-func _on_Projectile_body_entered(body):	
+func _on_Projectile_body_entered(body):
+	if body is TileMap:
+		var hit_wall = hit_wall_scene.instance()
+		hit_wall.create(position)
+		get_parent().add_child(hit_wall)
+	
 	if body.is_in_group("Mob"):
 		for hit in hit_targets:
 			if hit == body:

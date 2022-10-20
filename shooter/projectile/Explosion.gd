@@ -11,8 +11,6 @@ var animation_restarted = false
 var mobs_hit = []
 
 func create(owner, damage, dot, type, loops):
-	position = owner.position
-	
 	self.collision_layer = owner.collision_layer
 	self.collision_mask = owner.collision_mask
 	
@@ -27,6 +25,9 @@ func create(owner, damage, dot, type, loops):
 		animation.play("slime")
 	else:
 		animation.play("explosion")
+		
+	var current_animation = animation.animation
+	position = owner.position + animation.frames.get_frame(current_animation, 0).get_size() / 2
 		
 	SoundManager.play_sound("player-grenade-explosion")
 

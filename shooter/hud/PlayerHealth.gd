@@ -26,7 +26,7 @@ func _draw():
 	health_y = temp_health_y
 
 func update_player_health(health):
-	if health > 29:
+	if health >= 29:
 		extra_health.text = str(health - 24)
 		extra_health.visible = true
 		

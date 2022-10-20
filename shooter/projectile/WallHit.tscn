@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://shooter/projectile/WallHit.gd" type="Script" id=1]
+[ext_resource path="res://assets/tileset-facility.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 70, 34, 1, 2 )
+
+[node name="WallHit" type="CPUParticles2D"]
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+texture = SubResource( 1 )
+flag_align_y = true
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 40.0
+script = ExtResource( 1 )

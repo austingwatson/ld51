@@ -11,5 +11,5 @@ dest_files=[ "res://.import/tecnological_messup_v2.ogg-38fcdf5f7144ce9bd408b1dab
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0

@@ -8,6 +8,8 @@ onready var computer_arrow = $ComputerArrow
 onready var enemy_arrow = $EnemyArrow
 onready var enemy_arrow_timer = $EnemyArrow/Timer
 onready var player_hit = $PlayerHit
+onready var acid_particles = $AcidParticles
+onready var teleport = $Teleport
 
 signal update_health(health)
 signal use_computer
@@ -33,6 +35,9 @@ const zoom_amount = 0.6
 var closest_enemy = Vector2.ZERO
 
 var in_spider_boss_range = false
+
+var can_show_computer_arrow = false
+var current_frame = 0
 	
 func _ready():
 	EntityManager.player = self
@@ -83,8 +88,8 @@ func _input(event):
 	elif event.is_action_released("melee"):
 		use_melee = false
 	
-	elif event.is_action_released("print_enemy"):
-		print(EntityManager.find_closest_enemy(get_global_mouse_position()))
+	#elif event.is_action_released("print_enemy"):
+	#	print(EntityManager.find_closest_enemy(get_global_mouse_position()))
 
 func _process(delta):
 	velocity = Vector2.ZERO
@@ -126,15 +131,26 @@ func _process(delta):
 		emit_signal("wave_cd_changed", true)
 		
 	if EntityManager.enemies.size() == 0:
-		computer_arrow.visible = true
+		if !can_show_computer_arrow:
+			can_show_computer_arrow = true
+			computer_arrow.visible = true
+		can_show_computer_arrow = true
+	
+	if can_show_computer_arrow:
 		computer_arrow.look_at(EntityManager.keypad.position)
 		computer_arrow.rotation_degrees += 90.0
-	else:
-		computer_arrow.visible = false
 		
 	if enemy_arrow.visible:
 		enemy_arrow.look_at(closest_enemy)
 		enemy_arrow.rotation_degrees += 90.0
+		
+	if dot_amount > 0:
+		acid_particles.visible = true
+	else:
+		acid_particles.visible = false
+		
+	if current_frame >= 6:
+		animation.visible = true
 
 func force_hud_update():
 	emit_signal("update_health", health)
@@ -161,6 +177,8 @@ func take_damage(damage, location):
 func _on_Area2D_area_entered(area):
 	if area == EntityManager.keypad:
 		touching_keypad = true
+		if can_show_computer_arrow:
+			computer_arrow.visible = false
 	
 	elif area.is_in_group("SpiderBoss"):
 		in_spider_boss_range = true
@@ -168,13 +186,20 @@ func _on_Area2D_area_entered(area):
 func _on_Area2D_area_exited(area):
 	if area == EntityManager.keypad:
 		touching_keypad = false
+		if can_show_computer_arrow:
+			computer_arrow.visible = true
+		
 	elif area.is_in_group("SpiderBoss"):
 		in_spider_boss_range = false
 
 func start_zoom():
 	camera.current = true
 	camera.zoom = Vector2(min_zoom_level, min_zoom_level)
-	zoom = true		
+	zoom = true
+	teleport.visible = true
+	teleport.frame = 0
+	animation.visible = false
+	SoundManager.play_sound("teleport")
 		
 func _on_GrenadeTimer_timeout():
 	can_use_grenade = true
@@ -185,3 +210,10 @@ func _on_MeleeTimer_timeout():
 	
 func _on_Timer_timeout():
 	enemy_arrow.visible = false
+
+func _on_Teleport_animation_finished():
+	teleport.visible = false
+
+
+func _on_Teleport_frame_changed():
+	current_frame += 1

@@ -109,6 +109,9 @@ func _process(delta):
 			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
 		burst_timer.start()
 
+func disable_player_interaction():
+	player_interaction.set_deferred("disabled", true)
+
 func burst_shot():
 	animation.play("basic_shot")
 	if using_burst <= 0:
