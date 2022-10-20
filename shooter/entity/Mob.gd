@@ -11,6 +11,7 @@ onready var bullet_impact = $BulletImpact
 onready var random_bullet_impact = $RandomBulletImpact
 onready var collision_shape = $CollisionShape2D
 onready var dot_timer = $DotTimer
+onready var attack_windup_timer = $AttackWindupTimer
 
 var radius = 0
 
@@ -33,14 +34,14 @@ export var projectile_pierce = 1
 export var projectile_amount = 1
 export var projectile_accuracy = 1.0
 export var projectile_dot_tick = 0
-export var projectile_explode = 0
+export var projectile_explode_damage = 0
 export(int, "Shock", "Slime", "Normal") var projectile_explode_type = 0
 export var projectile_shielding = false
 export var projectile_attack_speed = 1.0
 
 var dot_amount = 0
-
 var look_at_target = true
+var use_attack_wind_up := true
 
 func _ready():
 	radius = collision_shape.shape.radius
@@ -57,15 +58,11 @@ func _physics_process(delta):
 func _process(delta):
 	if use_attack and can_use_attack:
 		can_use_attack = false
-		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
 		
-		for i in range(1, projectile_amount):
-			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
-		
-		muzzle_flash.visible = true
-		muzzle_flash.frame = 0
-		muzzle_flash.play("default")
-		attack.start()
+		if use_attack_wind_up:
+			attack_windup_timer.start()
+		else:
+			basic_attack()
 		
 	if look_at_target:	
 		look_at(target)
@@ -93,6 +90,20 @@ func take_damage(damage, location):
 	health -= damage
 	if health <= 0:
 		alive = false
+
+func basic_attack():
+	#if !self.is_in_group("Player"):
+	#	print("not player")
+	#	target = EntityManager.player.global_position
+	EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode_damage, projectile_explode_type, projectile_shielding)
+		
+	for i in range(1, projectile_amount):
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode_damage, projectile_explode_type, projectile_shielding)
+		
+	muzzle_flash.visible = true
+	muzzle_flash.frame = 0
+	muzzle_flash.play("default")
+	attack.start()
 		
 func add_dot(ticks):
 	dot_timer.paused = false
@@ -113,3 +124,6 @@ func _on_DotTimer_timeout():
 func _on_MuzzleFlash_animation_finished():
 	muzzle_flash.stop()
 	muzzle_flash.visible = false
+
+func _on_AttackWindupTimer_timeout():
+	basic_attack()

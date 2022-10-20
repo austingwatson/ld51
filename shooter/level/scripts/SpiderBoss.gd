@@ -1,3 +1,0 @@
-extends "shooter/Enemy.gd"
-
-

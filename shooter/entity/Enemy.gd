@@ -1,7 +1,6 @@
 class_name Enemy extends "Mob.gd"
 
 # child nodes
-onready var sprite = $AnimatedSprite
 onready var nav_agent = $NavigationAgent2D
 onready var freezeCD = $FreezeCD
 
@@ -17,12 +16,13 @@ var state = STATE.IDLE
 var next_path_find = true # a flag to only path find every 0.5 seconds
 var just_attacked = false # timer to freeze the enemy after an attack
 
+export var attack_range = 300
 export var sight_range = 500
 export(String, "roomba", "soldier", "general", "chem-thrower", "other") var enemy_name := "roomba"
 
 func _ready():
 	$SightRangeDebug/CollisionShape2D.shape.radius = sight_range
-	$AttackRangeDebug/CollisionShape2D.shape.radius = projectile_range
+	$AttackRangeDebug/CollisionShape2D.shape.radius = attack_range
 
 func create(x, y):
 	position.x = x
@@ -40,10 +40,11 @@ func _physics_process(delta):
 	
 func _process(delta):
 	if state == STATE.FLEE:
-		sprite.flip_v = true
+		animation.flip_v = true
 	
 func add_sight_range(amount):
 	sight_range += amount
+	attack_range += amount
 	
 func process_ai(player):
 	if state != STATE.FLEE:
@@ -57,8 +58,10 @@ func process_ai(player):
 	
 	if state != STATE.ATTACK:
 		use_attack = false
-	
-	if state == STATE.MOVE || state == STATE.FLEE:
+	if state == STATE.IDLE:
+		animation.stop()
+		
+	elif state == STATE.MOVE || state == STATE.FLEE:
 		if next_path_find:
 			next_path_find = false
 			nav_agent.set_target_location(player.position)
@@ -73,7 +76,7 @@ func player_in_sight(position: Vector2) -> bool:
 	return self.position.distance_to(position) <= sight_range
 
 func player_in_attack(position: Vector2) -> bool:
-	return self.position.distance_to(position) <= projectile_range
+	return self.position.distance_to(position) <= attack_range
 
 func take_damage(damage, location):
 	.take_damage(damage, location)
@@ -89,10 +92,12 @@ func arrived_at_location() -> bool:
 func _on_NavigationAgent2D_velocity_computed(safe_velocity):
 	if !arrived_at_location():
 		if safe_velocity.length() > 0:
-			sprite.play("default")
+			animation.play("default")
 		else:
-			sprite.stop()
+			animation.stop()
 		velocity = move_and_slide(safe_velocity)
+	else:
+		animation.stop()
 		
 func _on_PathFindTimer_timeout():
 	next_path_find = true	

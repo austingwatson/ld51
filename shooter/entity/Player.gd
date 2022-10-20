@@ -38,6 +38,9 @@ var in_spider_boss_range = false
 
 var can_show_computer_arrow = false
 var current_frame = 0
+
+# for spawning enemies
+const debug_spawn_enemy = true
 	
 func _ready():
 	EntityManager.player = self
@@ -48,6 +51,8 @@ func _ready():
 
 	EntityManager.add_stats_to_player()
 	emit_signal("update_health", health)
+	
+	use_attack_wind_up = false
 	
 func _input(event):
 	if event.is_action_pressed("up"):
@@ -88,6 +93,21 @@ func _input(event):
 	elif event.is_action_released("melee"):
 		use_melee = false
 	
+	if debug_spawn_enemy:
+		var spawn_position = get_global_mouse_position()
+		if event.is_action_released("spawn_enemy_1"):
+			EntityManager.create_enemy("roomba", spawn_position.x, spawn_position.y)
+		elif event.is_action_released("spawn_enemy_2"):
+			EntityManager.create_enemy("soldier", spawn_position.x, spawn_position.y)
+		elif event.is_action_released("spawn_enemy_3"):
+			EntityManager.create_enemy("general", spawn_position.x, spawn_position.y)
+		elif event.is_action_released("spawn_enemy_4"):
+			EntityManager.create_enemy("chem-thrower", spawn_position.x, spawn_position.y)
+		elif event.is_action_released("spawn_enemy_5"):
+			EntityManager.create_enemy("spider-boss", spawn_position.x, spawn_position.y)
+		elif event.is_action_released("spawn_enemy_6"):
+			EntityManager.create_enemy("turret", spawn_position.x, spawn_position.y)
+	
 	#elif event.is_action_released("print_enemy"):
 	#	print(EntityManager.find_closest_enemy(get_global_mouse_position()))
 
@@ -116,17 +136,20 @@ func _process(delta):
 			camera.zoom = Vector2(max_zoom_level, max_zoom_level)
 			zoom = false
 	
+	if use_attack and can_use_attack:
+		SoundManager.force_play_sound("player-shot")
+	
 	if use_grenade:
 		if grenades > 0 && can_use_grenade:
 			grenades -= 1
 			can_use_grenade = false
-			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, 0.3, projectile_explode_type, false)
+			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_damage * 2, projectile_explode_type, false)
 			grenade_timer.start()
 		use_grenade = false
 		
 	if use_melee && can_use_melee:
 		can_use_melee = false
-		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range / 5, projectile_damage * 2, 1000, projectile_dot_tick, 0, projectile_explode_type, true)
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range / 2, projectile_damage * 2, 1000, projectile_dot_tick, 0, projectile_explode_type, true)
 		melee_timer.start()
 		emit_signal("wave_cd_changed", true)
 		

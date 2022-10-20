@@ -30,21 +30,22 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
 region = Rect2( 16, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 3 )
 region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=10]
+resource_local_to_scene = true
 animations = [ {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "default",
 "speed": 15.0
@@ -70,7 +71,7 @@ autostart = true
 [node name="AcidOverlay" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 6 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="BulletSpawn" type="Position2D" parent="."]
@@ -99,6 +100,11 @@ spread = 180.0
 initial_velocity = 200.0
 color = Color( 0.239216, 0.0784314, 0.188235, 1 )
 
+[node name="AttackWindupTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="AttackCD" to="." method="_on_AttackCD_timeout"]
 [connection signal="timeout" from="DotTimer" to="." method="_on_DotTimer_timeout"]
 [connection signal="animation_finished" from="MuzzleFlash" to="." method="_on_MuzzleFlash_animation_finished"]
+[connection signal="timeout" from="AttackWindupTimer" to="." method="_on_AttackWindupTimer_timeout"]

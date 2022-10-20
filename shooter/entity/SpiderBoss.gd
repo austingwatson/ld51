@@ -52,9 +52,9 @@ func _physics_process(delta):
 		velocity = move_direction * speed
 		velocity = move_and_slide(velocity)
 		if velocity.length() > 0:
-			sprite.play("default")
+			animation.play("default")
 		else:
-			sprite.stop()
+			animation.stop()
 	
 	velocity = Vector2.ZERO
 	
@@ -103,10 +103,10 @@ func _process(delta):
 	if next_burst && using_burst > 0:
 		next_burst = false
 		using_burst -= 1
-		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, 0, projectile_explode_type, projectile_shielding)
 		
 		for i in range(1, projectile_amount):
-			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, projectile_explode, projectile_explode_type, projectile_shielding)
+			EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy - 0.1, projectile_range, projectile_damage, projectile_pierce, projectile_dot_tick, 0, projectile_explode_type, projectile_shielding)
 		burst_timer.start()
 
 func disable_player_interaction():
@@ -129,7 +129,7 @@ func grenade():
 	EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed / 3, projectile_accuracy, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
 	
 	for i in range(1, projectile_amount):
-		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed / 3, projectile_accuracy - 0.2, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed / 3, projectile_accuracy - 0.2, projectile_range, projectile_damage, projectile_explode_damage, projectile_dot_tick, 0.3, 2, false)
 	
 	freezeCD.start(grenade_freeze)	
 	
@@ -139,7 +139,7 @@ func grenade():
 		
 func big_shot():
 	animation.play("big_shot")
-	EntityManager.create_big_shot(self, bullet_spawn.global_position, target, 0, projectile_accuracy, projectile_range * 2, projectile_damage * 2, projectile_pierce * 2, projectile_dot_tick, projectile_explode, projectile_explode_type, true)
+	EntityManager.create_big_shot(self, bullet_spawn.global_position, target, 0, projectile_accuracy, projectile_range * 2, projectile_damage * 2, projectile_pierce * 2, projectile_dot_tick, projectile_explode_damage, projectile_explode_type, true)
 	freezeCD.start(big_shot_freeze)
 	
 	use_main_attack = false
@@ -200,10 +200,6 @@ func take_damage(damage, location):
 		player_interaction_label.rect_position = position - player_interaction_label.rect_size / 2 - Vector2(0, 40)
 		
 		EntityManager.create_explosion(self, 0, 0, 2, 4)
-
-func add_sight_range(amount):
-	.add_sight_range(amount)
-	ray_cast.cast_to.y -= amount
 		
 func _on_NavigationAgent2D_velocity_computed(safe_velocity):
 	if health <= 0:
@@ -211,12 +207,12 @@ func _on_NavigationAgent2D_velocity_computed(safe_velocity):
 	
 	if !arrived_at_location():
 		if safe_velocity.length() > 0:
-			sprite.play("default")
+			animation.play("default")
 		else:
-			sprite.stop()
+			animation.stop()
 		velocity = move_and_slide(safe_velocity)
 	else:
-		sprite.stop()
+		animation.stop()
 
 func _on_BigShotTimer_timeout():
 	can_use_big_shot = true

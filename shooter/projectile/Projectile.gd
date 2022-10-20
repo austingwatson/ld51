@@ -45,7 +45,7 @@ func create(owner, start_position, target, speed, accuracy, distance, damage, pi
 	
 	if shielding:
 		$Sprite.play("shield")
-		scale = Vector2(4, 4)
+		scale = Vector2(6, 6)
 	elif owner.is_in_group("Player"):
 		if explode > 0:
 			$Sprite.play("shock")
@@ -70,6 +70,7 @@ func create(owner, start_position, target, speed, accuracy, distance, damage, pi
 		$Sprite.play("default")
 		scale = Vector2(1, 1)
 	$Sprite.frame = 0
+	$Sprite.playing = true
 	
 	hit_targets.clear()
 	
@@ -94,7 +95,7 @@ func _physics_process(delta):
 func _process(delta):
 	if position.distance_to(start_position) >= distance:
 		if explode > 0:
-			EntityManager.create_explosion(self, damage, dot, explode_type, 1)
+			EntityManager.create_explosion(self, explode, dot, explode_type, 1)
 		damage = 0
 		queue_free()
 
@@ -118,12 +119,12 @@ func _on_Projectile_body_entered(body):
 			pierce -= 1
 		else:
 			if explode > 0:
-				EntityManager.create_explosion(self, damage, dot, explode_type, 1)
+				EntityManager.create_explosion(self, explode, dot, explode_type, 1)
 			damage = 0
 			queue_free()
 	elif !shielding:
 		if explode:
-			EntityManager.create_explosion(self, damage, dot, explode_type, 1)
+			EntityManager.create_explosion(self, explode, dot, explode_type, 1)
 		damage = 0
 		queue_free()
 

@@ -13,20 +13,26 @@ var cursor_image = preload("res://assets/reticule.png")
 
 # levels 
 var levels = []
-const level1_scene = preload("res://shooter/level/lvl-facility1.tscn")
-const level2_scene = preload("res://shooter/level/level-facility1.tscn")
+#const level1_scene = preload("res://shooter/level/lvl-facility1.tscn")
+#const level2_scene = preload("res://shooter/level/level-facility1.tscn")
 const level3_scene = preload("res://shooter/level/level-teleporterhall.tscn")
 const level4_scene = preload("res://shooter/level/level-specimen-storage.tscn")
-const level5_scene = preload("res://shooter/level/basic-map.tscn")
+#const level5_scene = preload("res://shooter/level/basic-map.tscn")
 const level6_scene = preload("res://shooter/level/level-snakehall.tscn")
 const level7_scene = preload("res://shooter/level/level-brainframe.tscn")
 const level8_scene = preload("res://shooter/level/level-redcross.tscn")
 const level9_scene = preload("res://shooter/level/t-map.tscn")
+const level10_scene = preload("res://shooter/level/level-blocky.tscn")
+const level11_scene = preload("res://shooter/level/level-central.tscn")
+const level12_scene = preload("res://shooter/level/level-figureeight.tscn")
+
+const debug_level_scene = preload("res://shooter/level/DebugMap.tscn")
+
 var current_level: TileMap
 var last_level = 0
 
 const boss_level = preload("res://shooter/level/level-bossarena.tscn")
-var next_boss_level = 2
+var next_boss_level = 9
 var on_boss_level = false
 
 # ambient music to use
@@ -54,15 +60,19 @@ func _ready():
 	
 	EntityManager.shooter_game = self
 	
-	levels.append(level1_scene)
-	levels.append(level2_scene)
-	levels.append(level3_scene)
-	levels.append(level4_scene)
-	levels.append(level5_scene)
-	levels.append(level6_scene)
-	levels.append(level7_scene)
-	levels.append(level8_scene)
-	levels.append(level9_scene)
+	#levels.append(level1_scene) not used anymore
+	#levels.append(level2_scene) not used anymore
+	#levels.append(level3_scene)
+	#levels.append(level4_scene)
+	#levels.append(level5_scene) not used anymore
+	#levels.append(level6_scene)
+	#levels.append(level7_scene)
+	#levels.append(level8_scene)
+	#levels.append(level9_scene)
+	#levels.append(level10_scene)
+	#levels.append(level11_scene)
+	#levels.append(level12_scene)
+	levels.append(debug_level_scene)
 	
 	musics.append(music1)
 	#musics.append(music2)
