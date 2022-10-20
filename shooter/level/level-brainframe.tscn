@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://shooter/level-editor/AcidPool.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shooter/level-editor/AcidPoolCrate.tscn" type="PackedScene" id=2]
@@ -74,6 +74,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 9 )
+region = Rect2( 128, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 9 )
+region = Rect2( 144, 0, 16, 16 )
+
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 9 )
 region = Rect2( 160, 0, 32, 16 )
@@ -96,37 +104,37 @@ tile_data = PoolIntArray( -262165, 1610612743, 0, -262164, 1610612743, 0, -26216
 [node name="CollidingAnimatedProp" parent="." instance=ExtResource( 11 )]
 position = Vector2( 112, 1040 )
 frames = SubResource( 7 )
+frame = 4
 playing = true
 
 [node name="CollidingAnimatedProp2" parent="." instance=ExtResource( 11 )]
 position = Vector2( -112, 1040 )
 frames = SubResource( 7 )
-frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp3" parent="." instance=ExtResource( 11 )]
 position = Vector2( 112, 1008 )
 frames = SubResource( 7 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp4" parent="." instance=ExtResource( 11 )]
 position = Vector2( -112, 1008 )
 frames = SubResource( 7 )
+frame = 4
 playing = true
 
 [node name="CollidingAnimatedProp5" parent="." instance=ExtResource( 11 )]
 position = Vector2( -16, 1008 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp6" parent="." instance=ExtResource( 11 )]
 position = Vector2( 16, 1008 )
 rotation = -1.57079
 frames = SubResource( 7 )
-frame = 2
 playing = true
 
 [node name="CollidingAnimatedProp7" parent="." instance=ExtResource( 11 )]
@@ -139,6 +147,443 @@ playing = true
 position = Vector2( -16, 1104 )
 frames = SubResource( 13 )
 playing = true
+
+[node name="bendpipe" parent="." instance=ExtResource( 13 )]
+position = Vector2( -152, 792 )
+rotation = -1.57079
+texture = SubResource( 17 )
+
+[node name="bendpipe12" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 176.001, 400 )
+rotation = -1.57079
+texture = SubResource( 17 )
+
+[node name="bendpipe13" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 160.001, 400 )
+rotation = 1.5708
+texture = SubResource( 17 )
+
+[node name="bendpipe14" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 160.001, 384 )
+rotation = -1.57079
+texture = SubResource( 17 )
+
+[node name="bendpipe16" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 144.001, 303 )
+rotation = -1.57079
+texture = SubResource( 17 )
+
+[node name="bendpipe18" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 16.0004, 192 )
+rotation = -1.57079
+texture = SubResource( 17 )
+
+[node name="bendpipe15" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 144.001, 384 )
+rotation = 1.5708
+texture = SubResource( 17 )
+
+[node name="bendpipe17" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 16.0007, 303 )
+rotation = 1.5708
+texture = SubResource( 17 )
+
+[node name="bendpipe2" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -48, 0.000106812 )
+rotation = 3.14159
+texture = SubResource( 17 )
+
+[node name="bendpipe4" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, 16.0003 )
+rotation = 3.14159
+texture = SubResource( 17 )
+
+[node name="bendpipe9" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -144, 80.0003 )
+rotation = 3.14159
+texture = SubResource( 17 )
+
+[node name="bendpipe19" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -256, 192.001 )
+rotation = 1.57079
+texture = SubResource( 17 )
+
+[node name="bendpipe11" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, -128 )
+rotation = 3.14159
+texture = SubResource( 17 )
+
+[node name="bendpipe6" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -256, 112.001 )
+rotation = 3.14159
+texture = SubResource( 17 )
+
+[node name="bendpipe7" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -272, 96.0006 )
+rotation = 3.14159
+texture = SubResource( 17 )
+
+[node name="bendpipe3" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -47.9999, 16.0001 )
+texture = SubResource( 17 )
+
+[node name="bendpipe5" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, 112 )
+texture = SubResource( 17 )
+
+[node name="bendpipe8" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -144, 96.0003 )
+texture = SubResource( 17 )
+
+[node name="bendpipe10" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, 80.0003 )
+texture = SubResource( 17 )
+
+[node name="straightpipe" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -0.000183105, -96 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe2" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -0.00012207, -80 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe3" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -0.00012207, -64 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe4" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -6.10352e-05, -48 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe5" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -6.10352e-05, -32 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe46" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 144.001, 368 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe47" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 144.001, 352 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe48" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 144.001, 336 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe49" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 144.001, 320 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe57" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 16.0007, 288 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe58" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 16.0006, 272 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe59" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 16.0006, 255 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe60" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 16.0005, 240 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe61" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 16.0005, 224 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe62" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 16.0005, 208 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe12" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, 32.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe13" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, 48.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe14" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, 64.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe15" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, 80.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe33" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, 64.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe34" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, 48.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe35" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, 32.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe36" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, 16.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe37" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, 0.000289917 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe38" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, -15.9997 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe39" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, -31.9997 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe40" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, -48.9997 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe41" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, -63.9997 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe42" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, -79.9997 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe43" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, -95.9997 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe44" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, -112 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe25" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -272, 112.001 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe16" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, 96.0003 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe6" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 0, -16 )
+rotation = 1.57079
+texture = SubResource( 18 )
+
+[node name="straightpipe7" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -16, 4.57764e-05 )
+texture = SubResource( 18 )
+
+[node name="straightpipe50" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 128.001, 303 )
+texture = SubResource( 18 )
+
+[node name="straightpipe51" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 112.001, 303 )
+texture = SubResource( 18 )
+
+[node name="straightpipe52" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 96.0007, 303 )
+texture = SubResource( 18 )
+
+[node name="straightpipe53" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 80.0007, 303 )
+texture = SubResource( 18 )
+
+[node name="straightpipe63" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 0.000427246, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe64" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -15.9996, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe65" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -31.9996, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe66" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -47.9996, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe67" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -63.9996, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe68" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -79.9996, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe69" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -95.9996, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe70" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe71" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe72" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -144, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe73" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -160, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe74" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -176, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe75" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -192, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe76" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -208, 192 )
+texture = SubResource( 18 )
+
+[node name="straightpipe78" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -240, 192.001 )
+texture = SubResource( 18 )
+
+[node name="straightpipe77" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -224, 192.001 )
+texture = SubResource( 18 )
+
+[node name="straightpipe54" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 64.0007, 303 )
+texture = SubResource( 18 )
+
+[node name="straightpipe55" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 48.0007, 303 )
+texture = SubResource( 18 )
+
+[node name="straightpipe56" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( 32.0007, 303 )
+texture = SubResource( 18 )
+
+[node name="straightpipe8" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -32, 7.62939e-05 )
+texture = SubResource( 18 )
+
+[node name="straightpipe45" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -112, -128 )
+texture = SubResource( 18 )
+
+[node name="straightpipe9" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -63.9999, 16.0002 )
+texture = SubResource( 18 )
+
+[node name="straightpipe10" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -79.9999, 16.0002 )
+texture = SubResource( 18 )
+
+[node name="straightpipe17" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -128, 112 )
+texture = SubResource( 18 )
+
+[node name="straightpipe18" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -144, 112 )
+texture = SubResource( 18 )
+
+[node name="straightpipe19" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -160, 112 )
+texture = SubResource( 18 )
+
+[node name="straightpipe20" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -176, 112 )
+texture = SubResource( 18 )
+
+[node name="straightpipe21" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -192, 112 )
+texture = SubResource( 18 )
+
+[node name="straightpipe22" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -208, 112 )
+texture = SubResource( 18 )
+
+[node name="straightpipe23" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -224, 112.001 )
+texture = SubResource( 18 )
+
+[node name="straightpipe24" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -240, 112.001 )
+texture = SubResource( 18 )
+
+[node name="straightpipe26" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -256, 96.0006 )
+texture = SubResource( 18 )
+
+[node name="straightpipe27" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -240, 96.0005 )
+texture = SubResource( 18 )
+
+[node name="straightpipe28" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -224, 96.0005 )
+texture = SubResource( 18 )
+
+[node name="straightpipe29" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -208, 96.0005 )
+texture = SubResource( 18 )
+
+[node name="straightpipe30" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -192, 96.0004 )
+texture = SubResource( 18 )
+
+[node name="straightpipe31" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -176, 96.0004 )
+texture = SubResource( 18 )
+
+[node name="straightpipe32" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -160, 96.0004 )
+texture = SubResource( 18 )
+
+[node name="straightpipe11" parent="bendpipe" instance=ExtResource( 13 )]
+position = Vector2( -95.9999, 16.0002 )
+texture = SubResource( 18 )
 
 [node name="TurretSpawn" parent="." instance=ExtResource( 5 )]
 margin_left = -376.0
@@ -215,6 +660,12 @@ margin_left = -16.0
 margin_top = 392.0
 margin_right = 24.0
 margin_bottom = 432.0
+
+[node name="GoblinSpawn2" parent="." instance=ExtResource( 4 )]
+margin_left = -360.0
+margin_top = 1072.0
+margin_right = -320.0
+margin_bottom = 1112.0
 
 [node name="TurretSpawn11" parent="." instance=ExtResource( 5 )]
 margin_left = -32.0
