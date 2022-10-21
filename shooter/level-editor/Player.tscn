@@ -129,7 +129,7 @@ position = Vector2( 375, 225 )
 z_index = 1
 collision_mask = 6
 script = ExtResource( 2 )
-max_health = 1000
+max_health = 15
 projectile_range = 300
 projectile_damage = 2
 projectile_attack_speed = 0.75
@@ -176,6 +176,7 @@ bus = "Sound"
 
 [node name="AcidOverlay" parent="." index="12"]
 scale = Vector2( 2, 2 )
+frame = 2
 
 [node name="BulletSpawn" parent="." index="13"]
 position = Vector2( 0, -16 )
@@ -202,7 +203,7 @@ color = Color( 0.364706, 0.654902, 0.364706, 1 )
 [node name="Teleport" type="AnimatedSprite" parent="." index="18"]
 visible = false
 frames = SubResource( 23 )
-frame = 4
+frame = 6
 speed_scale = 2.0
 playing = true
 

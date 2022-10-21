@@ -116,7 +116,7 @@ func burst_shot():
 	animation.play("basic_shot")
 	if using_burst <= 0:
 		next_burst = true
-		using_burst = 3
+		using_burst = 6
 		
 		freezeCD.start(burst_freeze)
 		
@@ -126,10 +126,10 @@ func burst_shot():
 	
 func grenade():
 	animation.play("basic_shot")
-	EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed / 3, projectile_accuracy, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
+	EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy, projectile_range, projectile_damage, 1, projectile_dot_tick, 0.3, 2, false)
 	
 	for i in range(1, projectile_amount):
-		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed / 3, projectile_accuracy - 0.2, projectile_range, projectile_damage, projectile_explode_damage, projectile_dot_tick, 0.3, 2, false)
+		EntityManager.create_projectile(self, bullet_spawn.global_position, target, projectile_speed, projectile_accuracy - 0.2, projectile_range, projectile_damage, projectile_explode_damage, projectile_dot_tick, 0.3, 2, false)
 	
 	freezeCD.start(grenade_freeze)	
 	

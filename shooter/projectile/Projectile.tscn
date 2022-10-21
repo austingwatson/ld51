@@ -1,16 +1,32 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://assets/bullet.png" type="Texture" id=1]
 [ext_resource path="res://shooter/projectile/Projectile.gd" type="Script" id=2]
 [ext_resource path="res://assets/blueswipesheet.png" type="Texture" id=3]
 [ext_resource path="res://assets/bullet-blue.png" type="Texture" id=4]
 [ext_resource path="res://assets/powercellstatic.png" type="Texture" id=5]
-[ext_resource path="res://assets/slimecanisterstatic.png" type="Texture" id=6]
+[ext_resource path="res://assets/bullet-acid.png" type="Texture" id=6]
 [ext_resource path="res://assets/sparksheet.png" type="Texture" id=7]
 [ext_resource path="res://assets/bloodcanisterstatic.png" type="Texture" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 8.0
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 7 )
@@ -48,8 +64,17 @@ region = Rect2( 32, 0, 16, 16 )
 atlas = ExtResource( 3 )
 region = Rect2( 48, 0, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 8, 8 )
+
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "boss_big_shot",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
 "name": "close_shock",
@@ -80,7 +105,7 @@ animations = [ {
 "name": "shock",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ SubResource( 16 ) ],
 "loop": true,
 "name": "slime",
 "speed": 5.0
@@ -96,8 +121,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
-animation = "close_shock"
-frame = 3
+animation = "boss_big_shot"
 playing = true
 
 [node name="FireSound" type="AudioStreamPlayer" parent="."]

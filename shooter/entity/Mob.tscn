@@ -71,7 +71,7 @@ autostart = true
 [node name="AcidOverlay" type="AnimatedSprite" parent="."]
 visible = false
 frames = SubResource( 6 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="BulletSpawn" type="Position2D" parent="."]
@@ -86,6 +86,7 @@ emitting = false
 amount = 4
 lifetime = 0.1
 one_shot = true
+explosiveness = 1.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 200.0
 scale_amount = 2.0
@@ -96,6 +97,7 @@ emitting = false
 amount = 4
 lifetime = 0.1
 one_shot = true
+explosiveness = 1.0
 spread = 180.0
 initial_velocity = 200.0
 color = Color( 0.239216, 0.0784314, 0.188235, 1 )

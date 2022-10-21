@@ -127,16 +127,17 @@ script = ExtResource( 3 )
 max_health = 50
 speed = 50
 projectile_speed = 200
-projectile_range = 300
+projectile_range = 350
 projectile_explode_type = 2
 projectile_attack_speed = 2.0
+use_wind_up = true
 enemy_name = "other"
-drone_waves = 3
+drone_waves = 5
 burst_freeze = 1
 grenade_freeze = 1
 big_shot_freeze = 3
-spawn_drone_freeze = 3
-rotation_speed = 145.0
+spawn_drone_freeze = 1
+rotation_speed = 180.0
 player_interaction_font = SubResource( 16 )
 
 [node name="AnimatedSprite" parent="." index="0"]
@@ -158,7 +159,7 @@ shape = SubResource( 13 )
 avoidance_enabled = false
 
 [node name="AcidOverlay" parent="." index="9"]
-frame = 3
+frame = 2
 
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 1 )
@@ -185,14 +186,21 @@ cast_to = Vector2( 0, -5000 )
 [node name="EndOfDroneAttackTimer" type="Timer" parent="." index="16"]
 one_shot = true
 
+[node name="BulletSpawn" parent="." index="17"]
+position = Vector2( 0, -56 )
+
 [node name="MuzzleFlash" parent="." index="18"]
+position = Vector2( 2, -88 )
+scale = Vector2( 1e-05, 1e-05 )
 frames = SubResource( 15 )
 
 [node name="BulletImpact" parent="." index="19"]
-color = Color( 1, 0, 0, 1 )
+lifetime = 0.4
+scale_amount = 3.0
 
 [node name="RandomBulletImpact" parent="." index="20"]
-color = Color( 1, 0, 0, 1 )
+lifetime = 0.4
+scale_amount = 2.0
 
 [node name="PlayerInteraction" type="Area2D" parent="." index="21" groups=["SpiderBoss"]]
 

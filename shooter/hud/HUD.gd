@@ -209,7 +209,7 @@ func use_computer():
 				buffs.append("grenade")
 			7:
 				select_button.texture_normal = buff_debuff_texture
-				select_label.text = "-enemy"
+				select_label.text = "-enemy buff"
 				buffs.append("debuff")
 			8:
 				select_button.texture_normal = buff_attack_speed_texture

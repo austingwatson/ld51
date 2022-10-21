@@ -1,8 +1,8 @@
 extends "Projectile.gd"
 
-const start_size = Vector2(0.1, 0.1)
-const max_size = Vector2(12, 12)
-const added_size = Vector2(0.1, 0.1)
+const start_size = Vector2(0.2, 0.2)
+const max_size = Vector2(20, 20)
+const added_size = Vector2(0.2, 0.2)
 const speed = 200
 
 var proj_owner

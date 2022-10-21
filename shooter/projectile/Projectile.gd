@@ -43,7 +43,17 @@ func create(owner, start_position, target, speed, accuracy, distance, damage, pi
 	self.explode_type = explode_type
 	self.shielding = shielding
 	
-	if shielding:
+	if owner.is_in_group("SpiderBoss"):
+		if explode > 0:
+			$Sprite.play("normal_explode")
+			scale = Vector2(3, 3)
+		elif shielding:
+			$Sprite.play("boss_big_shot")
+			scale = Vector2(6, 6)
+		else:
+			$Sprite.play("default")
+			scale = Vector2(1.5, 1.5)
+	elif shielding:
 		$Sprite.play("shield")
 		scale = Vector2(6, 6)
 	elif owner.is_in_group("Player"):
@@ -55,17 +65,10 @@ func create(owner, start_position, target, speed, accuracy, distance, damage, pi
 			scale = Vector2(1, 1)
 	elif owner.is_in_group("ChemThrower"):
 		$Sprite.play("slime")
-		scale = Vector2(3, 3)
+		scale = Vector2(1, 1)
 	elif owner.is_in_group("Drone"):
 		$Sprite.play("close_shock")
 		scale = Vector2(4, 4)
-	elif owner.is_in_group("SpiderBoss"):
-		if explode > 0:
-			$Sprite.play("normal_explode")
-			scale = Vector2(3, 3)
-		else:
-			$Sprite.play("default")
-			scale = Vector2(1, 1)
 	else:
 		$Sprite.play("default")
 		scale = Vector2(1, 1)

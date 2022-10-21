@@ -78,6 +78,8 @@ func _process(delta):
 
 func change_attack_speed():
 	attack_cd.wait_time = projectile_attack_speed
+	if attack_cd.wait_time <= 0.05:
+		attack_cd.wait_time = 0.05
 
 func take_damage(damage, location):
 	if location != null:

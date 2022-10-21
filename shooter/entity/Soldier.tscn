@@ -58,10 +58,11 @@ animations = [ {
 max_health = 2
 speed = 150
 projectile_speed = 250
-projectile_range = 225
+projectile_range = 250
 projectile_accuracy = 0.95
 attack_range = 200
 sight_range = 400
+use_wind_up = true
 enemy_name = "soldier"
 
 [node name="AnimatedSprite" parent="." index="0"]
@@ -70,7 +71,6 @@ playing = false
 
 [node name="AcidOverlay" parent="." index="8"]
 scale = Vector2( 2, 2 )
-frame = 0
 
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 10 )
@@ -85,3 +85,9 @@ position = Vector2( 1, -16 )
 position = Vector2( 2, -32 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 15 )
+
+[node name="BulletImpact" parent="." index="13"]
+explosiveness = 0.0
+
+[node name="RandomBulletImpact" parent="." index="14"]
+explosiveness = 0.0

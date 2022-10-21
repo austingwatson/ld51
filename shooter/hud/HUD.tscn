@@ -303,23 +303,23 @@ text = "1"
 position = Vector2( -960, -540 )
 scale = Vector2( 2, 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="BuffSelector"]
-position = Vector2( 960, 540 )
-scale = Vector2( 4, 4 )
-frames = SubResource( 58 )
-frame = 5
-playing = true
-
 [node name="Sprite" type="Sprite" parent="BuffSelector"]
-visible = false
 position = Vector2( 960, 540 )
+scale = Vector2( 1, 1.2 )
 texture = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="BuffSelector"]
+position = Vector2( 723, 402 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 58 )
+frame = 4
+playing = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BuffSelector"]
 margin_left = 887.0
-margin_top = 394.0
+margin_top = 395.0
 margin_right = 1033.0
-margin_bottom = 685.0
+margin_bottom = 686.0
 size_flags_vertical = 4
 custom_constants/separation = 20
 
@@ -533,7 +533,7 @@ playing = true
 position = Vector2( 716, 166 )
 scale = Vector2( 6, 6 )
 frames = SubResource( 47 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="DeathScreen"]
@@ -557,12 +557,14 @@ Time Alive: 14.99s"
 position = Vector2( 326, 909 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 51 )
+frame = 1
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="DeathScreen"]
 position = Vector2( 1093, 909 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 51 )
+frame = 1
 playing = true
 
 [node name="FPS" type="Label" parent="."]

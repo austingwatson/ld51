@@ -56,7 +56,7 @@ animations = [ {
 
 [node name="ChemThrower" groups=["ChemThrower"] instance=ExtResource( 1 )]
 max_health = 6
-projectile_speed = 100
+projectile_speed = 150
 projectile_range = 200
 projectile_damage = 0
 projectile_dot_tick = 2
@@ -68,9 +68,11 @@ enemy_name = "chem-thrower"
 
 [node name="AnimatedSprite" parent="." index="0"]
 frames = SubResource( 5 )
+frame = 2
 
 [node name="AcidOverlay" parent="." index="8"]
 scale = Vector2( 2, 2 )
+frame = 0
 
 [node name="CollisionShape2D" parent="SightRangeDebug" index="0"]
 shape = SubResource( 6 )
@@ -78,5 +80,15 @@ shape = SubResource( 6 )
 [node name="CollisionShape2D" parent="AttackRangeDebug" index="0"]
 shape = SubResource( 7 )
 
+[node name="BulletSpawn" parent="." index="11"]
+position = Vector2( -2, -16 )
+
 [node name="MuzzleFlash" parent="." index="12"]
+scale = Vector2( 1e-05, 1e-05 )
 frames = SubResource( 15 )
+
+[node name="BulletImpact" parent="." index="13"]
+explosiveness = 0.0
+
+[node name="RandomBulletImpact" parent="." index="14"]
+explosiveness = 0.0

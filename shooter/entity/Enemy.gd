@@ -18,11 +18,14 @@ var just_attacked = false # timer to freeze the enemy after an attack
 
 export var attack_range = 300
 export var sight_range = 500
+export var use_wind_up := true
 export(String, "roomba", "soldier", "general", "chem-thrower", "other") var enemy_name := "roomba"
 
 func _ready():
 	$SightRangeDebug/CollisionShape2D.shape.radius = sight_range
 	$AttackRangeDebug/CollisionShape2D.shape.radius = attack_range
+	
+	use_attack_wind_up = use_wind_up
 
 func create(x, y):
 	position.x = x

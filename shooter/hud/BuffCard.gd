@@ -10,7 +10,7 @@ const buff_dot_texture = preload("res://assets/card-biohazard.png")
 const buff_range_texture = preload("res://assets/card-eye.png")
 const buff_grenade_texture = preload("res://assets/card-extracell.png")
 const buff_debuff_texture = preload("res://assets/card-enemydebuff.png")
-const buff_attack_speed_texture = preload("res://assets/card-shields.png")
+const buff_attack_speed_texture = preload("res://assets/card-attackspeed.png")
 
 onready var skull = $Skull
 
